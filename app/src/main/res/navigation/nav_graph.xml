@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/recipeListFragment">
+
+    <fragment
+        android:id="@+id/recipeListFragment"
+        android:name="com.developersbreach.bakingapp.recipeList.RecipeListFragment"
+        android:label="Recipe's"
+        tools:layout="@layout/fragment_recipe_list">
+        <action
+            android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.developersbreach.bakingapp.recipeDetail.RecipeDetailFragment"
+        android:label="fragment_recipe_detail"
+        tools:layout="@layout/fragment_recipe_detail">
+        <argument
+            android:name="recipeDetailArgs"
+            app:argType="com.developersbreach.bakingapp.model.Recipe" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ingredientsFragment"
+        android:name="com.developersbreach.bakingapp.ingredient.IngredientsFragment"
+        android:label="fragment_ingredients"
+        tools:layout="@layout/fragment_ingredients" />
+
+    <fragment
+        android:id="@+id/stepsFragment"
+        android:name="com.developersbreach.bakingapp.step.StepsFragment"
+        android:label="fragment_steps"
+        tools:layout="@layout/fragment_steps" />
+
+    <fragment
+        android:id="@+id/stepDetailFragment"
+        android:name="com.developersbreach.bakingapp.stepDetail.StepDetailFragment"
+        android:label="fragment_step_detail"
+        tools:layout="@layout/fragment_step_detail">
+        <argument
+            android:name="stepDetailArgs"
+            app:argType="com.developersbreach.bakingapp.model.Steps" />
+        <argument
+            android:name="recipeNameStepDetailArgs"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_stepDetailFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_global_stepDetailFragment"
+        app:destination="@id/stepDetailFragment" />
+
+</navigation>

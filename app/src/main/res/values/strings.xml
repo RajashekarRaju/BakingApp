@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Baking App</string>
+    <string name="name_not_available">Not Available</string>
+    <string name="measure_grams">Gram</string>
+    <string name="measure_cup">Cup</string>
+    <string name="measure_table_spoon">TableSpoon</string>
+    <string name="measure_kilogram">Kilogram</string>
+    <string name="measure_ounce">Ounce</string>
+    <string name="measure_tea_spoon">TeaSpoon</string>
+    <string name="measure_no_units">Number of</string>
+    <string name="home_menu">Home</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+    <string name="select_recipe_configure">Select Recipe</string>
+    <string name="nutella_pie">Nutella Pie</string>
+    <string name="brownies">Brownies</string>
+    <string name="yellow_cake">Yellow Cake</string>
+    <string name="cheesecake">Cheesecake</string>
+    <string name="ingredient_separator">-</string>
+</resources>

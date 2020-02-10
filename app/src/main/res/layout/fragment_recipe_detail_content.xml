@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+<!--    <com.google.android.material.tabs.TabLayout-->
+<!--        android:id="@+id/recipe_detail_tabLayout"-->
+<!--        style="@style/Widget.MaterialComponents.TabLayout.Colored"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        app:tabIconTint="@drawable/tab_icon_color_selector"-->
+<!--        app:tabIndicatorColor="#ffff63"-->
+<!--        app:tabIndicatorFullWidth="false"-->
+<!--        app:tabSelectedTextColor="#ffff63"-->
+<!--        app:tabTextColor="@color/primaryTextColor"-->
+<!--        tools:background="@color/colorWhite" />-->
+
+<!--    <androidx.viewpager.widget.ViewPager-->
+<!--        android:id="@+id/recipe_detail_view_pager"-->
+<!--        tools:background="#000000"-->
+<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent" />-->
+
+</LinearLayout>
+

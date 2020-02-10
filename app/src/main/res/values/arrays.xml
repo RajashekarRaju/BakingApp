@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="recipe_name_array">
+        <item>@string/nutella_pie</item>
+        <item>@string/brownies</item>
+        <item>@string/yellow_cake</item>
+        <item>@string/cheesecake</item>
+    </string-array>
+</resources>

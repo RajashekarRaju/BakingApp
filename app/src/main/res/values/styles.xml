@@ -1,0 +1,34 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#000000</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="android:windowBackground">#000000</item>
+
+<!--        <item name="colorPrimary">@color/primaryColor</item>-->
+<!--        <item name="colorPrimaryDark">@color/primaryDarkColor</item>-->
+<!--        <item name="android:windowBackground">@color/primaryColor</item>-->
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay">
+        <![CDATA[<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />]]></style>
+
+    <style name="AppTheme.PopupOverlay">
+        <![CDATA[<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />]]></style>
+
+    <style name="TabLayoutStyleCustom" parent="Widget.MaterialComponents.TabLayout.Colored">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="tabIndicatorColor">@color/colorTabIndicator</item>
+        <item name="tabIndicatorFullWidth">false</item>
+        <item name="tabTextColor">@color/selected_highlight</item>
+    </style>
+
+</resources>

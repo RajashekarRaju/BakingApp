@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/recipe_image_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:id="@+id/recipe_textName_background_view"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#212121"
+            app:layout_constraintEnd_toEndOf="@id/recipe_image_item_view"
+            app:layout_constraintStart_toStartOf="@id/recipe_image_item_view"
+            app:layout_constraintTop_toBottomOf="@id/recipe_image_item_view" />
+
+        <TextView
+            android:id="@+id/recipe_name_item_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            app:layout_constraintBottom_toBottomOf="@id/recipe_textName_background_view"
+            app:layout_constraintStart_toStartOf="@id/recipe_textName_background_view"
+            app:layout_constraintTop_toTopOf="@id/recipe_textName_background_view"
+            tools:text="Recipe Name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
