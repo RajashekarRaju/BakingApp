@@ -2,22 +2,13 @@ package com.developersbreach.bakingapp.step;
 
 import android.app.Application;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.widget.ImageView;
+import android.media.MediaMetadataRetriever;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.palette.graphics.Palette;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DecodeFormat;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.developersbreach.bakingapp.AppExecutors;
-import com.developersbreach.bakingapp.recipeList.RecipeAdapter;
+import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.model.Steps;
 import com.developersbreach.bakingapp.step.StepsAdapter.StepsViewHolder;
 import com.developersbreach.bakingapp.utils.JsonUtils;
@@ -25,7 +16,9 @@ import com.developersbreach.bakingapp.utils.QueryUtils;
 import com.developersbreach.bakingapp.utils.UriBuilder;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class StepsFragmentViewModel extends AndroidViewModel {
 
@@ -69,47 +62,28 @@ public class StepsFragmentViewModel extends AndroidViewModel {
     void loadStepsData(Context context, Steps steps, StepsViewHolder holder) {
         holder.mStepShortDescriptionItemTextView.setText(steps.getStepsShortDescription());
 
-        RequestOptions decoder = new RequestOptions().frame(1000);
-
-        Glide.with(context)
-                .load(steps.getThumbnailUrl())
-                .centerCrop()
-                .apply(decoder)
-                .format(DecodeFormat.PREFER_RGB_565)
-                .into(holder.mStepThumbnailItemImageView);
+        if (steps.getVideoUrl().equals("")) {
+            holder.mStepsVideoPlayArrowItemImageView.setImageResource(R.drawable.ic_video_not_available);
+        } else {
+            holder.mStepsVideoPlayArrowItemImageView.setImageResource(R.drawable.ic_video_available);
+        }
     }
 
-    private class targetImageView extends BitmapImageViewTarget {
+    void loadVideoDurationInBackground(final Steps steps, final StepsViewHolder holder) {
 
-        private final StepsViewHolder mHolder;
+        if (!steps.getVideoUrl().equals("")) {
+            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            retriever.setDataSource(steps.getVideoUrl(), new HashMap<String, String>());
+            long duration = Long.parseLong(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
+            retriever.release();
 
-        /**
-         * @param holder is only parameter for our class constructor to have access over ImageView
-         *               from {@link RecipeAdapter} holder.
-         */
-        targetImageView(StepsViewHolder holder) {
-            super(holder.mStepThumbnailItemImageView);
-            this.mHolder = holder;
-        }
+            final long seconds = TimeUnit.MILLISECONDS.toSeconds(duration);
+            final String formatSeconds = "0:" + seconds;
 
-        /**
-         * Sets the {@link Bitmap} on the view using {@link
-         * ImageView#setImageBitmap(Bitmap)}.
-         *
-         * @param resource The bitmap to display.
-         */
-        @Override
-        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-            super.onResourceReady(resource, transition);
-            // Request to generate palette as async
-            Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
-                /**
-                 * @param palette to extract colors from ImageView.
-                 */
+            AppExecutors.getInstance().mainThread().execute(new Runnable() {
                 @Override
-                public void onGenerated(@Nullable Palette palette) {
-                    // Only apply if palette has resources generated successfully.
-
+                public void run() {
+                    holder.mVideoSizeTextView.setText(formatSeconds);
                 }
             });
         }

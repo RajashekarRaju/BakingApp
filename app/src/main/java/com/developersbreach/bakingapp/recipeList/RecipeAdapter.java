@@ -27,22 +27,25 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     // ViewModel to get all data from class
     private final RecipeListFragmentViewModel mViewModel;
 
+    private boolean mTwoPane;
+
     /**
      * Constructor for adapter class
      */
     RecipeAdapter(Context context, List<Recipe> recipeList, RecipeAdapterListener listener,
-                  RecipeListFragmentViewModel viewModel) {
+                  RecipeListFragmentViewModel viewModel, boolean twoPane) {
         this.mContext = context;
         this.mRecipeList = recipeList;
         this.mListener = listener;
         this.mViewModel = viewModel;
+        this.mTwoPane = twoPane;
     }
 
     /**
      * The interface that receives onClick listener.
      */
     public interface RecipeAdapterListener {
-        void onRecipeSelected(Recipe recipe, View view);
+        void onRecipeSelected(Recipe recipe, View view, boolean twoPane);
     }
 
     /**
@@ -111,7 +114,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onRecipeSelected(recipe, view);
+                mListener.onRecipeSelected(recipe, view, mTwoPane);
             }
         });
     }

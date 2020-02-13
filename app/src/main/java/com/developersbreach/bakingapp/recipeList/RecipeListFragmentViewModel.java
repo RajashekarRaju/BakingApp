@@ -5,11 +5,11 @@ import android.content.Context;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.bumptech.glide.Glide;
 import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.R;
-import com.developersbreach.bakingapp.recipeList.RecipeAdapter.RecipeViewHolder;
 import com.developersbreach.bakingapp.model.Recipe;
-import com.developersbreach.bakingapp.utils.GlideApp;
+import com.developersbreach.bakingapp.recipeList.RecipeAdapter.RecipeViewHolder;
 import com.developersbreach.bakingapp.utils.JsonUtils;
 import com.developersbreach.bakingapp.utils.QueryUtils;
 import com.developersbreach.bakingapp.utils.UriBuilder;
@@ -60,9 +60,7 @@ public class RecipeListFragmentViewModel extends ViewModel {
 
     void loadRecipeThumbnails(Context context, Recipe recipe, RecipeViewHolder holder) {
 
-
-
-        GlideApp.with(context)
+        Glide.with(context)
                 .load(recipe.getRecipeImage())
                 .centerCrop()
                 .into(holder.mRecipeImageItemView);

@@ -90,6 +90,11 @@ public class StepDetailFragment extends Fragment {
                     public void onChanged(Steps steps) {
                         mPlayerShortDescriptionTextView.setText(steps.getStepsShortDescription());
                         mPlayerDescriptionTextView.setText(steps.getStepsDescription());
+
+                        if (steps.getVideoUrl().equals("")) {
+                            mRecipePlayerView.setCustomErrorMessage("Video Not Available");
+                            mRecipePlayerView.setUseController(false);
+                        }
                     }
                 });
             }

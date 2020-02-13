@@ -10,6 +10,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/recipe_app_bar_layout"
+        android:background="#000000"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
 
