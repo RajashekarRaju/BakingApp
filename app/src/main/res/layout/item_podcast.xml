@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    app:cardUseCompatPadding="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:src="@drawable/ic_recipe_icon"
+            android:id="@+id/podcast_recipe_image_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <TextView
+            android:id="@+id/podcast_recipe_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@id/podcast_recipe_image_view"
+            app:layout_constraintTop_toTopOf="@id/podcast_recipe_image_view"
+            app:layout_constraintBottom_toTopOf="@id/podcast_play_image_view"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="@color/primaryTextColor"
+            tools:text="Nutella Pie" />
+
+        <ImageView
+            android:id="@+id/podcast_play_image_view"
+            android:src="@drawable/ic_video_available"
+            app:layout_constraintStart_toStartOf="@id/podcast_recipe_name"
+            app:layout_constraintTop_toBottomOf="@id/podcast_recipe_name"
+            app:layout_constraintBottom_toBottomOf="@id/podcast_recipe_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/podcast_recipe_total_duration"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/podcast_play_image_view"
+            app:layout_constraintTop_toTopOf="@id/podcast_play_image_view"
+            tools:text="0:0"
+            android:fontFamily="sans-serif-condensed-light"
+            android:textColor="@color/primaryTextColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -59,6 +59,7 @@
 
             <com.google.android.material.tabs.TabLayout
                 app:tabRippleColor="@android:color/transparent"
+                android:paddingTop="8dp"
                 android:id="@+id/recipe_detail_tabLayout"
                 style="@style/TabLayoutStyleCustom" />
 

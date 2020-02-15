@@ -13,12 +13,12 @@ import com.developersbreach.bakingapp.model.Steps;
 import com.developersbreach.bakingapp.step.StepsAdapter.StepsViewHolder;
 import com.developersbreach.bakingapp.utils.JsonUtils;
 import com.developersbreach.bakingapp.utils.QueryUtils;
+import com.developersbreach.bakingapp.utils.StringUtils;
 import com.developersbreach.bakingapp.utils.UriBuilder;
 
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class StepsFragmentViewModel extends AndroidViewModel {
 
@@ -74,16 +74,14 @@ public class StepsFragmentViewModel extends AndroidViewModel {
         if (!steps.getVideoUrl().equals("")) {
             MediaMetadataRetriever retriever = new MediaMetadataRetriever();
             retriever.setDataSource(steps.getVideoUrl(), new HashMap<String, String>());
-            long duration = Long.parseLong(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
+            final long duration = Long.parseLong(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
             retriever.release();
-
-            final long seconds = TimeUnit.MILLISECONDS.toSeconds(duration);
-            final String formatSeconds = "0:" + seconds;
 
             AppExecutors.getInstance().mainThread().execute(new Runnable() {
                 @Override
                 public void run() {
-                    holder.mVideoSizeTextView.setText(formatSeconds);
+                    String formatDuration = StringUtils.getStringTimeFormat(duration);
+                    holder.mVideoSizeTextView.setText(formatDuration);
                 }
             });
         }

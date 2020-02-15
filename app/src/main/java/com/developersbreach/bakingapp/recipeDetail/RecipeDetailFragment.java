@@ -21,10 +21,12 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.ingredient.IngredientsFragment;
+import com.developersbreach.bakingapp.model.ItemLength;
 import com.developersbreach.bakingapp.model.Recipe;
 import com.developersbreach.bakingapp.step.StepsFragment;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
@@ -38,6 +40,8 @@ public class RecipeDetailFragment extends Fragment {
     private AppBarLayout mAppBarLayout;
     private ImageView mRecipeImageView;
     private ViewPager recipeDetailViewPager;
+
+    private TabLayout mTabLayout;
 
     private String mRecipeName;
     private boolean mTwoPane;
@@ -77,11 +81,11 @@ public class RecipeDetailFragment extends Fragment {
         mToolbar = view.findViewById(R.id.detail_toolbar);
         mCollapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar_layout);
         mAppBarLayout = view.findViewById(R.id.recipe_detail_appbarLayout);
-        TabLayout recipeDetailTabLayout = view.findViewById(R.id.recipe_detail_tabLayout);
+        mTabLayout = view.findViewById(R.id.recipe_detail_tabLayout);
         recipeDetailViewPager = view.findViewById(R.id.recipe_detail_view_pager);
         setNavButton();
         setDetailAppBarLayout();
-        recipeDetailTabLayout.setupWithViewPager(recipeDetailViewPager);
+        mTabLayout.setupWithViewPager(recipeDetailViewPager);
     }
 
     @Override
@@ -112,7 +116,12 @@ public class RecipeDetailFragment extends Fragment {
                             .centerCrop()
                             .into(mRecipeImageView);
 
-                    createViewPager(recipeDetailViewPager, recipe.getRecipeId() - 1);
+                    createViewPagerSinglePane(recipeDetailViewPager, recipe.getRecipeId() - 1);
+
+                    Objects.requireNonNull(mTabLayout.getTabAt(0)).setIcon(R.drawable.ic_ingredients);
+                    Objects.requireNonNull(mTabLayout.getTabAt(1)).setIcon(R.drawable.ic_walkthrough);
+
+                    setBadges(mTabLayout, recipe.getRecipeId() - 1);
                 }
             });
 
@@ -126,7 +135,29 @@ public class RecipeDetailFragment extends Fragment {
                     .into(mRecipeImageView);
 
             createViewPagerDualPane(recipeDetailViewPager, mRecipeTwoPane.getRecipeId() - 1);
+
+            Objects.requireNonNull(mTabLayout.getTabAt(0)).setIcon(R.drawable.ic_ingredients);
+            Objects.requireNonNull(mTabLayout.getTabAt(1)).setIcon(R.drawable.ic_walkthrough);
+
+            setBadges(mTabLayout, mRecipeTwoPane.getRecipeId()- 1);
         }
+    }
+
+    private void setBadges(final TabLayout tabLayout, int recipeId) {
+
+        mViewModel.getTotalIngredients(recipeId).observe(getViewLifecycleOwner(), new Observer<ItemLength>() {
+            @Override
+            public void onChanged(ItemLength itemLength) {
+
+                BadgeDrawable ingredientsBadge = tabLayout.getTabAt(0).getOrCreateBadge();
+                ingredientsBadge.setVisible(true);
+                ingredientsBadge.setNumber(itemLength.getIngredientsSize());
+
+                BadgeDrawable walkThroughBadge = tabLayout.getTabAt(1).getOrCreateBadge();
+                walkThroughBadge.setVisible(true);
+                walkThroughBadge.setNumber(itemLength.getStepsSize());
+            }
+        });
     }
 
     private void createViewPagerDualPane(ViewPager recipeDetailViewPager, int recipeId) {
@@ -136,7 +167,7 @@ public class RecipeDetailFragment extends Fragment {
         recipeDetailViewPager.setAdapter(adapter);
     }
 
-    private void createViewPager(ViewPager recipeDetailViewPager, int recipeId) {
+    private void createViewPagerSinglePane(ViewPager recipeDetailViewPager, int recipeId) {
         ChildFragmentPagerAdapter adapter = new ChildFragmentPagerAdapter(getChildFragmentManager());
         adapter.createNewChildFragment(IngredientsFragment.newInstance(recipeId), "Ingredients");
         adapter.createNewChildFragment(StepsFragment.newInstance(recipeId, mRecipeName), "WalkThrough");

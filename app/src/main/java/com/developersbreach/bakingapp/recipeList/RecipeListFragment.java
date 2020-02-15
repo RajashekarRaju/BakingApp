@@ -2,17 +2,23 @@ package com.developersbreach.bakingapp.recipeList;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.developersbreach.bakingapp.R;
@@ -20,6 +26,7 @@ import com.developersbreach.bakingapp.model.Recipe;
 import com.developersbreach.bakingapp.recipeDetail.RecipeDetailFragment;
 
 import java.util.List;
+import java.util.Objects;
 
 public class RecipeListFragment extends Fragment {
 
@@ -43,7 +50,8 @@ public class RecipeListFragment extends Fragment {
 
         mRecipeRecyclerView = view.findViewById(R.id.recipe_recycler_view);
         Toolbar recipeToolBar = view.findViewById(R.id.recipe_toolbar);
-        recipeToolBar.setTitle("Recipe's");
+        setHasOptionsMenu(true);
+        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(recipeToolBar);
         return view;
     }
 
@@ -58,6 +66,21 @@ public class RecipeListFragment extends Fragment {
                 mRecipeRecyclerView.setAdapter(mRecipeAdapter);
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_podcasts, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        NavController navController = Navigation.findNavController(
+                Objects.requireNonNull(this.getActivity()), R.id.nav_host_fragment);
+        return NavigationUI.onNavDestinationSelected(item, navController)
+                || super.onOptionsItemSelected(item);
     }
 
     private class RecipeListener implements RecipeAdapter.RecipeAdapterListener {

@@ -18,4 +18,5 @@
     <string name="yellow_cake">Yellow Cake</string>
     <string name="cheesecake">Cheesecake</string>
     <string name="ingredient_separator">-</string>
+    <string name="podcast_menu">Podcast</string>
 </resources>

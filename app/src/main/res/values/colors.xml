@@ -8,4 +8,5 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorTabIndicator">#ffff63</color>
     <color name="colorItemDivider">#ffff63</color>
+    <color name="colorBlack">#000000</color>
 </resources>

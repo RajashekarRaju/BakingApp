@@ -25,10 +25,11 @@
 
     <style name="TabLayoutStyleCustom" parent="Widget.MaterialComponents.TabLayout.Colored">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="tabIndicatorColor">@color/colorTabIndicator</item>
         <item name="tabIndicatorFullWidth">false</item>
         <item name="tabTextColor">@color/selected_highlight</item>
+        <item name="tabIconTint">@color/selected_highlight</item>
     </style>
 
 </resources>
