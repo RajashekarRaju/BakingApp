@@ -211,6 +211,12 @@ public class JsonUtils {
 
                 JSONArray stepsArray = jsonObject.getJSONArray(STEPS_ARRAY);
 
+                JSONObject stepsJsonObject = stepsArray.getJSONObject(stepsArray.length() - 1);
+                String recipeImage = null;
+                if (stepsJsonObject.has(VIDEO_URL)) {
+                    recipeImage = stepsJsonObject.getString(VIDEO_URL);
+                }
+
                 List<String> stepsList = new ArrayList<>();
                 for (int k = 0; k < stepsArray.length(); k++) {
                     JSONObject stepsObject = stepsArray.getJSONObject(k);
@@ -222,12 +228,6 @@ public class JsonUtils {
 
                     String steps = videoUrl;
                     stepsList.add(steps);
-                }
-
-                JSONObject stepsObject = stepsArray.getJSONObject(stepsArray.length() - 1);
-                String recipeImage = null;
-                if (stepsObject.has(VIDEO_URL)) {
-                    recipeImage = stepsObject.getString(VIDEO_URL);
                 }
 
                 Podcast podcast = new Podcast(recipeId, recipeName, recipeImage, stepsList);

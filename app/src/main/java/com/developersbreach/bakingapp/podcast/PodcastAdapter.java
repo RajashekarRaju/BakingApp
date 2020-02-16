@@ -6,11 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.model.Podcast;
 
@@ -51,17 +51,15 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
     class PodcastViewHolder extends RecyclerView.ViewHolder {
 
         // Views which are visible as single item in recycler view
-        final ImageView mPodcastPlayImageItemView;
-        final ImageView mPodcastRecipeImageView;
+        final TextView mPodcastRecipeChefItemTextView;
         final TextView mPodcastRecipeNameTextItemView;
-        final TextView mPodcastRecipeDurationTextItemView;
+        final ImageView mPodcastRecipeOverflowMenuItemView;
 
         private PodcastViewHolder(@NonNull final View itemView) {
             super(itemView);
-            mPodcastPlayImageItemView = itemView.findViewById(R.id.podcast_play_image_view);
-            mPodcastRecipeImageView = itemView.findViewById(R.id.podcast_recipe_image_view);
-            mPodcastRecipeNameTextItemView = itemView.findViewById(R.id.podcast_recipe_name);
-            mPodcastRecipeDurationTextItemView = itemView.findViewById(R.id.podcast_recipe_total_duration);
+            mPodcastRecipeChefItemTextView = itemView.findViewById(R.id.podcast_recipe_chef_item_text_view);
+            mPodcastRecipeNameTextItemView = itemView.findViewById(R.id.podcast_recipe_name_item_text_view);
+            mPodcastRecipeOverflowMenuItemView = itemView.findViewById(R.id.podcast_overflow_menu_item_image_view);
         }
     }
 
@@ -94,26 +92,21 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
     public void onBindViewHolder(@NonNull final PodcastViewHolder holder, final int position) {
         final Podcast podcast = mPodcastList.get(position);
 
-        // Running a executor on main thread and load data from ViewModel of recipe properties.
-        AppExecutors.getInstance().mainThread().execute(new Runnable() {
-            @Override
-            public void run() {
-                mViewModel.loadPodcastProperties(mContext, podcast, holder);
-            }
-        });
-
-        AppExecutors.getInstance().networkIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                mViewModel.loadPodcastSteps(podcast, holder);
-            }
-        });
+        holder.mPodcastRecipeNameTextItemView.setText(podcast.getPodcastRecipeName());
+        holder.mPodcastRecipeChefItemTextView.setText(mContext.getResources().getString(R.string.udacity_chef_name));
 
         // Set listener using itemView and call onSandwichSelected from declared custom interface
-        holder.mPodcastPlayImageItemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mListener.onPodcastSelected(podcast, view);
+            }
+        });
+
+        holder.mPodcastRecipeOverflowMenuItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "Credits", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -9,7 +9,8 @@ public class Podcast {
     private String mPodcastRecipeImage;
     private List<String> mPodcastStepsUrlList;
 
-    public Podcast(int podcastRecipeId, String podcastRecipeName, String podcastRecipeImage, List<String> podcastStepsUrlList) {
+    public Podcast(int podcastRecipeId, String podcastRecipeName, String podcastRecipeImage,
+                   List<String> podcastStepsUrlList) {
         this.mPodcastRecipeId = podcastRecipeId;
         this.mPodcastRecipeName = podcastRecipeName;
         this.mPodcastRecipeImage = podcastRecipeImage;
