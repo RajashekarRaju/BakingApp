@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,6 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.developersbreach.bakingapp.R;
+import com.developersbreach.bakingapp.databinding.FragmentRecipeDetailBinding;
 import com.developersbreach.bakingapp.ingredient.IngredientsFragment;
 import com.developersbreach.bakingapp.model.ItemLength;
 import com.developersbreach.bakingapp.model.Recipe;
@@ -66,23 +68,23 @@ public class RecipeDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
+        FragmentRecipeDetailBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipe_detail, container, false);
 
-        if (view.findViewById(R.id.item_detail_container) != null) {
+        if (binding.itemDetailContainer != null) {
             mTwoPane = true;
         }
 
-        setFragmentViews(view);
-        return view;
+        setFragmentViews(binding);
+        return binding.getRoot();
     }
 
-    private void setFragmentViews(View view) {
-        mRecipeImageView = view.findViewById(R.id.detail_image);
-        mToolbar = view.findViewById(R.id.detail_toolbar);
-        mCollapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar_layout);
-        mAppBarLayout = view.findViewById(R.id.recipe_detail_appbarLayout);
-        mTabLayout = view.findViewById(R.id.recipe_detail_tabLayout);
-        recipeDetailViewPager = view.findViewById(R.id.recipe_detail_view_pager);
+    private void setFragmentViews(FragmentRecipeDetailBinding binding) {
+        mRecipeImageView = binding.detailImage;
+        mToolbar = binding.detailToolbar;
+        mCollapsingToolbarLayout = binding.collapsingToolbarLayout;
+        mAppBarLayout = binding.recipeDetailAppbarLayout;
+        mTabLayout = binding.recipeDetailTabLayout;
+        recipeDetailViewPager = binding.recipeDetailViewPager;
         setNavButton();
         setDetailAppBarLayout();
         mTabLayout.setupWithViewPager(recipeDetailViewPager);

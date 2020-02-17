@@ -20,4 +20,6 @@
     <string name="ingredient_separator">-</string>
     <string name="podcast_menu">Podcast</string>
     <string name="udacity_chef_name">Miriam</string>
+    <string name="credit_podcast">Udacity’s resident baker-in-chief, Miriam, to share her recipes with the world.</string>
+    <string name="miriam_title">Miriam</string>
 </resources>

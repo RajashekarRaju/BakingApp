@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.developersbreach.bakingapp.R;
+import com.developersbreach.bakingapp.databinding.RecipeWidgetConfigureBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +76,9 @@ public class RecipeWidgetConfigureActivity extends Activity {
         setResult(RESULT_CANCELED);
         setContentView(R.layout.recipe_widget_configure);
 
-        RecyclerView recyclerView = findViewById(R.id.widget_recycler_view);
+        RecipeWidgetConfigureBinding binding = DataBindingUtil.setContentView(this, R.layout.recipe_widget_configure);
+
+        RecyclerView recyclerView = binding.widgetRecyclerView;
 
         List<WidgetItem> widgetItemList = new ArrayList<>();
 

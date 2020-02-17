@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -27,10 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Find a mNavigationController given the id of a View and its containing activity.
         mNavigationController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        // Set up ActionBar for Activity with NavigationUI and controller.
-//        NavigationUI.setupActionBarWithNavController(this, mNavigationController);
-//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(mNavigationController.getGraph()).build();
-//        NavigationUI.setupActionBarWithNavController(this, mNavigationController, appBarConfiguration);
     }
 
     // Set up up-button for ap, triggers when user clicks back button.

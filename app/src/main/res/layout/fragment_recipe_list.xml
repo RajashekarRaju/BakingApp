@@ -1,34 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout 
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".recipeList.RecipeListFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/recipe_app_bar_layout"
-        android:background="#000000"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+    <data>
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/recipe_toolbar"
-            app:title="Recipe's"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    </data>
 
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <FrameLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fitsSystemWindows="true"
+        tools:context=".recipeList.RecipeListFragment">
 
-        <include layout="@layout/recipe_list" />
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/recipe_app_bar_layout"
+            android:background="#000000"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
 
-    </FrameLayout>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/recipe_toolbar"
+                app:title="Recipe's"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <include layout="@layout/recipe_list" />
+
+        </FrameLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

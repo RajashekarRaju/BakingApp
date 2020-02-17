@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,6 +17,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.developersbreach.bakingapp.R;
+import com.developersbreach.bakingapp.databinding.FragmentStepsBinding;
 import com.developersbreach.bakingapp.model.Steps;
 import com.developersbreach.bakingapp.stepDetail.StepDetailFragmentDirections;
 
@@ -44,13 +46,13 @@ public class StepsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_steps, container, false);
-        mStepsRecyclerView = view.findViewById(R.id.steps_recycler_view);
+        FragmentStepsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_steps, container, false);
+        mStepsRecyclerView = binding.stepsRecyclerView;
         if (getArguments() != null) {
             mRecipeId = getArguments().getInt(EXTRA_RECIPE_STEPS_ID);
             mRecipeName = getArguments().getString(EXTRA_RECIPE_STEPS_NAME);
         }
-        return view;
+        return binding.getRoot();
     }
 
     @Override

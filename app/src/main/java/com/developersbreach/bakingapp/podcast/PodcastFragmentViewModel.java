@@ -17,6 +17,8 @@ import java.util.List;
 public class PodcastFragmentViewModel extends ViewModel {
 
     private MutableLiveData<List<Podcast>> mMutablePodcastList;
+    private long mPlayBackPosition;
+    private int mCurrentWindow;
 
     MutableLiveData<List<Podcast>> getMutablePodcastList() {
         if (mMutablePodcastList == null) {
@@ -25,6 +27,7 @@ public class PodcastFragmentViewModel extends ViewModel {
         }
         return mMutablePodcastList;
     }
+
 
     private void fetchJsonData() {
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
@@ -55,5 +58,21 @@ public class PodcastFragmentViewModel extends ViewModel {
             }
         }
         return updatedList;
+    }
+
+    int getCurrentWindow() {
+        return mCurrentWindow;
+    }
+
+    long getPlayBackPosition() {
+        return mPlayBackPosition;
+    }
+
+    public void setCurrentWindow(int currentWindow) {
+        this.mCurrentWindow = currentWindow;
+    }
+
+    public void setPlayBackPosition(long playBackPosition) {
+        this.mPlayBackPosition = playBackPosition;
     }
 }

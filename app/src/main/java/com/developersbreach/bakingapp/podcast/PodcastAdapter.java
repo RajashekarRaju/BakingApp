@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.model.Podcast;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
@@ -103,13 +103,17 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
             }
         });
 
+
         holder.mPodcastRecipeOverflowMenuItemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Credits", Toast.LENGTH_SHORT).show();
+                new MaterialAlertDialogBuilder(mContext)
+                        .setView(R.layout.podcast_credit)
+                        .show();
             }
         });
     }
+
 
     /**
      * Returns the total number of items in the data set held by the adapter.
