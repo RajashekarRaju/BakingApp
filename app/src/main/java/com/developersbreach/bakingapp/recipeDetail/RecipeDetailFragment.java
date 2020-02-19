@@ -18,84 +18,181 @@ import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.ingredient.IngredientsFragment;
+import com.developersbreach.bakingapp.model.ItemLength;
 import com.developersbreach.bakingapp.model.Recipe;
 import com.developersbreach.bakingapp.step.StepsFragment;
+import com.developersbreach.bakingapp.utils.JsonUtils;
+import com.developersbreach.bakingapp.utils.QueryUtils;
+import com.developersbreach.bakingapp.utils.UriBuilder;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 
+import java.net.URL;
 import java.util.Objects;
 
 public class RecipeDetailFragment extends Fragment {
 
+    public static final String ARG_PARCEL_RECIPE = "ParcelRecipe";
     private RecipeDetailFragmentViewModel mViewModel;
     private Toolbar mToolbar;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private AppBarLayout mAppBarLayout;
     private ImageView mRecipeImageView;
-    private String mRecipeName;
     private ViewPager recipeDetailViewPager;
+
+    private TabLayout mTabLayout;
+
+    private String mRecipeName;
+    private boolean mTwoPane;
+    private Recipe mRecipeTwoPane;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null && getArguments().containsKey(ARG_PARCEL_RECIPE)) {
+            mRecipeTwoPane = getArguments().getParcelable(ARG_PARCEL_RECIPE);
+        }
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
-        setFragmentViews(view);
+        View view = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
+        if (getResources().getBoolean(R.bool.isTablet)) {
+            mTwoPane = true;
+        }
+
+        setFragmentViews(view);
+        setNavButton();
         return view;
     }
 
-    private void setFragmentViews(View view) {
-        mRecipeImageView = view.findViewById(R.id.detail_image);
-        mToolbar = view.findViewById(R.id.detail_toolbar);
-        mCollapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar_layout);
-        mAppBarLayout = view.findViewById(R.id.recipe_detail_appbarLayout);
-        TabLayout recipeDetailTabLayout = view.findViewById(R.id.recipe_detail_tabLayout);
-        recipeDetailViewPager = view.findViewById(R.id.recipe_detail_view_pager);
-        setNavButton();
-        setDetailAppBarLayout();
-        recipeDetailTabLayout.setupWithViewPager(recipeDetailViewPager);
+    private void setFragmentViews(View binding) {
+        mRecipeImageView = binding.findViewById(R.id.detail_image);
+        mToolbar = binding.findViewById(R.id.detail_toolbar);
+        mCollapsingToolbarLayout = binding.findViewById(R.id.collapsing_toolbar_layout);
+        mAppBarLayout = binding.findViewById(R.id.recipe_detail_appbarLayout);
+        mTabLayout = binding.findViewById(R.id.recipe_detail_tabLayout);
+        recipeDetailViewPager = binding.findViewById(R.id.recipe_detail_view_pager);
+        mTabLayout.setupWithViewPager(recipeDetailViewPager);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Application application = Objects.requireNonNull(getActivity()).getApplication();
-        Recipe recipe = RecipeDetailFragmentArgs.fromBundle(Objects.requireNonNull(getArguments())).getRecipeDetailArgs();
-        RecipeDetailFragmentViewModelFactory factory = new RecipeDetailFragmentViewModelFactory(application, recipe);
-        mViewModel = new ViewModelProvider(this, factory).get(RecipeDetailFragmentViewModel.class);
+        if (!mTwoPane) {
 
-        mViewModel.getSelectedRecipe().observe(getViewLifecycleOwner(), new Observer<Recipe>() {
-            @Override
-            public void onChanged(Recipe recipe) {
-                mRecipeName = recipe.getRecipeName();
+            Application application = Objects.requireNonNull(getActivity()).getApplication();
+            Recipe recipe = RecipeDetailFragmentArgs.fromBundle(Objects.requireNonNull(getArguments())).getRecipeDetailArgs();
+            RecipeDetailFragmentViewModelFactory factory = new RecipeDetailFragmentViewModelFactory(application, recipe);
+            mViewModel = new ViewModelProvider(this, factory).get(RecipeDetailFragmentViewModel.class);
 
-                int deviceState = getResources().getConfiguration().orientation;
-                if (deviceState == Configuration.ORIENTATION_LANDSCAPE) {
-                    mToolbar.setTitle(mRecipeName);
-                } else if (deviceState == Configuration.ORIENTATION_PORTRAIT) {
-                    mToolbar.setTitle("");
+            mViewModel.getSelectedRecipe().observe(getViewLifecycleOwner(), new Observer<Recipe>() {
+                @Override
+                public void onChanged(Recipe recipe) {
+                    mRecipeName = recipe.getRecipeName();
+
+                    int deviceState = getResources().getConfiguration().orientation;
+                    if (deviceState == Configuration.ORIENTATION_LANDSCAPE) {
+                        mToolbar.setTitle(mRecipeName);
+                    } else if (deviceState == Configuration.ORIENTATION_PORTRAIT) {
+                        mToolbar.setTitle("");
+                    }
+
+                    Glide.with(Objects.requireNonNull(getContext()))
+                            .load(recipe.getRecipeImage())
+                            .centerCrop()
+                            .into(mRecipeImageView);
+
+                    createViewPagerWithTabs(recipeDetailViewPager, recipe.getRecipeId() - 1, mRecipeName);
+                    setBadges(mTabLayout, recipe.getRecipeId() - 1);
                 }
+            });
 
-                Glide.with(Objects.requireNonNull(getContext()))
-                        .load(recipe.getRecipeImage())
-                        .centerCrop()
-                        .into(mRecipeImageView);
+        } else {
 
-                createViewPager(recipeDetailViewPager, recipe.getRecipeId() - 1);
+            mToolbar.setTitle(mRecipeTwoPane.getRecipeName());
+
+            Glide.with(Objects.requireNonNull(getContext()))
+                    .load(mRecipeTwoPane.getRecipeImage())
+                    .centerCrop()
+                    .into(mRecipeImageView);
+
+            createViewPagerWithTabs(recipeDetailViewPager, mRecipeTwoPane.getRecipeId() - 1, mRecipeTwoPane.getRecipeName());
+            setTabLayoutBadges(mTabLayout, mRecipeTwoPane.getRecipeId() - 1);
+        }
+
+        setDetailAppBarLayout();
+    }
+
+    private void setTabLayoutBadges(final TabLayout tabLayout, final int recipeId) {
+
+        AppExecutors.getInstance().networkIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String uriBuilder = UriBuilder.uriBuilder();
+                    URL requestUrl = QueryUtils.createUrl(uriBuilder);
+                    String responseString = QueryUtils.getResponseFromHttpUrl(requestUrl);
+                    ItemLength result = JsonUtils.findTotalNumber(responseString, recipeId);
+                    runOnMainThread(result);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            private void runOnMainThread(final ItemLength itemLength) {
+                AppExecutors.getInstance().mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        applyBadgeDrawables(itemLength, tabLayout);
+                    }
+                });
             }
         });
     }
 
-    private void createViewPager(ViewPager recipeDetailViewPager, int recipeId) {
+    private void setBadges(final TabLayout tabLayout, int recipeId) {
+        mViewModel.getTotalIngredients(recipeId).observe(getViewLifecycleOwner(), new Observer<ItemLength>() {
+            @Override
+            public void onChanged(ItemLength itemLength) {
+                applyBadgeDrawables(itemLength, tabLayout);
+            }
+        });
+    }
+
+    private void applyBadgeDrawables(ItemLength itemLength, TabLayout tabLayout) {
+
+        int ingredientsSize = itemLength.getIngredientsSize();
+        int stepSize = itemLength.getStepsSize();
+
+        BadgeDrawable ingredientsBadge = Objects.requireNonNull(tabLayout.getTabAt(0)).getOrCreateBadge();
+        ingredientsBadge.setVisible(true);
+        ingredientsBadge.setNumber(ingredientsSize);
+
+        BadgeDrawable walkThroughBadge = Objects.requireNonNull(tabLayout.getTabAt(1)).getOrCreateBadge();
+        walkThroughBadge.setVisible(true);
+        walkThroughBadge.setNumber(stepSize);
+    }
+
+    private void createViewPagerWithTabs(ViewPager recipeDetailViewPager, int recipeId, String recipeName) {
         ChildFragmentPagerAdapter adapter = new ChildFragmentPagerAdapter(getChildFragmentManager());
         adapter.createNewChildFragment(IngredientsFragment.newInstance(recipeId), "Ingredients");
-        adapter.createNewChildFragment(StepsFragment.newInstance(recipeId, mRecipeName), "Steps");
+        adapter.createNewChildFragment(StepsFragment.newInstance(recipeId, recipeName), "WalkThrough");
         recipeDetailViewPager.setAdapter(adapter);
+
+        Objects.requireNonNull(mTabLayout.getTabAt(0)).setIcon(R.drawable.ic_ingredients);
+        Objects.requireNonNull(mTabLayout.getTabAt(1)).setIcon(R.drawable.ic_walkthrough);
     }
 
     private void setDetailAppBarLayout() {
@@ -109,8 +206,13 @@ public class RecipeDetailFragment extends Fragment {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    mCollapsingToolbarLayout.setTitle(mRecipeName);
-                    isShow = true;
+                    if (mTwoPane) {
+                        mCollapsingToolbarLayout.setTitle(mRecipeTwoPane.getRecipeName());
+                        isShow = true;
+                    } else {
+                        mCollapsingToolbarLayout.setTitle(mRecipeName);
+                        isShow = true;
+                    }
                 } else if (isShow) {
                     mCollapsingToolbarLayout.setTitle("");
                     isShow = false;

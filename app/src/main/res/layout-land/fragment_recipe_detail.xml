@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:id="@+id/detail_container"
     tools:context=".recipeDetail.RecipeDetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -24,10 +23,10 @@
             app:navigationIcon="@drawable/ic_arrow_back" />
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:visibility="gone"
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             app:collapsedTitleTextAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -60,9 +59,10 @@
             android:nestedScrollingEnabled="true">
 
             <com.google.android.material.tabs.TabLayout
-                app:tabRippleColor="@android:color/transparent"
                 android:id="@+id/recipe_detail_tabLayout"
-                style="@style/TabLayoutStyleCustom" />
+                style="@style/TabLayoutStyleCustom"
+                android:paddingTop="8dp"
+                app:tabRippleColor="@android:color/transparent" />
 
         </androidx.viewpager.widget.ViewPager>
 

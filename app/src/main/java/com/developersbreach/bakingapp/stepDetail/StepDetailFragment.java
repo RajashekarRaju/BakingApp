@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,6 +26,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.R;
+import com.developersbreach.bakingapp.databinding.FragmentStepDetailBinding;
 import com.developersbreach.bakingapp.model.Steps;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -50,24 +52,24 @@ public class StepDetailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_step_detail, container, false);
-        mRecipePlayerView = view.findViewById(R.id.recipe_player_view);
-        mPlayerShortDescriptionTextView = view.findViewById(R.id.step_shortDescription_player_text_view);
-        mPlayerDescriptionTextView = view.findViewById(R.id.step_description_player_text_view);
-        mStepDetailToolBar = view.findViewById(R.id.step_detail_toolbar);
+        FragmentStepDetailBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_step_detail, container, false);
+        mRecipePlayerView = binding.recipePlayerView;
+        mPlayerShortDescriptionTextView = binding.stepShortDescriptionPlayerTextView;
+        mPlayerDescriptionTextView = binding.stepDescriptionPlayerTextView;
+        mStepDetailToolBar = binding.stepDetailToolbar;
         setHasOptionsMenu(true);
 
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(mStepDetailToolBar);
 
         int deviceState = getResources().getConfiguration().orientation;
         if (deviceState == Configuration.ORIENTATION_LANDSCAPE) {
-            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            binding.getRoot().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                     | View.SYSTEM_UI_FLAG_FULLSCREEN);
         }
 
         setNavButton();
-        return view;
+        return binding.getRoot();
     }
 
 
@@ -90,6 +92,11 @@ public class StepDetailFragment extends Fragment {
                     public void onChanged(Steps steps) {
                         mPlayerShortDescriptionTextView.setText(steps.getStepsShortDescription());
                         mPlayerDescriptionTextView.setText(steps.getStepsDescription());
+
+                        if (steps.getVideoUrl().equals("")) {
+                            mRecipePlayerView.setCustomErrorMessage("Video Not Available");
+                            mRecipePlayerView.setUseController(false);
+                        }
                     }
                 });
             }

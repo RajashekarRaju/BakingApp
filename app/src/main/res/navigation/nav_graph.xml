@@ -57,4 +57,10 @@
         android:id="@+id/action_global_stepDetailFragment"
         app:destination="@id/stepDetailFragment" />
 
+    <fragment
+        android:id="@+id/podcastFragment"
+        android:name="com.developersbreach.bakingapp.podcast.PodcastFragment"
+        android:label="Podcasts"
+        tools:layout="@layout/fragment_podcast" />
+
 </navigation>

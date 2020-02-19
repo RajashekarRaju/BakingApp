@@ -51,13 +51,15 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
     class StepsViewHolder extends RecyclerView.ViewHolder {
 
         // Views which are visible as single item in recycler view
-        final ImageView mStepThumbnailItemImageView;
         final TextView mStepShortDescriptionItemTextView;
+        final ImageView mStepsVideoPlayArrowItemImageView;
+        final TextView mVideoSizeTextView;
 
         private StepsViewHolder(@NonNull final View itemView) {
             super(itemView);
-            mStepThumbnailItemImageView = itemView.findViewById(R.id.step_thumbnail_item_image_view);
             mStepShortDescriptionItemTextView = itemView.findViewById(R.id.step_shortDescription_item_text_view);
+            mStepsVideoPlayArrowItemImageView = itemView.findViewById(R.id.step_play_arrow_item_image_view);
+            mVideoSizeTextView = itemView.findViewById(R.id.video_size);
         }
     }
 
@@ -95,6 +97,13 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
             @Override
             public void run() {
                 mViewModel.loadStepsData(mContext, steps, holder);
+            }
+        });
+
+        AppExecutors.getInstance().networkIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mViewModel.loadVideoDurationInBackground(steps, holder);
             }
         });
 

@@ -1,6 +1,8 @@
 package com.developersbreach.bakingapp.utils;
 
 import com.developersbreach.bakingapp.model.Ingredients;
+import com.developersbreach.bakingapp.model.ItemLength;
+import com.developersbreach.bakingapp.model.Podcast;
 import com.developersbreach.bakingapp.model.Recipe;
 import com.developersbreach.bakingapp.model.Steps;
 
@@ -163,5 +165,79 @@ public class JsonUtils {
         }
 
         return stepsList;
+    }
+
+    public static ItemLength findTotalNumber(String json, int recipeId) {
+
+        ItemLength itemLengthList = null;
+
+        try {
+            JSONArray baseJsonArray = new JSONArray(json);
+            JSONObject jsonObject = baseJsonArray.getJSONObject(recipeId);
+            JSONArray jsonArray = jsonObject.getJSONArray(INGREDIENTS_ARRAY);
+            JSONArray stepsArray = jsonObject.getJSONArray(STEPS_ARRAY);
+
+            int totalNumOfIngredients = jsonArray.length();
+            int totalNumOfSteps = stepsArray.length();
+
+            itemLengthList = new ItemLength(totalNumOfIngredients, totalNumOfSteps);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return itemLengthList;
+    }
+
+    public static List<Podcast> fetchPodcastJsonData(String responseString) {
+
+        List<Podcast> podcastList = new ArrayList<>();
+
+        try {
+
+            JSONArray baseJsonArray = new JSONArray(responseString);
+            for (int i = 0; i < baseJsonArray.length(); i++) {
+                JSONObject jsonObject = baseJsonArray.getJSONObject(i);
+
+                int recipeId = 0;
+                if (jsonObject.has(RECIPE_ID)) {
+                    recipeId = jsonObject.getInt(RECIPE_ID);
+                }
+
+                String recipeName = null;
+                if (jsonObject.has(RECIPE_NAME)) {
+                    recipeName = jsonObject.getString(RECIPE_NAME);
+                }
+
+                JSONArray stepsArray = jsonObject.getJSONArray(STEPS_ARRAY);
+
+                JSONObject stepsJsonObject = stepsArray.getJSONObject(stepsArray.length() - 1);
+                String recipeImage = null;
+                if (stepsJsonObject.has(VIDEO_URL)) {
+                    recipeImage = stepsJsonObject.getString(VIDEO_URL);
+                }
+
+                List<String> stepsList = new ArrayList<>();
+                for (int k = 0; k < stepsArray.length(); k++) {
+                    JSONObject stepsObject = stepsArray.getJSONObject(k);
+
+                    String videoUrl = null;
+                    if (stepsObject.has(VIDEO_URL)) {
+                        videoUrl = stepsObject.getString(VIDEO_URL);
+                    }
+
+                    String steps = videoUrl;
+                    stepsList.add(steps);
+                }
+
+                Podcast podcast = new Podcast(recipeId, recipeName, recipeImage, stepsList);
+                podcastList.add(podcast);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return podcastList;
     }
 }

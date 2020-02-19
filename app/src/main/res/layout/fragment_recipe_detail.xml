@@ -58,9 +58,10 @@
             android:nestedScrollingEnabled="true">
 
             <com.google.android.material.tabs.TabLayout
-                app:tabRippleColor="@android:color/transparent"
                 android:id="@+id/recipe_detail_tabLayout"
-                style="@style/TabLayoutStyleCustom" />
+                style="@style/TabLayoutStyleCustom"
+                android:paddingTop="8dp"
+                app:tabRippleColor="@android:color/transparent" />
 
         </androidx.viewpager.widget.ViewPager>
 

@@ -25,10 +25,22 @@
 
     <style name="TabLayoutStyleCustom" parent="Widget.MaterialComponents.TabLayout.Colored">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="tabIndicatorColor">@color/colorTabIndicator</item>
         <item name="tabIndicatorFullWidth">false</item>
         <item name="tabTextColor">@color/selected_highlight</item>
+        <item name="tabIconTint">@color/selected_highlight</item>
+    </style>
+
+    <style name="PodcastToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="titleTextAppearance">@style/PodcastToolbarTextStyle</item>
+    </style>
+
+    <style name="PodcastToolbarTextStyle" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">sans-serif-smallcaps</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>
