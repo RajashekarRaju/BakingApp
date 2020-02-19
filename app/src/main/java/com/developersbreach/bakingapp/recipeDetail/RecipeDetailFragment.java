@@ -12,18 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.R;
-import com.developersbreach.bakingapp.ingredient.IngredientsFragment;
 import com.developersbreach.bakingapp.model.ItemLength;
 import com.developersbreach.bakingapp.model.Recipe;
-import com.developersbreach.bakingapp.step.StepsFragment;
 import com.developersbreach.bakingapp.utils.JsonUtils;
 import com.developersbreach.bakingapp.utils.QueryUtils;
 import com.developersbreach.bakingapp.utils.UriBuilder;
@@ -31,6 +28,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.net.URL;
 import java.util.Objects;
@@ -43,10 +41,9 @@ public class RecipeDetailFragment extends Fragment {
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private AppBarLayout mAppBarLayout;
     private ImageView mRecipeImageView;
-    private ViewPager recipeDetailViewPager;
+    private ViewPager2 recipeDetailViewPager;
 
     private TabLayout mTabLayout;
-
     private String mRecipeName;
     private boolean mTwoPane;
     private Recipe mRecipeTwoPane;
@@ -75,6 +72,7 @@ public class RecipeDetailFragment extends Fragment {
         return view;
     }
 
+
     private void setFragmentViews(View binding) {
         mRecipeImageView = binding.findViewById(R.id.detail_image);
         mToolbar = binding.findViewById(R.id.detail_toolbar);
@@ -82,7 +80,6 @@ public class RecipeDetailFragment extends Fragment {
         mAppBarLayout = binding.findViewById(R.id.recipe_detail_appbarLayout);
         mTabLayout = binding.findViewById(R.id.recipe_detail_tabLayout);
         recipeDetailViewPager = binding.findViewById(R.id.recipe_detail_view_pager);
-        mTabLayout.setupWithViewPager(recipeDetailViewPager);
     }
 
     @Override
@@ -96,26 +93,23 @@ public class RecipeDetailFragment extends Fragment {
             RecipeDetailFragmentViewModelFactory factory = new RecipeDetailFragmentViewModelFactory(application, recipe);
             mViewModel = new ViewModelProvider(this, factory).get(RecipeDetailFragmentViewModel.class);
 
-            mViewModel.getSelectedRecipe().observe(getViewLifecycleOwner(), new Observer<Recipe>() {
-                @Override
-                public void onChanged(Recipe recipe) {
-                    mRecipeName = recipe.getRecipeName();
+            mViewModel.getSelectedRecipe().observe(getViewLifecycleOwner(), recipe1 -> {
+                mRecipeName = recipe1.getRecipeName();
 
-                    int deviceState = getResources().getConfiguration().orientation;
-                    if (deviceState == Configuration.ORIENTATION_LANDSCAPE) {
-                        mToolbar.setTitle(mRecipeName);
-                    } else if (deviceState == Configuration.ORIENTATION_PORTRAIT) {
-                        mToolbar.setTitle("");
-                    }
-
-                    Glide.with(Objects.requireNonNull(getContext()))
-                            .load(recipe.getRecipeImage())
-                            .centerCrop()
-                            .into(mRecipeImageView);
-
-                    createViewPagerWithTabs(recipeDetailViewPager, recipe.getRecipeId() - 1, mRecipeName);
-                    setBadges(mTabLayout, recipe.getRecipeId() - 1);
+                int deviceState = getResources().getConfiguration().orientation;
+                if (deviceState == Configuration.ORIENTATION_LANDSCAPE) {
+                    mToolbar.setTitle(mRecipeName);
+                } else if (deviceState == Configuration.ORIENTATION_PORTRAIT) {
+                    mToolbar.setTitle("");
                 }
+
+                Glide.with(Objects.requireNonNull(getContext()))
+                        .load(recipe1.getRecipeImage())
+                        .centerCrop()
+                        .into(mRecipeImageView);
+
+                createViewPagerWithTabs(recipeDetailViewPager, recipe1.getRecipeId() - 1, mRecipeName);
+                setBadges(mTabLayout, recipe1.getRecipeId() - 1);
             });
 
         } else {
@@ -152,23 +146,15 @@ public class RecipeDetailFragment extends Fragment {
             }
 
             private void runOnMainThread(final ItemLength itemLength) {
-                AppExecutors.getInstance().mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        applyBadgeDrawables(itemLength, tabLayout);
-                    }
-                });
+                AppExecutors.getInstance().mainThread().execute(
+                        () -> applyBadgeDrawables(itemLength, tabLayout));
             }
         });
     }
 
     private void setBadges(final TabLayout tabLayout, int recipeId) {
-        mViewModel.getTotalIngredients(recipeId).observe(getViewLifecycleOwner(), new Observer<ItemLength>() {
-            @Override
-            public void onChanged(ItemLength itemLength) {
-                applyBadgeDrawables(itemLength, tabLayout);
-            }
-        });
+        mViewModel.getTotalIngredients(recipeId).observe(getViewLifecycleOwner(), itemLength ->
+                applyBadgeDrawables(itemLength, tabLayout));
     }
 
     private void applyBadgeDrawables(ItemLength itemLength, TabLayout tabLayout) {
@@ -185,14 +171,13 @@ public class RecipeDetailFragment extends Fragment {
         walkThroughBadge.setNumber(stepSize);
     }
 
-    private void createViewPagerWithTabs(ViewPager recipeDetailViewPager, int recipeId, String recipeName) {
-        ChildFragmentPagerAdapter adapter = new ChildFragmentPagerAdapter(getChildFragmentManager());
-        adapter.createNewChildFragment(IngredientsFragment.newInstance(recipeId), "Ingredients");
-        adapter.createNewChildFragment(StepsFragment.newInstance(recipeId, recipeName), "WalkThrough");
-        recipeDetailViewPager.setAdapter(adapter);
+    private void createViewPagerWithTabs(ViewPager2 recipeDetailViewPager, int recipeId, String recipeName) {
 
-        Objects.requireNonNull(mTabLayout.getTabAt(0)).setIcon(R.drawable.ic_ingredients);
-        Objects.requireNonNull(mTabLayout.getTabAt(1)).setIcon(R.drawable.ic_walkthrough);
+        ChildFragmentPagerAdapter adapter = new ChildFragmentPagerAdapter(Objects
+                .requireNonNull(getActivity()), recipeId, recipeName);
+        recipeDetailViewPager.setAdapter(adapter);
+        TabLayoutMediator mediator = new TabLayoutMediator(mTabLayout, recipeDetailViewPager, new TabConfiguration());
+        mediator.attach();
     }
 
     private void setDetailAppBarLayout() {
@@ -222,11 +207,17 @@ public class RecipeDetailFragment extends Fragment {
     }
 
     private void setNavButton() {
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigateUp();
-            }
-        });
+        mToolbar.setNavigationOnClickListener(
+                view -> Navigation.findNavController(view).navigateUp());
+    }
+
+    private class TabConfiguration implements TabLayoutMediator.TabConfigurationStrategy {
+
+        @Override
+        public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+            String[] tabNames = new String[]{"Ingredients", "WalkThrough"};
+            int[] tabIcons = new int[]{R.drawable.ic_ingredients, R.drawable.ic_walkthrough};
+            tab.setText(tabNames[position]).setIcon(tabIcons[position]);
+        }
     }
 }

@@ -1,42 +1,38 @@
 package com.developersbreach.bakingapp.recipeDetail;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.developersbreach.bakingapp.ingredient.IngredientsFragment;
+import com.developersbreach.bakingapp.step.StepsFragment;
 
-public class ChildFragmentPagerAdapter extends FragmentPagerAdapter {
+public class ChildFragmentPagerAdapter extends FragmentStateAdapter {
 
-    private final List<Fragment> mFragmentList = new ArrayList<>();
-    private final List<String> mFragmentTitleList = new ArrayList<>();
+    private int recipeId;
+    private String recipeName;
 
-    public ChildFragmentPagerAdapter(@NonNull FragmentManager fm) {
-        super(fm);
-    }
-
-    void createNewChildFragment(Fragment fragment, String title) {
-        mFragmentList.add(fragment);
-        mFragmentTitleList.add(title);
-    }
-
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mFragmentTitleList.get(position);
+    ChildFragmentPagerAdapter(@NonNull FragmentActivity fragmentActivity, int recipe, String name) {
+        super(fragmentActivity);
+        this.recipeId = recipe;
+        this.recipeName = name;
     }
 
     @NonNull
     @Override
-    public Fragment getItem(int position) {
-        return mFragmentList.get(position);
+    public Fragment createFragment(int position) {
+        switch (position) {
+            case 0:
+                return IngredientsFragment.newInstance(recipeId);
+            case 1:
+                return StepsFragment.newInstance(recipeId, recipeName);
+        }
+        return new IngredientsFragment();
     }
 
     @Override
-    public int getCount() {
-        return mFragmentList.size();
+    public int getItemCount() {
+        return 2;
     }
 }
