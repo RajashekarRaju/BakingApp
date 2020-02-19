@@ -3,7 +3,6 @@ package com.developersbreach.bakingapp.recipeDetail;
 import android.app.Application;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,17 +18,21 @@ import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.R;
-import com.developersbreach.bakingapp.databinding.FragmentRecipeDetailBinding;
 import com.developersbreach.bakingapp.ingredient.IngredientsFragment;
 import com.developersbreach.bakingapp.model.ItemLength;
 import com.developersbreach.bakingapp.model.Recipe;
 import com.developersbreach.bakingapp.step.StepsFragment;
+import com.developersbreach.bakingapp.utils.JsonUtils;
+import com.developersbreach.bakingapp.utils.QueryUtils;
+import com.developersbreach.bakingapp.utils.UriBuilder;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 
+import java.net.URL;
 import java.util.Objects;
 
 public class RecipeDetailFragment extends Fragment {
@@ -54,13 +56,7 @@ public class RecipeDetailFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null && getArguments().containsKey(ARG_PARCEL_RECIPE)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
             mRecipeTwoPane = getArguments().getParcelable(ARG_PARCEL_RECIPE);
-            if (mRecipeTwoPane != null) {
-                Log.e("Tablet", mRecipeTwoPane.getRecipeName());
-            }
         }
     }
 
@@ -68,25 +64,24 @@ public class RecipeDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        FragmentRecipeDetailBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipe_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
-        if (binding.itemDetailContainer != null) {
+        if (getResources().getBoolean(R.bool.isTablet)) {
             mTwoPane = true;
         }
 
-        setFragmentViews(binding);
-        return binding.getRoot();
+        setFragmentViews(view);
+        setNavButton();
+        return view;
     }
 
-    private void setFragmentViews(FragmentRecipeDetailBinding binding) {
-        mRecipeImageView = binding.detailImage;
-        mToolbar = binding.detailToolbar;
-        mCollapsingToolbarLayout = binding.collapsingToolbarLayout;
-        mAppBarLayout = binding.recipeDetailAppbarLayout;
-        mTabLayout = binding.recipeDetailTabLayout;
-        recipeDetailViewPager = binding.recipeDetailViewPager;
-        setNavButton();
-        setDetailAppBarLayout();
+    private void setFragmentViews(View binding) {
+        mRecipeImageView = binding.findViewById(R.id.detail_image);
+        mToolbar = binding.findViewById(R.id.detail_toolbar);
+        mCollapsingToolbarLayout = binding.findViewById(R.id.collapsing_toolbar_layout);
+        mAppBarLayout = binding.findViewById(R.id.recipe_detail_appbarLayout);
+        mTabLayout = binding.findViewById(R.id.recipe_detail_tabLayout);
+        recipeDetailViewPager = binding.findViewById(R.id.recipe_detail_view_pager);
         mTabLayout.setupWithViewPager(recipeDetailViewPager);
     }
 
@@ -118,16 +113,12 @@ public class RecipeDetailFragment extends Fragment {
                             .centerCrop()
                             .into(mRecipeImageView);
 
-                    createViewPagerSinglePane(recipeDetailViewPager, recipe.getRecipeId() - 1);
-
-                    Objects.requireNonNull(mTabLayout.getTabAt(0)).setIcon(R.drawable.ic_ingredients);
-                    Objects.requireNonNull(mTabLayout.getTabAt(1)).setIcon(R.drawable.ic_walkthrough);
-
+                    createViewPagerWithTabs(recipeDetailViewPager, recipe.getRecipeId() - 1, mRecipeName);
                     setBadges(mTabLayout, recipe.getRecipeId() - 1);
                 }
             });
 
-        } else if (mTwoPane){
+        } else {
 
             mToolbar.setTitle(mRecipeTwoPane.getRecipeName());
 
@@ -136,44 +127,72 @@ public class RecipeDetailFragment extends Fragment {
                     .centerCrop()
                     .into(mRecipeImageView);
 
-            createViewPagerDualPane(recipeDetailViewPager, mRecipeTwoPane.getRecipeId() - 1);
-
-            Objects.requireNonNull(mTabLayout.getTabAt(0)).setIcon(R.drawable.ic_ingredients);
-            Objects.requireNonNull(mTabLayout.getTabAt(1)).setIcon(R.drawable.ic_walkthrough);
-
-            setBadges(mTabLayout, mRecipeTwoPane.getRecipeId()- 1);
+            createViewPagerWithTabs(recipeDetailViewPager, mRecipeTwoPane.getRecipeId() - 1, mRecipeTwoPane.getRecipeName());
+            setTabLayoutBadges(mTabLayout, mRecipeTwoPane.getRecipeId() - 1);
         }
+
+        setDetailAppBarLayout();
     }
 
-    private void setBadges(final TabLayout tabLayout, int recipeId) {
+    private void setTabLayoutBadges(final TabLayout tabLayout, final int recipeId) {
 
-        mViewModel.getTotalIngredients(recipeId).observe(getViewLifecycleOwner(), new Observer<ItemLength>() {
+        AppExecutors.getInstance().networkIO().execute(new Runnable() {
             @Override
-            public void onChanged(ItemLength itemLength) {
+            public void run() {
+                try {
+                    String uriBuilder = UriBuilder.uriBuilder();
+                    URL requestUrl = QueryUtils.createUrl(uriBuilder);
+                    String responseString = QueryUtils.getResponseFromHttpUrl(requestUrl);
+                    ItemLength result = JsonUtils.findTotalNumber(responseString, recipeId);
+                    runOnMainThread(result);
 
-                BadgeDrawable ingredientsBadge = tabLayout.getTabAt(0).getOrCreateBadge();
-                ingredientsBadge.setVisible(true);
-                ingredientsBadge.setNumber(itemLength.getIngredientsSize());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
-                BadgeDrawable walkThroughBadge = tabLayout.getTabAt(1).getOrCreateBadge();
-                walkThroughBadge.setVisible(true);
-                walkThroughBadge.setNumber(itemLength.getStepsSize());
+            private void runOnMainThread(final ItemLength itemLength) {
+                AppExecutors.getInstance().mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        applyBadgeDrawables(itemLength, tabLayout);
+                    }
+                });
             }
         });
     }
 
-    private void createViewPagerDualPane(ViewPager recipeDetailViewPager, int recipeId) {
-        ChildFragmentPagerAdapter adapter = new ChildFragmentPagerAdapter(getChildFragmentManager());
-        adapter.createNewChildFragment(IngredientsFragment.newInstance(recipeId), "Ingredients");
-        adapter.createNewChildFragment(StepsFragment.newInstance(recipeId, mRecipeTwoPane.getRecipeName()), "WalkThrough");
-        recipeDetailViewPager.setAdapter(adapter);
+    private void setBadges(final TabLayout tabLayout, int recipeId) {
+        mViewModel.getTotalIngredients(recipeId).observe(getViewLifecycleOwner(), new Observer<ItemLength>() {
+            @Override
+            public void onChanged(ItemLength itemLength) {
+                applyBadgeDrawables(itemLength, tabLayout);
+            }
+        });
     }
 
-    private void createViewPagerSinglePane(ViewPager recipeDetailViewPager, int recipeId) {
+    private void applyBadgeDrawables(ItemLength itemLength, TabLayout tabLayout) {
+
+        int ingredientsSize = itemLength.getIngredientsSize();
+        int stepSize = itemLength.getStepsSize();
+
+        BadgeDrawable ingredientsBadge = Objects.requireNonNull(tabLayout.getTabAt(0)).getOrCreateBadge();
+        ingredientsBadge.setVisible(true);
+        ingredientsBadge.setNumber(ingredientsSize);
+
+        BadgeDrawable walkThroughBadge = Objects.requireNonNull(tabLayout.getTabAt(1)).getOrCreateBadge();
+        walkThroughBadge.setVisible(true);
+        walkThroughBadge.setNumber(stepSize);
+    }
+
+    private void createViewPagerWithTabs(ViewPager recipeDetailViewPager, int recipeId, String recipeName) {
         ChildFragmentPagerAdapter adapter = new ChildFragmentPagerAdapter(getChildFragmentManager());
         adapter.createNewChildFragment(IngredientsFragment.newInstance(recipeId), "Ingredients");
-        adapter.createNewChildFragment(StepsFragment.newInstance(recipeId, mRecipeName), "WalkThrough");
+        adapter.createNewChildFragment(StepsFragment.newInstance(recipeId, recipeName), "WalkThrough");
         recipeDetailViewPager.setAdapter(adapter);
+
+        Objects.requireNonNull(mTabLayout.getTabAt(0)).setIcon(R.drawable.ic_ingredients);
+        Objects.requireNonNull(mTabLayout.getTabAt(1)).setIcon(R.drawable.ic_walkthrough);
     }
 
     private void setDetailAppBarLayout() {
@@ -195,13 +214,8 @@ public class RecipeDetailFragment extends Fragment {
                         isShow = true;
                     }
                 } else if (isShow) {
-                    if (mTwoPane) {
-                        mCollapsingToolbarLayout.setTitle("");
-                        isShow = false;
-                    } else {
-                        mCollapsingToolbarLayout.setTitle("");
-                        isShow = false;
-                    }
+                    mCollapsingToolbarLayout.setTitle("");
+                    isShow = false;
                 }
             }
         });

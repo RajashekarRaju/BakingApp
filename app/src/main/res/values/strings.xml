@@ -22,4 +22,5 @@
     <string name="udacity_chef_name">Miriam</string>
     <string name="credit_podcast">Udacity’s resident baker-in-chief, Miriam, to share her recipes with the world.</string>
     <string name="miriam_title">Miriam</string>
+    <string name="trash_wrap_test">This could be nutella pie or may be not. Who even cares seriously. Now what really matters is whether this sentence has enough content to see how it wraps on screen.</string>
 </resources>

@@ -71,8 +71,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="This could be nutella pie or may be not. Who even cares seriously. Now what
-        really matters is whether this is sentence has enough content to see how it looks on screen." />
+                tools:text="@string/trash_wrap_test" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

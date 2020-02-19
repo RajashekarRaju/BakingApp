@@ -60,8 +60,8 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/recipe_detail_tabLayout"
-                app:tabIconTint="@color/colorWhite"
                 style="@style/TabLayoutStyleCustom"
+                android:paddingTop="8dp"
                 app:tabRippleColor="@android:color/transparent" />
 
         </androidx.viewpager.widget.ViewPager>

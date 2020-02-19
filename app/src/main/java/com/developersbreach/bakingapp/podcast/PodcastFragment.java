@@ -282,3 +282,25 @@ public class PodcastFragment extends Fragment {
                 || super.onOptionsItemSelected(item);
     }
 }
+
+
+//    FragmentPodcastBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_podcast, container, false);
+//    Toolbar podcastToolBar = binding.podcastToolbar;
+//    mPodcastRecyclerView=binding.podcastsRecyclerView;
+//    mBottomPlayerView=binding.podcastPlayerView;
+//    mMainPlayerView=binding.podcastMainPlayerView;
+//    setHasOptionsMenu(true);
+//    Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//    ((AppCompatActivity)Objects.requireNonNull(getActivity())).setSupportActionBar(podcastToolBar);
+//    mPodcastBottomPlayerView=binding.podcastBottomNavigationView;
+//    mPodcastRecipeAlbumImageView=binding.podcastBottomViewPlayerAlbumImageView;
+//    mPodcastRecipeTitleTextView=binding.podcastBottomViewPlayerTitleTextView;
+//    mPodcastChefTitleTextView=binding.podcastBottomViewPlayerChefTitleTextView;
+//    mPodcastBottomViewPlayerPlayImageView=binding.podcastBottomViewPlayerPlayImageView;
+//    mExpandedPodcastPlayerViewParent=binding.expandedPodcastPlayerViewParent;
+//    mExpandedPodcastRecipeImageView=binding.expandedPodcastPlayerImageView;
+//    mExpandedPodcastMinimizeImageView=binding.expandedPlayerMinimizeImageView;
+//    mExpandedPodcastRecipeTitleTextView=binding.expandedPodcastPlayerTitleTextView;
+//    mExpandedPodcastChefTitleTextView=binding.expandedPodcastPlayerChefTextView;
+//    mExpandedPodcastPodcastInfoTextView=binding.expandedPlayerPodcastInfoTextView;
+//    mPodcastMainPlayerPlayImageView=view.findViewById(R.id.podcast_main_player_play_image_view);

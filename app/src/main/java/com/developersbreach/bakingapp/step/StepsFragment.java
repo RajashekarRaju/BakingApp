@@ -47,7 +47,12 @@ public class StepsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         FragmentStepsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_steps, container, false);
+
+        binding.setLifecycleOwner(this);
+
+
         mStepsRecyclerView = binding.stepsRecyclerView;
+
         if (getArguments() != null) {
             mRecipeId = getArguments().getInt(EXTRA_RECIPE_STEPS_ID);
             mRecipeName = getArguments().getString(EXTRA_RECIPE_STEPS_NAME);
