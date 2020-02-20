@@ -1,37 +1,26 @@
 package com.developersbreach.bakingapp.ingredient;
 
-import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.R;
+import com.developersbreach.bakingapp.databinding.ItemIngredientBinding;
 import com.developersbreach.bakingapp.model.Ingredients;
 
-import java.util.List;
-
-public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.IngredientsViewHolder> {
-
-    // Context to access our resources
-    private final Context mContext;
-    // List of sandwich objects, create and return the elements
-    private final List<Ingredients> mIngredientsList;
-
-    private final IngredientsFragmentViewModel mViewModel;
-
+public class IngredientsAdapter extends ListAdapter<Ingredients, IngredientsAdapter.IngredientsViewHolder> {
 
     /**
      * Constructor for adapter class
      */
-    IngredientsAdapter(Context context, List<Ingredients> ingredientsList, IngredientsFragmentViewModel viewModel) {
-        this.mContext = context;
-        this.mIngredientsList = ingredientsList;
-        this.mViewModel = viewModel;
+    public IngredientsAdapter() {
+        super(DIFF_ITEM_CALLBACK);
     }
 
     /**
@@ -39,19 +28,18 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
      */
     class IngredientsViewHolder extends RecyclerView.ViewHolder {
 
-        // Views which are visible as single item in recycler view
-        final View mIngredientIndicatorItemView;
-        final TextView mIngredientQuantityItemTextView;
-        final TextView mIngredientMeasureItemTextView;
-        final TextView mIngredientNameItemTextView;
+        private final ItemIngredientBinding mBinding;
 
-        private IngredientsViewHolder(@NonNull final View itemView) {
-            super(itemView);
+        private IngredientsViewHolder(ItemIngredientBinding binding) {
+            super(binding.getRoot());
+            this.mBinding = binding;
+        }
 
-            mIngredientIndicatorItemView = itemView.findViewById(R.id.ingredient_indicator_item_view);
-            mIngredientQuantityItemTextView = itemView.findViewById(R.id.ingredient_quantity_item_text_view);
-            mIngredientMeasureItemTextView = itemView.findViewById(R.id.ingredient_measure_item_text_view);
-            mIngredientNameItemTextView = itemView.findViewById(R.id.ingredient_name_item_text_view);
+        void bind(final Ingredients ingredients) {
+            AppExecutors.getInstance().mainThread().execute(() -> {
+                mBinding.setIngredients(ingredients);
+                mBinding.executePendingBindings();
+            });
         }
     }
 
@@ -67,8 +55,9 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     @NonNull
     @Override
     public IngredientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_ingredient, parent, false);
-        return new IngredientsViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        ItemIngredientBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_ingredient, parent, false);
+        return new IngredientsViewHolder(binding);
     }
 
     /**
@@ -82,24 +71,20 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
      */
     @Override
     public void onBindViewHolder(@NonNull final IngredientsViewHolder holder, final int position) {
-        final Ingredients ingredients = mIngredientsList.get(position);
-
-        // Running a executor on main thread and load data from ViewModel of recipe properties.
-        AppExecutors.getInstance().mainThread().execute(new Runnable() {
-            @Override
-            public void run() {
-                mViewModel.loadIngredientsData(mContext, ingredients, holder);
-            }
-        });
+        final Ingredients ingredients = getItem(position);
+        holder.bind(ingredients);
     }
 
-    /**
-     * Returns the total number of items in the data set held by the adapter.
-     *
-     * @return The total number of items in this adapter.
-     */
-    @Override
-    public int getItemCount() {
-        return mIngredientsList.size();
-    }
+    private static final DiffUtil.ItemCallback<Ingredients> DIFF_ITEM_CALLBACK = new DiffUtil.ItemCallback<Ingredients>() {
+
+        @Override
+        public boolean areItemsTheSame(@NonNull Ingredients oldItem, @NonNull Ingredients newItem) {
+            return oldItem == newItem;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Ingredients oldItem, @NonNull Ingredients newItem) {
+            return oldItem.getIngredientsName().equals(newItem.getIngredientsName());
+        }
+    };
 }
