@@ -98,12 +98,13 @@ public class JsonUtils {
                     ingredientsMeasure = ingredientsObject.getString(MEASURE);
                 }
 
-                String ingredientsIngredient = null;
+                String formatIngredient = null;
                 if (ingredientsObject.has(INGREDIENT)) {
-                    ingredientsIngredient = ingredientsObject.getString(INGREDIENT);
+                    String ingredientsIngredient = ingredientsObject.getString(INGREDIENT);
+                    formatIngredient = StringUtils.capitalize(ingredientsIngredient);
                 }
 
-                Ingredients ingredients = new Ingredients(ingredientsQuantity, ingredientsMeasure, ingredientsIngredient);
+                Ingredients ingredients = new Ingredients(ingredientsQuantity, ingredientsMeasure, formatIngredient);
                 ingredientsList.add(ingredients);
             }
 

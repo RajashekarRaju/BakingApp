@@ -49,7 +49,6 @@ public class RecipeListFragment extends Fragment {
         mRecipeRecyclerView = binding.recipeRecyclerView;
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(recipeToolBar);
 
-
         binding.setLifecycleOwner(this);
 
         setHasOptionsMenu(true);
