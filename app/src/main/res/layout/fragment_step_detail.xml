@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="stepDetail"
+            type="com.developersbreach.bakingapp.model.Steps" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -37,6 +39,7 @@
             tools:context=".stepDetail.StepDetailFragment">
 
             <TextView
+                stepDetailShortDescription="@{stepDetail.stepsShortDescription}"
                 android:id="@+id/step_shortDescription_player_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,13 +64,14 @@
                 app:use_controller="true" />
 
             <TextView
+                stepDetailDescription="@{stepDetail.stepsDescription}"
                 android:id="@+id/step_description_player_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="40dp"
                 android:padding="8dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

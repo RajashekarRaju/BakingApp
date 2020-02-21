@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModel;
 import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.model.Podcast;
 import com.developersbreach.bakingapp.utils.JsonUtils;
-import com.developersbreach.bakingapp.utils.QueryUtils;
-import com.developersbreach.bakingapp.utils.UriBuilder;
+import com.developersbreach.bakingapp.utils.ResponseBuilder;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -33,15 +31,9 @@ public class PodcastFragmentViewModel extends ViewModel {
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
             @Override
             public void run() {
-                try {
-                    String uriBuilder = UriBuilder.uriBuilder();
-                    URL requestUrl = QueryUtils.createUrl(uriBuilder);
-                    String responseString = QueryUtils.getResponseFromHttpUrl(requestUrl);
-                    List<Podcast> recipeList = JsonUtils.fetchPodcastJsonData(responseString);
-                    mMutablePodcastList.postValue(recipeList);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                String responseString = ResponseBuilder.startResponse();
+                List<Podcast> recipeList = JsonUtils.fetchPodcastJsonData(responseString);
+                mMutablePodcastList.postValue(recipeList);
             }
         });
     }
@@ -68,11 +60,11 @@ public class PodcastFragmentViewModel extends ViewModel {
         return mPlayBackPosition;
     }
 
-    public void setCurrentWindow(int currentWindow) {
+    void setCurrentWindow(int currentWindow) {
         this.mCurrentWindow = currentWindow;
     }
 
-    public void setPlayBackPosition(long playBackPosition) {
+    void setPlayBackPosition(long playBackPosition) {
         this.mPlayBackPosition = playBackPosition;
     }
 }

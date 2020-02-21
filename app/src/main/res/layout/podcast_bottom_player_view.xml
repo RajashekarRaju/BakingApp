@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:showIn="@layout/fragment_podcast">
+
+    <com.google.android.exoplayer2.ui.PlayerControlView
+        android:id="@+id/podcast_player_control_view"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginStart="-8dp"
+        android:layout_marginEnd="-8dp"
+        app:buffered_color="#616161"
+        app:controller_layout_id="@layout/podcast_bottom_player_control_view"
+        app:played_color="#ffeb3b"
+        app:scrubber_enabled_size="0dp"
+        app:show_timeout="0"
+        app:use_controller="true" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/bottom_player_album_image_view_podcast"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_audiotrack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/bottom_player_podcast_title_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/bottom_player_chef_text_view_podcast"
+            app:layout_constraintStart_toEndOf="@id/bottom_player_album_image_view_podcast"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Nutella pie" />
+
+        <TextView
+            android:id="@+id/bottom_player_chef_text_view_podcast"
+            android:text="@string/udacity_chef_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/bottom_player_podcast_title_text_view"
+            app:layout_constraintTop_toBottomOf="@id/bottom_player_podcast_title_text_view"
+            tools:text="Chef name" />
+
+        <ImageView
+            android:id="@+id/bottom_player_play_image_view_podcast"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_pause_player"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

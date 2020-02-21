@@ -4,7 +4,7 @@ public class WidgetItem {
 
     private String mRecipeName;
 
-    WidgetItem(String recipeName) {
+    public WidgetItem(String recipeName) {
         this.mRecipeName = recipeName;
     }
 

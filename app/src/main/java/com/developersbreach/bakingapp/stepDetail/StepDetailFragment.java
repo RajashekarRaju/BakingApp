@@ -1,5 +1,6 @@
 package com.developersbreach.bakingapp.stepDetail;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -10,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -45,66 +44,61 @@ public class StepDetailFragment extends Fragment {
     private PlayerView mRecipePlayerView;
     private SimpleExoPlayer mExoPlayer;
     private boolean playWhenReady = true;
-    private TextView mPlayerShortDescriptionTextView;
-    private TextView mPlayerDescriptionTextView;
+
     private Toolbar mStepDetailToolBar;
+    private FragmentStepDetailBinding mBinding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        FragmentStepDetailBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_step_detail, container, false);
-        mRecipePlayerView = binding.recipePlayerView;
-        mPlayerShortDescriptionTextView = binding.stepShortDescriptionPlayerTextView;
-        mPlayerDescriptionTextView = binding.stepDescriptionPlayerTextView;
-        mStepDetailToolBar = binding.stepDetailToolbar;
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_step_detail, container, false);
+        mRecipePlayerView = mBinding.recipePlayerView;
+        mStepDetailToolBar = mBinding.stepDetailToolbar;
         setHasOptionsMenu(true);
 
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(mStepDetailToolBar);
 
         int deviceState = getResources().getConfiguration().orientation;
         if (deviceState == Configuration.ORIENTATION_LANDSCAPE) {
-            binding.getRoot().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            mBinding.getRoot().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                     | View.SYSTEM_UI_FLAG_FULLSCREEN);
         }
 
-        setNavButton();
-        return binding.getRoot();
-    }
+        mBinding.setLifecycleOwner(this);
 
+        setNavButton();
+        return mBinding.getRoot();
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Application application = Objects.requireNonNull(getActivity()).getApplication();
-        Steps steps = StepDetailFragmentArgs.fromBundle(Objects.requireNonNull(getArguments())).getStepDetailArgs();
-        String name = StepDetailFragmentArgs.fromBundle(Objects.requireNonNull(getArguments())).getRecipeNameStepDetailArgs();
-        StepDetailFragmentViewModelFactory factory = new StepDetailFragmentViewModelFactory(application, steps, name);
+        Bundle args = Objects.requireNonNull(getArguments());
+        Activity activity = Objects.requireNonNull(getActivity());
+        Application application = activity.getApplication();
+        Steps stepsArgs = StepDetailFragmentArgs.fromBundle(args).getStepDetailArgs();
+        String nameArgs = StepDetailFragmentArgs.fromBundle(args).getRecipeNameStepDetailArgs();
+        StepDetailFragmentViewModelFactory factory = new StepDetailFragmentViewModelFactory(application, stepsArgs, nameArgs);
         mViewModel = new ViewModelProvider(this, factory).get(StepDetailFragmentViewModel.class);
 
-        AppExecutors.getInstance().mainThread().execute(new Runnable() {
-            @Override
-            public void run() {
-                mStepDetailToolBar.setTitle(mViewModel.getRecipeName());
-                mViewModel.getStepDetailData().observe(getViewLifecycleOwner(), new Observer<Steps>() {
-                    @Override
-                    public void onChanged(Steps steps) {
-                        mPlayerShortDescriptionTextView.setText(steps.getStepsShortDescription());
-                        mPlayerDescriptionTextView.setText(steps.getStepsDescription());
+        AppExecutors.getInstance().mainThread().execute(() -> {
 
-                        if (steps.getVideoUrl().equals("")) {
-                            mRecipePlayerView.setCustomErrorMessage("Video Not Available");
-                            mRecipePlayerView.setUseController(false);
-                        }
-                    }
-                });
-            }
+            mStepDetailToolBar.setTitle(mViewModel.getRecipeName());
+            mViewModel.getStepDetailData().observe(getViewLifecycleOwner(), steps -> {
+                mBinding.setStepDetail(steps);
+                mBinding.executePendingBindings();
+
+                if (steps.getVideoUrl().equals("")) {
+                    mRecipePlayerView.setCustomErrorMessage(getResources().getString(R.string.exo_player_video_error));
+                    mRecipePlayerView.setUseController(false);
+                }
+            });
         });
     }
 
     private void initializePlayer(String videoUrl) {
-
         mExoPlayer = ExoPlayerFactory.newSimpleInstance(Objects.requireNonNull(getContext()));
         mRecipePlayerView.setPlayer(mExoPlayer);
 
@@ -149,24 +143,16 @@ public class StepDetailFragment extends Fragment {
 
 
     private void setNavButton() {
-        mStepDetailToolBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigateUp();
-            }
-        });
+        mStepDetailToolBar.setNavigationOnClickListener(
+                view -> Navigation.findNavController(view).navigateUp());
     }
 
     @Override
     public void onResume() {
         super.onResume();
         if ((Util.SDK_INT < 24 || mExoPlayer == null)) {
-            mViewModel.getStepDetailData().observe(getViewLifecycleOwner(), new Observer<Steps>() {
-                @Override
-                public void onChanged(Steps steps) {
-                    initializePlayer(steps.getVideoUrl());
-                }
-            });
+            mViewModel.getStepDetailData().observe(getViewLifecycleOwner(),
+                    steps -> initializePlayer(steps.getVideoUrl()));
         }
     }
 

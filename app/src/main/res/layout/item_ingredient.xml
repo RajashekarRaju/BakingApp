@@ -9,7 +9,7 @@
             name="ingredients"
             type="com.developersbreach.bakingapp.model.Ingredients" />
         <import
-            type="com.developersbreach.bakingapp.utils.UriBuilder" />
+            type="com.developersbreach.bakingapp.utils.ResponseBuilder" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

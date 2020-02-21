@@ -10,10 +10,7 @@ import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.model.ItemLength;
 import com.developersbreach.bakingapp.model.Recipe;
 import com.developersbreach.bakingapp.utils.JsonUtils;
-import com.developersbreach.bakingapp.utils.QueryUtils;
-import com.developersbreach.bakingapp.utils.UriBuilder;
-
-import java.net.URL;
+import com.developersbreach.bakingapp.utils.ResponseBuilder;
 
 
 public class RecipeDetailFragmentViewModel extends AndroidViewModel {
@@ -41,15 +38,9 @@ public class RecipeDetailFragmentViewModel extends AndroidViewModel {
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
             @Override
             public void run() {
-                try {
-                    String uriBuilder = UriBuilder.uriBuilder();
-                    URL requestUrl = QueryUtils.createUrl(uriBuilder);
-                    String responseString = QueryUtils.getResponseFromHttpUrl(requestUrl);
-                    ItemLength result = JsonUtils.findTotalNumber(responseString, recipeId);
-                    mMutableTotalNumber.postValue(result);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                String responseString = ResponseBuilder.startResponse();
+                ItemLength result = JsonUtils.findTotalNumber(responseString, recipeId);
+                mMutableTotalNumber.postValue(result);
             }
         });
     }

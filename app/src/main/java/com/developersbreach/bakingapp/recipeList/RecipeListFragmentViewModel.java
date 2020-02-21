@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModel;
 import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.model.Recipe;
 import com.developersbreach.bakingapp.utils.JsonUtils;
-import com.developersbreach.bakingapp.utils.QueryUtils;
-import com.developersbreach.bakingapp.utils.UriBuilder;
+import com.developersbreach.bakingapp.utils.ResponseBuilder;
 
-import java.net.URL;
 import java.util.List;
 
 
@@ -29,16 +27,12 @@ public class RecipeListFragmentViewModel extends ViewModel {
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
             @Override
             public void run() {
-                try {
-                    String uriBuilder = UriBuilder.uriBuilder();
-                    URL requestUrl = QueryUtils.createUrl(uriBuilder);
-                    String responseString = QueryUtils.getResponseFromHttpUrl(requestUrl);
-                    List<Recipe> recipeList = JsonUtils.fetchRecipeJsonData(responseString);
-                    mMutableRecipeList.postValue(recipeList);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                String responseString = ResponseBuilder.startResponse();
+                List<Recipe> recipeList = JsonUtils.fetchRecipeJsonData(responseString);
+                mMutableRecipeList.postValue(recipeList);
             }
         });
     }
+
+
 }

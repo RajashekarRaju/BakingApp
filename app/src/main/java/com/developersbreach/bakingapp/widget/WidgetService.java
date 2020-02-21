@@ -9,10 +9,8 @@ import android.widget.RemoteViewsService;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.model.Ingredients;
 import com.developersbreach.bakingapp.utils.JsonUtils;
-import com.developersbreach.bakingapp.utils.QueryUtils;
-import com.developersbreach.bakingapp.utils.UriBuilder;
+import com.developersbreach.bakingapp.utils.ResponseBuilder;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,14 +60,8 @@ class WidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory 
      */
     @Override
     public void onDataSetChanged() {
-        try {
-            String uriBuilder = UriBuilder.uriBuilder();
-            URL requestUrl = QueryUtils.createUrl(uriBuilder);
-            String responseString = QueryUtils.getResponseFromHttpUrl(requestUrl);
-            mIngredientsList = JsonUtils.fetchIngredients(responseString, mRecipeWidgetId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String responseString = ResponseBuilder.startResponse();
+        mIngredientsList = JsonUtils.fetchIngredients(responseString, mRecipeWidgetId);
     }
 
     /**

@@ -56,11 +56,11 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/podcast_main_player_play_image_view"
+        android:id="@+id/main_player_play_image_view_podcast"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/ic_pause_circle_outline_black_24dp"
+        android:src="@drawable/ic_pause_player"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_player_linear_parent"
@@ -73,9 +73,9 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginEnd="40dp"
-        app:layout_constraintBottom_toBottomOf="@id/podcast_main_player_play_image_view"
-        app:layout_constraintEnd_toStartOf="@id/podcast_main_player_play_image_view"
-        app:layout_constraintTop_toTopOf="@id/podcast_main_player_play_image_view"
+        app:layout_constraintBottom_toBottomOf="@id/main_player_play_image_view_podcast"
+        app:layout_constraintEnd_toStartOf="@id/main_player_play_image_view_podcast"
+        app:layout_constraintTop_toTopOf="@id/main_player_play_image_view_podcast"
         tools:ignore="ContentDescription" />
 
     <ImageView
@@ -85,9 +85,9 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="40dp"
-        app:layout_constraintBottom_toBottomOf="@id/podcast_main_player_play_image_view"
-        app:layout_constraintStart_toEndOf="@id/podcast_main_player_play_image_view"
-        app:layout_constraintTop_toTopOf="@id/podcast_main_player_play_image_view"
+        app:layout_constraintBottom_toBottomOf="@id/main_player_play_image_view_podcast"
+        app:layout_constraintStart_toEndOf="@id/main_player_play_image_view_podcast"
+        app:layout_constraintTop_toTopOf="@id/main_player_play_image_view_podcast"
         tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

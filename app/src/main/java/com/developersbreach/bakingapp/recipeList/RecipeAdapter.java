@@ -19,9 +19,9 @@ import java.util.List;
 
 public class RecipeAdapter extends ListAdapter<Recipe, RecipeAdapter.RecipeViewHolder> {
 
+
     private final List<Recipe> mRecipeList;
     private final RecipeAdapterListener mListener;
-
 
     RecipeAdapter(List<Recipe> recipeList, RecipeAdapterListener listener) {
         super(DIFF_ITEM_CALLBACK);
@@ -47,21 +47,14 @@ public class RecipeAdapter extends ListAdapter<Recipe, RecipeAdapter.RecipeViewH
             super(binding.getRoot());
             this.mBinding = binding;
 
-            binding.recipeImageItemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mListener.onRecipeSelected(mBinding.getRecipe(), view);
-                }
-            });
+            binding.recipeImageItemView.setOnClickListener(
+                    view -> mListener.onRecipeSelected(mBinding.getRecipe(), view));
         }
 
         void bind(final Recipe recipe) {
-            AppExecutors.getInstance().mainThread().execute(new Runnable() {
-                @Override
-                public void run() {
-                    mBinding.setRecipe(recipe);
-                    mBinding.executePendingBindings();
-                }
+            AppExecutors.getInstance().mainThread().execute(() -> {
+                mBinding.setRecipe(recipe);
+                mBinding.executePendingBindings();
             });
         }
     }

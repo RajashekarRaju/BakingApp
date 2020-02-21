@@ -93,7 +93,7 @@ public class RecipeListFragment extends Fragment {
                 Navigation.findNavController(view).navigate(direction);
             } else {
                 Bundle arguments = new Bundle();
-                arguments.putParcelable(RecipeDetailFragment.ARG_PARCEL_RECIPE, recipe);
+                arguments.putParcelable(RecipeDetailFragment.ARG_PARCEL_RECIPE_DUAL_PANE, recipe);
                 RecipeDetailFragment fragment = new RecipeDetailFragment();
                 fragment.setArguments(arguments);
                 getChildFragmentManager().beginTransaction()

@@ -9,7 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
-public class QueryUtils {
+class QueryUtils {
 
     // TODO check what deliminator does by removing it.
 
@@ -20,7 +20,7 @@ public class QueryUtils {
      * @return The contents of the HTTP response, null if no response
      * @throws IOException Related to network and stream reading
      */
-    public static String getResponseFromHttpUrl(URL url) throws IOException {
+    static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
             InputStream in = urlConnection.getInputStream();
@@ -43,7 +43,7 @@ public class QueryUtils {
     /**
      * Returns new URL object from the given string URL.
      */
-    public static URL createUrl(String stringUrl) {
+    static URL createUrl(String stringUrl) {
         URL url = null;
         try {
             url = new URL(stringUrl);

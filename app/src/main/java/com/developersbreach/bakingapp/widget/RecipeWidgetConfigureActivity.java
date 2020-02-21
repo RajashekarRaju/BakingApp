@@ -12,10 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.databinding.RecipeWidgetConfigureBinding;
+import com.developersbreach.bakingapp.utils.JsonUtils;
+import com.developersbreach.bakingapp.utils.ResponseBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +33,47 @@ public class RecipeWidgetConfigureActivity extends Activity {
 
     public RecipeWidgetConfigureActivity() {
         super();
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setResult(RESULT_CANCELED);
+        setContentView(R.layout.recipe_widget_configure);
+
+        RecipeWidgetConfigureBinding binding = DataBindingUtil.setContentView(this, R.layout.recipe_widget_configure);
+
+        RecyclerView recyclerView = binding.widgetRecyclerView;
+
+        AppExecutors.getInstance().networkIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                String responseString = ResponseBuilder.startResponse();
+                List<WidgetItem> widgetItemList = JsonUtils.fetchWidgetJsonData(responseString);
+                runOnMainThread(widgetItemList);
+            }
+
+            private void runOnMainThread(List<WidgetItem> widgetItemList) {
+                AppExecutors.getInstance().mainThread().execute(() -> {
+                    WidgetItemAdapter adapter = new WidgetItemAdapter(widgetItemList,
+                            new WidgetItemListener());
+                    recyclerView.setAdapter(adapter);
+                });
+            }
+        });
+
+        // Find the widget id from the intent.
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            mAppWidgetId = extras.getInt(
+                    AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+        }
+
+        // If this activity was started with an intent without an app widget ID, finish with an error.
+        if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+            finish();
+        }
     }
 
     static void saveIdPref(Context context, int appWidgetId, int recipeId) {
@@ -68,43 +111,6 @@ public class RecipeWidgetConfigureActivity extends Activity {
         SharedPreferences.Editor prefsName = context.getSharedPreferences(PREFS_NAME_RECIPE_NAME, 0).edit();
         prefsName.remove(PREF_PREFIX_KEY_NAME + appWidgetId);
         prefsName.apply();
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setResult(RESULT_CANCELED);
-        setContentView(R.layout.recipe_widget_configure);
-
-        RecipeWidgetConfigureBinding binding = DataBindingUtil.setContentView(this, R.layout.recipe_widget_configure);
-
-        RecyclerView recyclerView = binding.widgetRecyclerView;
-
-        List<WidgetItem> widgetItemList = new ArrayList<>();
-
-        String[] recipeStringArray = getResources().getStringArray(R.array.recipe_name_array);
-
-        for (String recipeName : recipeStringArray) {
-            widgetItemList.add(new WidgetItem(recipeName));
-        }
-
-        WidgetItemAdapter adapter = new WidgetItemAdapter(getApplicationContext(),
-                widgetItemList, new WidgetItemListener());
-
-        recyclerView.setAdapter(adapter);
-
-        // Find the widget id from the intent.
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            mAppWidgetId = extras.getInt(
-                    AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-        }
-
-        // If this activity was started with an intent without an app widget ID, finish with an error.
-        if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-            finish();
-        }
     }
 
     private class WidgetItemListener implements WidgetItemAdapter.WidgetItemAdapterListener {

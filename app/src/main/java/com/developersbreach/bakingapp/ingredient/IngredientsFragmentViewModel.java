@@ -8,10 +8,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.model.Ingredients;
 import com.developersbreach.bakingapp.utils.JsonUtils;
-import com.developersbreach.bakingapp.utils.QueryUtils;
-import com.developersbreach.bakingapp.utils.UriBuilder;
+import com.developersbreach.bakingapp.utils.ResponseBuilder;
 
-import java.net.URL;
 import java.util.List;
 
 public class IngredientsFragmentViewModel extends AndroidViewModel {
@@ -19,7 +17,7 @@ public class IngredientsFragmentViewModel extends AndroidViewModel {
     private MutableLiveData<List<Ingredients>> _mMutableIngredientsList;
     private int mMutableRecipeId;
 
-    public MutableLiveData<List<Ingredients>> ingredientsList(){
+    public MutableLiveData<List<Ingredients>> ingredientsList() {
         return _mMutableIngredientsList;
     }
 
@@ -38,15 +36,9 @@ public class IngredientsFragmentViewModel extends AndroidViewModel {
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
             @Override
             public void run() {
-                try {
-                    String uriBuilder = UriBuilder.uriBuilder();
-                    URL requestUrl = QueryUtils.createUrl(uriBuilder);
-                    String responseString = QueryUtils.getResponseFromHttpUrl(requestUrl);
-                    List<Ingredients> ingredientsList = JsonUtils.fetchIngredients(responseString, recipeId);
-                    _mMutableIngredientsList.postValue(ingredientsList);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                String responseString = ResponseBuilder.startResponse();
+                List<Ingredients> ingredientsList = JsonUtils.fetchIngredients(responseString, recipeId);
+                _mMutableIngredientsList.postValue(ingredientsList);
             }
         });
     }

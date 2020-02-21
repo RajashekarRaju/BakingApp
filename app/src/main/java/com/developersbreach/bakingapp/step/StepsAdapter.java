@@ -1,38 +1,35 @@
 package com.developersbreach.bakingapp.step;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.R;
+import com.developersbreach.bakingapp.databinding.ItemStepBinding;
 import com.developersbreach.bakingapp.model.Steps;
 
 import java.util.List;
 
-public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHolder> {
+public class StepsAdapter extends ListAdapter<Steps, StepsAdapter.StepsViewHolder> {
 
-    // Context to access our resources
-    private final Context mContext;
     // List of sandwich objects, create and return the elements
     private final List<Steps> mStepsList;
     // Declaring custom listener for all click events
     private final StepsAdapterListener mListener;
-    // ViewModel to get all data from class
-    private final StepsFragmentViewModel mViewModel;
 
+    private final StepsFragmentViewModel mViewModel;
 
     /**
      * Constructor for adapter class
      */
-    StepsAdapter(Context context, List<Steps> stepsList, StepsAdapterListener listener, StepsFragmentViewModel viewModel) {
-        this.mContext = context;
+    StepsAdapter(List<Steps> stepsList, StepsAdapterListener listener, StepsFragmentViewModel viewModel) {
+        super(DIFF_ITEM_CALLBACK);
         this.mStepsList = stepsList;
         this.mListener = listener;
         this.mViewModel = viewModel;
@@ -50,16 +47,16 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
      */
     class StepsViewHolder extends RecyclerView.ViewHolder {
 
-        // Views which are visible as single item in recycler view
-        final TextView mStepShortDescriptionItemTextView;
-        final ImageView mStepsVideoPlayArrowItemImageView;
-        final TextView mVideoSizeTextView;
+        private final ItemStepBinding mBinding;
 
-        private StepsViewHolder(@NonNull final View itemView) {
-            super(itemView);
-            mStepShortDescriptionItemTextView = itemView.findViewById(R.id.step_shortDescription_item_text_view);
-            mStepsVideoPlayArrowItemImageView = itemView.findViewById(R.id.step_play_arrow_item_image_view);
-            mVideoSizeTextView = itemView.findViewById(R.id.video_size);
+        private StepsViewHolder(ItemStepBinding binding) {
+            super(binding.getRoot());
+            this.mBinding = binding;
+        }
+
+        void bind(final Steps steps) {
+            mBinding.setStep(steps);
+            mBinding.executePendingBindings();
         }
     }
 
@@ -75,8 +72,9 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
     @NonNull
     @Override
     public StepsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_step, parent, false);
-        return new StepsViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        ItemStepBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_step, parent, false);
+        return new StepsViewHolder(binding);
     }
 
     /**
@@ -91,29 +89,12 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
     @Override
     public void onBindViewHolder(@NonNull final StepsViewHolder holder, final int position) {
         final Steps steps = mStepsList.get(position);
-
-        // Running a executor on main thread and load data from ViewModel of recipe properties.
-        AppExecutors.getInstance().mainThread().execute(new Runnable() {
-            @Override
-            public void run() {
-                mViewModel.loadStepsData(mContext, steps, holder);
-            }
-        });
-
-        AppExecutors.getInstance().networkIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                mViewModel.loadVideoDurationInBackground(steps, holder);
-            }
-        });
+        holder.bind(steps);
 
         // Set listener using itemView and call onSandwichSelected from declared custom interface
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String recipeName = mViewModel.getMutableRecipeName();
-                mListener.onStepSelected(steps, recipeName, view);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            String recipeName = mViewModel.getMutableRecipeName();
+            mListener.onStepSelected(steps, recipeName, view);
         });
     }
 
@@ -126,4 +107,17 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
     public int getItemCount() {
         return mStepsList.size();
     }
+
+    private static final DiffUtil.ItemCallback<Steps> DIFF_ITEM_CALLBACK = new DiffUtil.ItemCallback<Steps>() {
+
+        @Override
+        public boolean areItemsTheSame(@NonNull Steps oldItem, @NonNull Steps newItem) {
+            return oldItem == newItem;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Steps oldItem, @NonNull Steps newItem) {
+            return oldItem.getStepsId().equals(newItem.getStepsId());
+        }
+    };
 }

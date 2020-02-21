@@ -1,41 +1,37 @@
 package com.developersbreach.bakingapp.podcast;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.R;
+import com.developersbreach.bakingapp.databinding.ItemPodcastBinding;
 import com.developersbreach.bakingapp.model.Podcast;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
-public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastViewHolder> {
+public class PodcastAdapter extends ListAdapter<Podcast, PodcastAdapter.PodcastViewHolder> {
 
-    // Context to access our resources
-    private final Context mContext;
     // List of sandwich objects, create and return the elements
     private final List<Podcast> mPodcastList;
     // Declaring custom listener for all click events
     private final PodcastAdapterListener mListener;
-    // ViewModel to get all data from class
-    private final PodcastFragmentViewModel mViewModel;
 
     /**
      * Constructor for adapter class
      */
-    PodcastAdapter(Context context, List<Podcast> podcastList, PodcastAdapterListener listener,
-                   PodcastFragmentViewModel viewModel) {
-        this.mContext = context;
+    PodcastAdapter(List<Podcast> podcastList, PodcastAdapterListener listener) {
+        super(DIFF_ITEM_CALLBACK);
         this.mPodcastList = podcastList;
         this.mListener = listener;
-        this.mViewModel = viewModel;
     }
 
     /**
@@ -50,16 +46,26 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
      */
     class PodcastViewHolder extends RecyclerView.ViewHolder {
 
-        // Views which are visible as single item in recycler view
-        final TextView mPodcastRecipeChefItemTextView;
-        final TextView mPodcastRecipeNameTextItemView;
-        final ImageView mPodcastRecipeOverflowMenuItemView;
+        private final ItemPodcastBinding mBinding;
 
-        private PodcastViewHolder(@NonNull final View itemView) {
-            super(itemView);
-            mPodcastRecipeChefItemTextView = itemView.findViewById(R.id.podcast_recipe_chef_item_text_view);
-            mPodcastRecipeNameTextItemView = itemView.findViewById(R.id.podcast_recipe_name_item_text_view);
-            mPodcastRecipeOverflowMenuItemView = itemView.findViewById(R.id.podcast_overflow_menu_item_image_view);
+        private PodcastViewHolder(ItemPodcastBinding binding) {
+            super(binding.getRoot());
+            this.mBinding = binding;
+
+            binding.getRoot().setOnClickListener(
+                    view -> mListener.onPodcastSelected(mBinding.getPodcast(), view));
+
+            binding.podcastOverflowMenuItemImageView.setOnClickListener(
+                    view -> new MaterialAlertDialogBuilder(view.getContext())
+                            .setView(R.layout.podcast_credit)
+                            .show());
+        }
+
+        void bind(final Podcast podcast) {
+            AppExecutors.getInstance().mainThread().execute(() -> {
+                mBinding.setPodcast(podcast);
+                mBinding.executePendingBindings();
+            });
         }
     }
 
@@ -75,8 +81,9 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
     @NonNull
     @Override
     public PodcastViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_podcast, parent, false);
-        return new PodcastViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        ItemPodcastBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_podcast, parent, false);
+        return new PodcastViewHolder(binding);
     }
 
     /**
@@ -91,29 +98,8 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
     @Override
     public void onBindViewHolder(@NonNull final PodcastViewHolder holder, final int position) {
         final Podcast podcast = mPodcastList.get(position);
-
-        holder.mPodcastRecipeNameTextItemView.setText(podcast.getPodcastRecipeName());
-        holder.mPodcastRecipeChefItemTextView.setText(mContext.getResources().getString(R.string.udacity_chef_name));
-
-        // Set listener using itemView and call onSandwichSelected from declared custom interface
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.onPodcastSelected(podcast, view);
-            }
-        });
-
-
-        holder.mPodcastRecipeOverflowMenuItemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new MaterialAlertDialogBuilder(mContext)
-                        .setView(R.layout.podcast_credit)
-                        .show();
-            }
-        });
+        holder.bind(podcast);
     }
-
 
     /**
      * Returns the total number of items in the data set held by the adapter.
@@ -124,4 +110,18 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
     public int getItemCount() {
         return mPodcastList.size();
     }
+
+
+    private static final DiffUtil.ItemCallback<Podcast> DIFF_ITEM_CALLBACK = new DiffUtil.ItemCallback<Podcast>() {
+
+        @Override
+        public boolean areItemsTheSame(@NonNull Podcast oldItem, @NonNull Podcast newItem) {
+            return oldItem == newItem;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Podcast oldItem, @NonNull Podcast newItem) {
+            return oldItem.getPodcastRecipeId() == newItem.getPodcastRecipeId();
+        }
+    };
 }

@@ -1,22 +1,22 @@
 package com.developersbreach.bakingapp.widget;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.R;
+import com.developersbreach.bakingapp.databinding.ItemRecipeWidgetBinding;
 
 import java.util.List;
 
 public class WidgetItemAdapter extends RecyclerView.Adapter<WidgetItemAdapter.WidgetItemViewHolder> {
 
-    // Context to access our resources
-    private final Context mContext;
+
     // List of sandwich objects, create and return the elements
     private final List<WidgetItem> mWidgetItemList;
     // Declaring custom listener for all click events
@@ -25,8 +25,7 @@ public class WidgetItemAdapter extends RecyclerView.Adapter<WidgetItemAdapter.Wi
     /**
      * Constructor for adapter class
      */
-    WidgetItemAdapter(Context context, List<WidgetItem> widgetItemList, WidgetItemAdapterListener listener) {
-        this.mContext = context;
+    WidgetItemAdapter(List<WidgetItem> widgetItemList, WidgetItemAdapterListener listener) {
         this.mWidgetItemList = widgetItemList;
         this.mListener = listener;
     }
@@ -43,12 +42,18 @@ public class WidgetItemAdapter extends RecyclerView.Adapter<WidgetItemAdapter.Wi
      */
     class WidgetItemViewHolder extends RecyclerView.ViewHolder {
 
-        // Views which are visible as single item in recycler view
-        final TextView mWidgetItemTextItemView;
+        private final ItemRecipeWidgetBinding mBinding;
 
-        private WidgetItemViewHolder(@NonNull final View itemView) {
-            super(itemView);
-            mWidgetItemTextItemView = itemView.findViewById(R.id.widget_item_text_view);
+        private WidgetItemViewHolder(final ItemRecipeWidgetBinding binding) {
+            super(binding.getRoot());
+            this.mBinding = binding;
+        }
+
+        void bind(final WidgetItem widgetItem) {
+            AppExecutors.getInstance().mainThread().execute(() -> {
+                mBinding.setWidgetItem(widgetItem);
+                mBinding.executePendingBindings();
+            });
         }
     }
 
@@ -64,8 +69,9 @@ public class WidgetItemAdapter extends RecyclerView.Adapter<WidgetItemAdapter.Wi
     @NonNull
     @Override
     public WidgetItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_recipe_widget, parent, false);
-        return new WidgetItemViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        ItemRecipeWidgetBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_recipe_widget, parent, false);
+        return new WidgetItemViewHolder(binding);
     }
 
     /**
@@ -80,15 +86,10 @@ public class WidgetItemAdapter extends RecyclerView.Adapter<WidgetItemAdapter.Wi
     @Override
     public void onBindViewHolder(@NonNull final WidgetItemViewHolder holder, final int position) {
         final WidgetItem widgetItem = mWidgetItemList.get(position);
-        holder.mWidgetItemTextItemView.setText(widgetItem.getRecipeName());
+        holder.bind(widgetItem);
 
         // Set listener using itemView and call onSandwichSelected from declared custom interface
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.onWidgetItemSelected(widgetItem, view, position);
-            }
-        });
+        holder.itemView.setOnClickListener(view -> mListener.onWidgetItemSelected(widgetItem, view, position));
     }
 
     /**

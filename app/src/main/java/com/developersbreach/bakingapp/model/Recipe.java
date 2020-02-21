@@ -9,16 +9,13 @@ public class Recipe implements Parcelable {
     private final int mRecipeId;
     // Name of the sandwich
     private final String mRecipeName;
-    // Recipe description
-    private final String mRecipeServings;
     // Image of the sandwich
     private final String mRecipeImage;
 
 
-    public Recipe(int recipeId, String recipeName, String recipeServings, String recipeImage) {
+    public Recipe(int recipeId, String recipeName, String recipeImage) {
         this.mRecipeId = recipeId;
         this.mRecipeName = recipeName;
-        this.mRecipeServings = recipeServings;
         this.mRecipeImage = recipeImage;
     }
 
@@ -30,10 +27,6 @@ public class Recipe implements Parcelable {
         return mRecipeName;
     }
 
-    public String getRecipeServings() {
-        return mRecipeServings;
-    }
-
     public String getRecipeImage() {
         return mRecipeImage;
     }
@@ -41,7 +34,6 @@ public class Recipe implements Parcelable {
     private Recipe(Parcel in) {
         mRecipeId = in.readInt();
         mRecipeName = in.readString();
-        mRecipeServings = in.readString();
         mRecipeImage = in.readString();
     }
 
@@ -83,7 +75,6 @@ public class Recipe implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mRecipeId);
         dest.writeString(mRecipeName);
-        dest.writeString(mRecipeServings);
         dest.writeString(mRecipeImage);
     }
 }

@@ -6,6 +6,9 @@
 
     <data>
 
+        <variable
+            name="stepDetail"
+            type="com.developersbreach.bakingapp.model.Steps" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -15,17 +18,17 @@
         tools:context=".stepDetail.StepDetailFragment">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="?attr/actionBarSize"
+            android:visibility="gone">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/step_detail_toolbar"
-                app:navigationIcon="@drawable/ic_arrow_back"
-                tools:title="Nutella Pie"
-                app:menu="@menu/menu_home"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
+                android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/menu_home"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                tools:title="Nutella Pie" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -38,12 +41,13 @@
 
             <TextView
                 android:id="@+id/step_shortDescription_player_text_view"
-                android:visibility="gone"
+                stepDetailShortDescription="@{stepDetail.stepsShortDescription}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                 android:textColor="@color/colorWhite"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/recipe_player_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,17 +62,17 @@
 
             <TextView
                 android:id="@+id/step_description_player_text_view"
-                android:visibility="gone"
+                stepDetailDescription="@{stepDetail.stepsDescription}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:padding="8dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recipe_player_view"
-                tools:text="This could be nutella pie or may be not. Who even cares seriously. Now what
-        really matters is whether this is sentence has enough content to see how it looks on screen." />
+                tools:text="@string/trash_wrap_test" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

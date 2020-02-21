@@ -2,7 +2,10 @@ package com.developersbreach.bakingapp.utils;
 
 import android.net.Uri;
 
-public class UriBuilder {
+import java.io.IOException;
+import java.net.URL;
+
+public class ResponseBuilder {
 
     private static final String SCHEME_AUTHORITY = "https://d17h27t6h515a5.cloudfront.net";
     private static final String APPEND_PATH_TOPHER = "topher";
@@ -10,6 +13,20 @@ public class UriBuilder {
     private static final String APPEND_PATH_MONTH = "May";
     private static final String APPEND_PATH_ID = "59121517_baking";
     private static final String APPEND_PATH_TYPE = "baking.json";
+
+
+    public static String startResponse() {
+        String response = "";
+        try {
+            String uriBuilder = uriBuilder();
+            URL requestUrl = QueryUtils.createUrl(uriBuilder);
+            response = QueryUtils.getResponseFromHttpUrl(requestUrl);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
 
     /**
      * Builds Uri used to fetch movie data from the server. This data is based on the query
@@ -19,7 +36,7 @@ public class UriBuilder {
      *
      *  https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json
      */
-    public static String uriBuilder() {
+    private static String uriBuilder() {
 
         Uri baseUri = Uri.parse(SCHEME_AUTHORITY);
         // Constructs a new Builder.

@@ -5,6 +5,7 @@ import com.developersbreach.bakingapp.model.ItemLength;
 import com.developersbreach.bakingapp.model.Podcast;
 import com.developersbreach.bakingapp.model.Recipe;
 import com.developersbreach.bakingapp.model.Steps;
+import com.developersbreach.bakingapp.widget.WidgetItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +18,6 @@ public class JsonUtils {
 
     private static final String RECIPE_ID = "id";
     private static final String RECIPE_NAME = "name";
-    private static final String RECIPE_SERVINGS = "servings";
 
     private static final String INGREDIENTS_ARRAY = "ingredients";
     private static final String QUANTITY = "quantity";
@@ -51,11 +51,6 @@ public class JsonUtils {
                     recipeName = jsonObject.getString(RECIPE_NAME);
                 }
 
-                String recipeServings = null;
-                if (jsonObject.has(RECIPE_SERVINGS)) {
-                    recipeServings = jsonObject.getString(RECIPE_SERVINGS);
-                }
-
                 JSONArray jsonArray = jsonObject.getJSONArray(STEPS_ARRAY);
                 JSONObject stepsObject = jsonArray.getJSONObject(jsonArray.length() - 1);
 
@@ -64,7 +59,7 @@ public class JsonUtils {
                     recipeImage = stepsObject.getString(VIDEO_URL);
                 }
 
-                Recipe recipe = new Recipe(recipeId, recipeName, recipeServings, recipeImage);
+                Recipe recipe = new Recipe(recipeId, recipeName, recipeImage);
                 recipeList.add(recipe);
             }
 
@@ -101,7 +96,7 @@ public class JsonUtils {
                 String formatIngredient = null;
                 if (ingredientsObject.has(INGREDIENT)) {
                     String ingredientsIngredient = ingredientsObject.getString(INGREDIENT);
-                    formatIngredient = StringUtils.capitalize(ingredientsIngredient);
+                    formatIngredient = FormatUtils.capitalize(ingredientsIngredient);
                 }
 
                 Ingredients ingredients = new Ingredients(ingredientsQuantity, ingredientsMeasure, formatIngredient);
@@ -240,5 +235,31 @@ public class JsonUtils {
         }
 
         return podcastList;
+    }
+
+    public static List<WidgetItem> fetchWidgetJsonData(String json) {
+
+        List<WidgetItem> widgetItemList = new ArrayList<>();
+
+        try {
+
+            JSONArray baseJsonArray = new JSONArray(json);
+            for (int i = 0; i < baseJsonArray.length(); i++) {
+                JSONObject jsonObject = baseJsonArray.getJSONObject(i);
+
+                String recipeName = null;
+                if (jsonObject.has(RECIPE_NAME)) {
+                    recipeName = jsonObject.getString(RECIPE_NAME);
+                }
+
+                WidgetItem widgetItem = new WidgetItem(recipeName);
+                widgetItemList.add(widgetItem);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return widgetItemList;
     }
 }
