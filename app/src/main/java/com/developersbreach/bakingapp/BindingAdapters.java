@@ -16,7 +16,6 @@ import java.util.List;
 
 public class BindingAdapters {
 
-
     @BindingAdapter("recipeImageView")
     public static void bindRecipeImageView(ImageView imageView, String recipeUrl) {
         Glide.with(imageView.getContext())

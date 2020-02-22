@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
@@ -27,7 +26,6 @@ import com.developersbreach.bakingapp.databinding.FragmentRecipeListBinding;
 import com.developersbreach.bakingapp.model.Recipe;
 import com.developersbreach.bakingapp.recipeDetail.RecipeDetailFragment;
 
-import java.util.List;
 import java.util.Objects;
 
 public class RecipeListFragment extends Fragment {
@@ -60,13 +58,11 @@ public class RecipeListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         RecipeListFragmentViewModel viewModel = new ViewModelProvider(this).get(RecipeListFragmentViewModel.class);
-        viewModel.getMutableRecipeList().observe(getViewLifecycleOwner(), new Observer<List<Recipe>>() {
-            @Override
-            public void onChanged(List<Recipe> recipeList) {
-                mRecipeAdapter = new RecipeAdapter(recipeList, new RecipeClickListener());
-                mRecipeRecyclerView.setAdapter(mRecipeAdapter);
-            }
+        viewModel.getMutableRecipeList().observe(getViewLifecycleOwner(), recipeList -> {
+            mRecipeAdapter = new RecipeAdapter(recipeList, new RecipeClickListener());
+            mRecipeRecyclerView.setAdapter(mRecipeAdapter);
         });
+
     }
 
     @Override

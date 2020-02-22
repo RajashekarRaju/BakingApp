@@ -82,7 +82,7 @@ public class PodcastFragment extends Fragment {
     private void findFragmentViews(View view) {
         Toolbar toolBar = view.findViewById(R.id.podcast_toolbar);
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolBar);
-        mPodcastRecyclerView = view.findViewById(R.id.podcasts_Recycler_view);
+        mPodcastRecyclerView = view.findViewById(R.id.podcasts_recycler_view);
         findBottomPlayerViews(view);
         findMainPlayerViews(view);
     }

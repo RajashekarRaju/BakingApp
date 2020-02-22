@@ -56,7 +56,7 @@
         tools:layout_editor_absoluteX="0dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/podcasts_Recycler_view"
+            android:id="@+id/podcasts_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"

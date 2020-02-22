@@ -46,9 +46,6 @@ public class RecipeAdapter extends ListAdapter<Recipe, RecipeAdapter.RecipeViewH
         private RecipeViewHolder(final ItemRecipeBinding binding) {
             super(binding.getRoot());
             this.mBinding = binding;
-
-            binding.recipeImageItemView.setOnClickListener(
-                    view -> mListener.onRecipeSelected(mBinding.getRecipe(), view));
         }
 
         void bind(final Recipe recipe) {
@@ -63,6 +60,9 @@ public class RecipeAdapter extends ListAdapter<Recipe, RecipeAdapter.RecipeViewH
     public void onBindViewHolder(@NonNull final RecipeViewHolder holder, final int position) {
         final Recipe recipe = mRecipeList.get(position);
         holder.bind(recipe);
+
+        holder.itemView.setOnClickListener(
+                view -> mListener.onRecipeSelected(recipe, view));
     }
 
     @Override

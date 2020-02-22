@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         mNavigationController = Navigation.findNavController(this, R.id.nav_host_fragment);
     }
 
+
     // Set up up-button for ap, triggers when user clicks back button.
     @Override
     public boolean onSupportNavigateUp() {
