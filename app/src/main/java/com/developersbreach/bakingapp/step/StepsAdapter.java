@@ -93,7 +93,7 @@ public class StepsAdapter extends ListAdapter<Steps, StepsAdapter.StepsViewHolde
 
         // Set listener using itemView and call onSandwichSelected from declared custom interface
         holder.itemView.setOnClickListener(view -> {
-            String recipeName = mViewModel.getMutableRecipeName();
+            String recipeName = mViewModel.recipeName();
             mListener.onStepSelected(steps, recipeName, view);
         });
     }

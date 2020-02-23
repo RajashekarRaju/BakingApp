@@ -11,6 +11,7 @@ import com.developersbreach.bakingapp.model.Ingredients;
 import com.developersbreach.bakingapp.utils.JsonUtils;
 import com.developersbreach.bakingapp.utils.ResponseBuilder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,8 +61,12 @@ class WidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory 
      */
     @Override
     public void onDataSetChanged() {
-        String responseString = ResponseBuilder.startResponse();
-        mIngredientsList = JsonUtils.fetchIngredients(responseString, mRecipeWidgetId);
+        try {
+            String responseString = ResponseBuilder.startResponse();
+            mIngredientsList = JsonUtils.fetchIngredients(responseString, mRecipeWidgetId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

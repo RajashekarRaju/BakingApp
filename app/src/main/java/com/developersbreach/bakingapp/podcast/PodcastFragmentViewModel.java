@@ -8,32 +8,37 @@ import com.developersbreach.bakingapp.model.Podcast;
 import com.developersbreach.bakingapp.utils.JsonUtils;
 import com.developersbreach.bakingapp.utils.ResponseBuilder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class PodcastFragmentViewModel extends ViewModel {
 
-    private MutableLiveData<List<Podcast>> mMutablePodcastList;
+    private MutableLiveData<List<Podcast>> _mMutablePodcastList;
     private long mPlayBackPosition;
     private int mCurrentWindow;
 
-    MutableLiveData<List<Podcast>> getMutablePodcastList() {
-        if (mMutablePodcastList == null) {
-            mMutablePodcastList = new MutableLiveData<>();
-            fetchJsonData();
-        }
-        return mMutablePodcastList;
+    MutableLiveData<List<Podcast>> podcastList() {
+        getMutablePodcastList();
+        return _mMutablePodcastList;
     }
 
+    private void getMutablePodcastList() {
+        if (_mMutablePodcastList == null) {
+            _mMutablePodcastList = new MutableLiveData<>();
+            fetchJsonData();
+        }
+    }
 
     private void fetchJsonData() {
-        AppExecutors.getInstance().networkIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                String responseString = ResponseBuilder.startResponse();
-                List<Podcast> recipeList = JsonUtils.fetchPodcastJsonData(responseString);
-                mMutablePodcastList.postValue(recipeList);
+        AppExecutors.getInstance().networkIO().execute(() -> {
+            try {
+                String uriBuilder = ResponseBuilder.startResponse();
+                List<Podcast> recipeList = JsonUtils.fetchPodcastJsonData(uriBuilder);
+                _mMutablePodcastList.postValue(recipeList);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
     }

@@ -86,7 +86,7 @@ public class StepDetailFragment extends Fragment {
         AppExecutors.getInstance().mainThread().execute(() -> {
 
             mStepDetailToolBar.setTitle(mViewModel.getRecipeName());
-            mViewModel.getStepDetailData().observe(getViewLifecycleOwner(), steps -> {
+            mViewModel.stepDetails().observe(getViewLifecycleOwner(), steps -> {
                 mBinding.setStepDetail(steps);
                 mBinding.executePendingBindings();
 
@@ -151,7 +151,7 @@ public class StepDetailFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if ((Util.SDK_INT < 24 || mExoPlayer == null)) {
-            mViewModel.getStepDetailData().observe(getViewLifecycleOwner(),
+            mViewModel.stepDetails().observe(getViewLifecycleOwner(),
                     steps -> initializePlayer(steps.getVideoUrl()));
         }
     }

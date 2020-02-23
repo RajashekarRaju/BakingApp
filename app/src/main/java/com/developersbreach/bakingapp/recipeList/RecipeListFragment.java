@@ -56,9 +56,7 @@ public class RecipeListFragment extends Fragment {
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(recipeToolBar);
 
         binding.setLifecycleOwner(this);
-
         setHasOptionsMenu(true);
-        //animateForFirstTimeOnly();
         return binding.getRoot();
     }
 
@@ -67,10 +65,11 @@ public class RecipeListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         RecipeListFragmentViewModel viewModel = new ViewModelProvider(this).get(RecipeListFragmentViewModel.class);
-        viewModel.getMutableRecipeList().observe(getViewLifecycleOwner(), recipeList -> {
+        viewModel.recipeList().observe(getViewLifecycleOwner(), recipeList -> {
             mRecipeAdapter = new RecipeAdapter(recipeList, new RecipeClickListener());
             mRecipeRecyclerView.setAdapter(mRecipeAdapter);
         });
+
     }
 
     @Override

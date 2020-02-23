@@ -8,28 +8,34 @@ import com.developersbreach.bakingapp.model.Recipe;
 import com.developersbreach.bakingapp.utils.JsonUtils;
 import com.developersbreach.bakingapp.utils.ResponseBuilder;
 
+import java.io.IOException;
 import java.util.List;
 
 
 public class RecipeListFragmentViewModel extends ViewModel {
 
-    private MutableLiveData<List<Recipe>> mMutableRecipeList;
+    private MutableLiveData<List<Recipe>> _mMutableRecipeList;
 
-    MutableLiveData<List<Recipe>> getMutableRecipeList() {
-        if (mMutableRecipeList == null) {
-            mMutableRecipeList = new MutableLiveData<>();
+    MutableLiveData<List<Recipe>> recipeList() {
+        getMutableRecipeList();
+        return _mMutableRecipeList;
+    }
+
+    private void getMutableRecipeList() {
+        if (_mMutableRecipeList == null) {
+            _mMutableRecipeList = new MutableLiveData<>();
             fetchRecipeJsonData();
         }
-        return mMutableRecipeList;
     }
 
     private void fetchRecipeJsonData() {
-        AppExecutors.getInstance().networkIO().execute(new Runnable() {
-            @Override
-            public void run() {
+        AppExecutors.getInstance().networkIO().execute(() -> {
+            try {
                 String responseString = ResponseBuilder.startResponse();
                 List<Recipe> recipeList = JsonUtils.fetchRecipeJsonData(responseString);
-                mMutableRecipeList.postValue(recipeList);
+                _mMutableRecipeList.postValue(recipeList);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
     }

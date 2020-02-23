@@ -30,6 +30,7 @@ import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class RecipeDetailFragment extends Fragment {
@@ -89,7 +90,7 @@ public class RecipeDetailFragment extends Fragment {
             Recipe recipeArgs = RecipeDetailFragmentArgs.fromBundle(args).getRecipeDetailArgs();
             RecipeDetailFragmentViewModelFactory factory = new RecipeDetailFragmentViewModelFactory(application, recipeArgs);
             mViewModel = new ViewModelProvider(this, factory).get(RecipeDetailFragmentViewModel.class);
-            mViewModel.getSelectedRecipe().observe(getViewLifecycleOwner(), recipe ->
+            mViewModel.selectedRecipe().observe(getViewLifecycleOwner(), recipe ->
                     setSinglePaneData(recipe, mToolbar, mBinding, mDetailViewPager, mTabLayout));
 
         } else {
@@ -168,7 +169,7 @@ public class RecipeDetailFragment extends Fragment {
     }
 
     private void setBadgeDrawablesSinglePane(final TabLayout tabLayout, int recipeId) {
-        mViewModel.getTotalIngredients(recipeId).observe(getViewLifecycleOwner(), itemLength ->
+        mViewModel.totalIngredientsAndStepsNumber(recipeId).observe(getViewLifecycleOwner(), itemLength ->
                 applyBadgeDrawables(itemLength, tabLayout));
     }
 
@@ -177,9 +178,13 @@ public class RecipeDetailFragment extends Fragment {
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
             @Override
             public void run() {
-                String responseString = ResponseBuilder.startResponse();
-                ItemLength result = JsonUtils.findTotalNumber(responseString, recipeId);
-                runOnMainThread(result);
+                try {
+                    String responseString = ResponseBuilder.startResponse();
+                    ItemLength result = JsonUtils.findTotalNumber(responseString, recipeId);
+                    runOnMainThread(result);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             private void runOnMainThread(final ItemLength itemLength) {

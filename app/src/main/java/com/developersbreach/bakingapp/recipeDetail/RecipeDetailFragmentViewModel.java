@@ -12,35 +12,42 @@ import com.developersbreach.bakingapp.model.Recipe;
 import com.developersbreach.bakingapp.utils.JsonUtils;
 import com.developersbreach.bakingapp.utils.ResponseBuilder;
 
+import java.io.IOException;
+
 
 public class RecipeDetailFragmentViewModel extends AndroidViewModel {
 
-    private MutableLiveData<Recipe> mMutableRecipe;
-    private MutableLiveData<ItemLength> mMutableTotalNumber;
+    private MutableLiveData<Recipe> _mMutableRecipe;
+    private MutableLiveData<ItemLength> _mMutableTotalNumber;
+
+    MutableLiveData<Recipe> selectedRecipe() {
+        return _mMutableRecipe;
+    }
+
+    MutableLiveData<ItemLength> totalIngredientsAndStepsNumber(int recipeId) {
+        getTotalIngredients(recipeId);
+        return _mMutableTotalNumber;
+    }
 
     RecipeDetailFragmentViewModel(@NonNull Application application, Recipe recipe) {
         super(application);
-        mMutableRecipe = new MutableLiveData<>();
-        mMutableRecipe.postValue(recipe);
+        _mMutableRecipe = new MutableLiveData<>();
+        _mMutableRecipe.postValue(recipe);
     }
 
-    MutableLiveData<Recipe> getSelectedRecipe() {
-        return mMutableRecipe;
-    }
-
-    MutableLiveData<ItemLength> getTotalIngredients(final int recipeId) {
-        mMutableTotalNumber = new MutableLiveData<>();
+    private void getTotalIngredients(final int recipeId) {
+        _mMutableTotalNumber = new MutableLiveData<>();
         getTotalNumber(recipeId);
-        return mMutableTotalNumber;
     }
 
     private void getTotalNumber(final int recipeId) {
-        AppExecutors.getInstance().networkIO().execute(new Runnable() {
-            @Override
-            public void run() {
+        AppExecutors.getInstance().networkIO().execute(() -> {
+            try {
                 String responseString = ResponseBuilder.startResponse();
                 ItemLength result = JsonUtils.findTotalNumber(responseString, recipeId);
-                mMutableTotalNumber.postValue(result);
+                _mMutableTotalNumber.postValue(result);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
     }

@@ -18,6 +18,7 @@ import com.developersbreach.bakingapp.databinding.RecipeWidgetConfigureBinding;
 import com.developersbreach.bakingapp.utils.JsonUtils;
 import com.developersbreach.bakingapp.utils.ResponseBuilder;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -48,9 +49,13 @@ public class RecipeWidgetConfigureActivity extends Activity {
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
             @Override
             public void run() {
-                String responseString = ResponseBuilder.startResponse();
-                List<WidgetItem> widgetItemList = JsonUtils.fetchWidgetJsonData(responseString);
-                runOnMainThread(widgetItemList);
+                try {
+                    String responseString = ResponseBuilder.startResponse();
+                    List<WidgetItem> widgetItemList = JsonUtils.fetchWidgetJsonData(responseString);
+                    runOnMainThread(widgetItemList);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             private void runOnMainThread(List<WidgetItem> widgetItemList) {

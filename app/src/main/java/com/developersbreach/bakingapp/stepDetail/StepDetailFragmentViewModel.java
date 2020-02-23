@@ -10,39 +10,39 @@ import com.developersbreach.bakingapp.model.Steps;
 
 public class StepDetailFragmentViewModel extends AndroidViewModel {
 
-    private MutableLiveData<Steps> mMutableStepDetail;
-    private String mRecipeName;
-    private long mPlayBackPosition;
-    private int mCurrentWindow;
+    private MutableLiveData<Steps> _mMutableStepDetail;
+    private String _mRecipeName;
+    private long _mPlayBackPosition;
+    private int _mCurrentWindow;
+
+    MutableLiveData<Steps> stepDetails() {
+        return _mMutableStepDetail;
+    }
 
     StepDetailFragmentViewModel(@NonNull Application application, Steps step, String recipeName) {
         super(application);
-        mRecipeName = recipeName;
-        mMutableStepDetail = new MutableLiveData<>();
-        mMutableStepDetail.postValue(step);
-    }
-
-    MutableLiveData<Steps> getStepDetailData() {
-        return mMutableStepDetail;
+        _mRecipeName = recipeName;
+        _mMutableStepDetail = new MutableLiveData<>();
+        _mMutableStepDetail.postValue(step);
     }
 
     String getRecipeName() {
-        return mRecipeName;
+        return _mRecipeName;
     }
 
     long getPlayBackPosition() {
-        return mPlayBackPosition;
+        return _mPlayBackPosition;
     }
 
     int getCurrentWindow() {
-        return mCurrentWindow;
+        return _mCurrentWindow;
     }
 
     void setPlayBackPosition(long playBackPosition) {
-        this.mPlayBackPosition = playBackPosition;
+        this._mPlayBackPosition = playBackPosition;
     }
 
     void setCurrentWindow(int mCurrentWindow) {
-        this.mCurrentWindow = mCurrentWindow;
+        this._mCurrentWindow = mCurrentWindow;
     }
 }

@@ -54,7 +54,6 @@ public class StepsFragment extends Fragment {
         }
 
         binding.setLifecycleOwner(this);
-
         return binding.getRoot();
     }
 
@@ -66,7 +65,7 @@ public class StepsFragment extends Fragment {
         StepsFragmentViewModelFactory factory = new StepsFragmentViewModelFactory(application, mRecipeId, mRecipeName);
         final StepsFragmentViewModel viewModel = new ViewModelProvider(this, factory).get(StepsFragmentViewModel.class);
 
-        viewModel.getMutableStepsList().observe(getViewLifecycleOwner(), stepsList -> {
+        viewModel.stepsList().observe(getViewLifecycleOwner(), stepsList -> {
             mStepsAdapter = new StepsAdapter(stepsList, new StepClickListener(), viewModel);
             mStepsRecyclerView.setAdapter(mStepsAdapter);
         });

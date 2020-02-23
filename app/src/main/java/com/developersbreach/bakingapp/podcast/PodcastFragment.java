@@ -110,7 +110,7 @@ public class PodcastFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         mViewModel = new ViewModelProvider(this).get(PodcastFragmentViewModel.class);
-        mViewModel.getMutablePodcastList().observe(getViewLifecycleOwner(), podcastList -> {
+        mViewModel.podcastList().observe(getViewLifecycleOwner(), podcastList -> {
             PodcastAdapter adapter = new PodcastAdapter(podcastList, new PodcastListener());
             mPodcastRecyclerView.setAdapter(adapter);
         });

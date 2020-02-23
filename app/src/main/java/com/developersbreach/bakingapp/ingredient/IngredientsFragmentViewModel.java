@@ -10,6 +10,7 @@ import com.developersbreach.bakingapp.model.Ingredients;
 import com.developersbreach.bakingapp.utils.JsonUtils;
 import com.developersbreach.bakingapp.utils.ResponseBuilder;
 
+import java.io.IOException;
 import java.util.List;
 
 public class IngredientsFragmentViewModel extends AndroidViewModel {
@@ -33,12 +34,13 @@ public class IngredientsFragmentViewModel extends AndroidViewModel {
     }
 
     private void getIngredientsData(final int recipeId) {
-        AppExecutors.getInstance().networkIO().execute(new Runnable() {
-            @Override
-            public void run() {
+        AppExecutors.getInstance().networkIO().execute(() -> {
+            try {
                 String responseString = ResponseBuilder.startResponse();
                 List<Ingredients> ingredientsList = JsonUtils.fetchIngredients(responseString, recipeId);
                 _mMutableIngredientsList.postValue(ingredientsList);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
     }
