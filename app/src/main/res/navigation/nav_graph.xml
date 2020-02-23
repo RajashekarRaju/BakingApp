@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
@@ -12,7 +13,11 @@
         tools:layout="@layout/fragment_recipe_list">
         <action
             android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
-            app:destination="@id/recipeDetailFragment" />
+            app:destination="@id/recipeDetailFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
     <fragment
@@ -55,12 +60,30 @@
 
     <action
         android:id="@+id/action_global_stepDetailFragment"
-        app:destination="@id/stepDetailFragment" />
+        app:destination="@id/stepDetailFragment"
+        app:enterAnim="@anim/fragment_close_enter"
+        app:exitAnim="@anim/fragment_close_exit"
+        app:popEnterAnim="@anim/fragment_fade_enter"
+        app:popExitAnim="@anim/fragment_fade_exit" />
 
     <fragment
         android:id="@+id/podcastFragment"
         android:name="com.developersbreach.bakingapp.podcast.PodcastFragment"
         android:label="Podcasts"
-        tools:layout="@layout/fragment_podcast" />
+        tools:layout="@layout/fragment_podcast">
+        <action
+            android:id="@+id/action_podcastFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+
+    <activity
+        android:id="@+id/recipeWidgetConfigureActivity"
+        android:name="com.developersbreach.bakingapp.widget.RecipeWidgetConfigureActivity"
+        android:label="recipe_widget_configure"
+        tools:layout="@layout/recipe_widget_configure" />
 
 </navigation>

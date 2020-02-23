@@ -1,5 +1,7 @@
 package com.developersbreach.bakingapp.recipeList;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -33,10 +36,14 @@ public class RecipeListFragment extends Fragment {
     private boolean mTwoPane;
     private RecipeAdapter mRecipeAdapter;
     private RecyclerView mRecipeRecyclerView;
+    private ConstraintLayout mParentFrameLayout;
+    public static String COMPLETED_ANIMATION_PREF_NAME = "ANIMATION_LINEAR_OUT";
+    private SharedPreferences mSharedPreferences;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         FragmentRecipeListBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipe_list, container, false);
 
         if (getResources().getBoolean(R.bool.isTablet)) {
@@ -44,12 +51,14 @@ public class RecipeListFragment extends Fragment {
         }
 
         Toolbar recipeToolBar = binding.recipeToolbar;
+        mParentFrameLayout = binding.recipeListContainer;
         mRecipeRecyclerView = binding.recipeRecyclerView;
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(recipeToolBar);
 
         binding.setLifecycleOwner(this);
 
         setHasOptionsMenu(true);
+        //animateForFirstTimeOnly();
         return binding.getRoot();
     }
 
@@ -62,7 +71,6 @@ public class RecipeListFragment extends Fragment {
             mRecipeAdapter = new RecipeAdapter(recipeList, new RecipeClickListener());
             mRecipeRecyclerView.setAdapter(mRecipeAdapter);
         });
-
     }
 
     @Override
@@ -97,5 +105,29 @@ public class RecipeListFragment extends Fragment {
                         .commit();
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        animateForFirstTimeOnly();
+    }
+
+    // Until value in sharedPreference won't effect, we continue showing animation to user.
+    private void animateForFirstTimeOnly() {
+        // Getting our shared preference in primate mode.
+        mSharedPreferences = Objects.requireNonNull(getActivity()).getPreferences(Context.MODE_PRIVATE);
+        // Check for change in default value, if false returned then no effect happens.
+        if (!mSharedPreferences.getBoolean(COMPLETED_ANIMATION_PREF_NAME, false)) {
+            startLinearAnimation();
+        }
+    }
+
+    private void startLinearAnimation() {
+        mParentFrameLayout.setTranslationY(800);
+        mParentFrameLayout.animate().translationY(0f).setDuration(1000L).start();
+        SharedPreferences.Editor mEditor = mSharedPreferences.edit();
+        mEditor.putBoolean(COMPLETED_ANIMATION_PREF_NAME, true);
+        mEditor.apply();
     }
 }

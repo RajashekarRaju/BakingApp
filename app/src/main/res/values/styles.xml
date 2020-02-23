@@ -6,6 +6,7 @@
         <item name="colorPrimary">#000000</item>
         <item name="colorPrimaryDark">#000000</item>
         <item name="android:windowBackground">#000000</item>
+        <item name="android:windowFullscreen">true</item>
 
 <!--        <item name="colorPrimary">@color/primaryColor</item>-->
 <!--        <item name="colorPrimaryDark">@color/primaryDarkColor</item>-->
