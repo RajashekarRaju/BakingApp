@@ -14,27 +14,20 @@ public class ResponseBuilder {
     private static final String APPEND_PATH_ID = "59121517_baking";
     private static final String APPEND_PATH_TYPE = "baking.json";
 
-
-    public static String startResponse() {
-        String response = "";
-        try {
-            String uriBuilder = uriBuilder();
-            URL requestUrl = QueryUtils.createUrl(uriBuilder);
-            response = QueryUtils.getResponseFromHttpUrl(requestUrl);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return response;
+    public static String startResponse() throws IOException {
+        String uriBuilder = uriBuilder();
+        URL requestUrl = QueryUtils.createUrl(uriBuilder);
+        return QueryUtils.getResponseFromHttpUrl(requestUrl);
     }
-
 
     /**
      * Builds Uri used to fetch movie data from the server. This data is based on the query
      * capabilities of the movie database provider that we are using.
      * API_KEY is used to query specific data from the server
-     * @return The String to use to query the movie database server.
      *
-     *  https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json
+     * @return The String to use to query the movie database server.
+     * <p>
+     * https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json
      */
     private static String uriBuilder() {
 
