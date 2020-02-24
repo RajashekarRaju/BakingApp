@@ -17,13 +17,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.developersbreach.bakingapp.AppExecutors;
+import com.developersbreach.bakingapp.network.AppExecutors;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.databinding.FragmentRecipeDetailBinding;
 import com.developersbreach.bakingapp.model.ItemLength;
 import com.developersbreach.bakingapp.model.Recipe;
-import com.developersbreach.bakingapp.utils.JsonUtils;
-import com.developersbreach.bakingapp.utils.ResponseBuilder;
+import com.developersbreach.bakingapp.network.JsonUtils;
+import com.developersbreach.bakingapp.network.ResponseBuilder;
 import com.developersbreach.bakingapp.viewModel.RecipeDetailFragmentViewModel;
 import com.developersbreach.bakingapp.viewModel.factory.RecipeDetailFragmentViewModelFactory;
 import com.google.android.material.appbar.AppBarLayout;

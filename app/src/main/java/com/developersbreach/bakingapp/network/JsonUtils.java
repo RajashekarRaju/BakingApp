@@ -1,12 +1,12 @@
-package com.developersbreach.bakingapp.utils;
+package com.developersbreach.bakingapp.network;
 
-import android.util.Log;
 
 import com.developersbreach.bakingapp.model.Ingredients;
 import com.developersbreach.bakingapp.model.ItemLength;
 import com.developersbreach.bakingapp.model.Podcast;
 import com.developersbreach.bakingapp.model.Recipe;
 import com.developersbreach.bakingapp.model.Steps;
+import com.developersbreach.bakingapp.utils.FormatUtils;
 import com.developersbreach.bakingapp.widget.WidgetItem;
 
 import org.json.JSONArray;

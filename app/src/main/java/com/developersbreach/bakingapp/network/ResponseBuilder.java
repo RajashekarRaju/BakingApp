@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp.utils;
+package com.developersbreach.bakingapp.network;
 
 import android.net.Uri;
 import android.util.Log;

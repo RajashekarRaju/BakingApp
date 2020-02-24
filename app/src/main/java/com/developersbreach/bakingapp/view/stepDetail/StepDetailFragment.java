@@ -23,7 +23,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import com.developersbreach.bakingapp.AppExecutors;
+import com.developersbreach.bakingapp.network.AppExecutors;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.databinding.FragmentStepDetailBinding;
 import com.developersbreach.bakingapp.model.Steps;

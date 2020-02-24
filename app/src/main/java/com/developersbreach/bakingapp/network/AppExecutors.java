@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp;
+package com.developersbreach.bakingapp.network;
 
 import android.os.Handler;
 import android.os.Looper;

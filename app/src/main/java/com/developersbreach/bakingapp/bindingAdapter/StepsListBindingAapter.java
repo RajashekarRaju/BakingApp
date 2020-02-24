@@ -6,7 +6,7 @@ import android.widget.TextView;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
-import com.developersbreach.bakingapp.AppExecutors;
+import com.developersbreach.bakingapp.network.AppExecutors;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.utils.FormatUtils;
 

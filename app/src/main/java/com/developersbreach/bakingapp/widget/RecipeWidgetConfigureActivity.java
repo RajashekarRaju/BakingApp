@@ -12,11 +12,11 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.developersbreach.bakingapp.AppExecutors;
+import com.developersbreach.bakingapp.network.AppExecutors;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.databinding.RecipeWidgetConfigureBinding;
-import com.developersbreach.bakingapp.utils.JsonUtils;
-import com.developersbreach.bakingapp.utils.ResponseBuilder;
+import com.developersbreach.bakingapp.network.JsonUtils;
+import com.developersbreach.bakingapp.network.ResponseBuilder;
 
 import java.io.IOException;
 import java.util.List;

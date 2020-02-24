@@ -8,8 +8,8 @@ import android.widget.RemoteViewsService;
 
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.model.Ingredients;
-import com.developersbreach.bakingapp.utils.JsonUtils;
-import com.developersbreach.bakingapp.utils.ResponseBuilder;
+import com.developersbreach.bakingapp.network.JsonUtils;
+import com.developersbreach.bakingapp.network.ResponseBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;

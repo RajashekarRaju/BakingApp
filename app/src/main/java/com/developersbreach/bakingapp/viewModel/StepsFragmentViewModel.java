@@ -5,10 +5,10 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.developersbreach.bakingapp.AppExecutors;
+import com.developersbreach.bakingapp.network.AppExecutors;
 import com.developersbreach.bakingapp.model.Steps;
-import com.developersbreach.bakingapp.utils.JsonUtils;
-import com.developersbreach.bakingapp.utils.ResponseBuilder;
+import com.developersbreach.bakingapp.network.JsonUtils;
+import com.developersbreach.bakingapp.network.ResponseBuilder;
 
 import java.io.IOException;
 import java.util.List;
