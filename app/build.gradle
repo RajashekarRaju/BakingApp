@@ -21,7 +21,7 @@ android {
     }
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility = 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
     }
 
     dataBinding {
@@ -40,7 +40,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.google.android.material:material:1.1.0'
-    implementation 'androidx.palette:palette:1.0.0'
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation 'androidx.test.espresso:espresso-idling-resource:3.2.0'

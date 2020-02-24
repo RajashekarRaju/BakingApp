@@ -62,4 +62,5 @@ public class MainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         return mNavigationController.navigateUp();
     }
+
 }
