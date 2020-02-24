@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp.recipeList;
+package com.developersbreach.bakingapp.viewModel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -16,7 +16,7 @@ public class RecipeListFragmentViewModel extends ViewModel {
 
     private MutableLiveData<List<Recipe>> _mMutableRecipeList;
 
-    MutableLiveData<List<Recipe>> recipeList() {
+    public MutableLiveData<List<Recipe>> recipeList() {
         getMutableRecipeList();
         return _mMutableRecipeList;
     }

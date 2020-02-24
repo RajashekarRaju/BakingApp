@@ -1,12 +1,12 @@
-package com.developersbreach.bakingapp.recipeDetail;
+package com.developersbreach.bakingapp.view.recipeDetail;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.developersbreach.bakingapp.ingredient.IngredientsFragment;
-import com.developersbreach.bakingapp.step.StepsFragment;
+import com.developersbreach.bakingapp.view.ingredientList.IngredientsFragment;
+import com.developersbreach.bakingapp.view.stepList.StepsFragment;
 
 public class ChildFragmentPagerAdapter extends FragmentStateAdapter {
 

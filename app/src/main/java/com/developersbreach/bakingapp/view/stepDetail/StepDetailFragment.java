@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp.stepDetail;
+package com.developersbreach.bakingapp.view.stepDetail;
 
 import android.app.Activity;
 import android.app.Application;
@@ -27,6 +27,8 @@ import com.developersbreach.bakingapp.AppExecutors;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.databinding.FragmentStepDetailBinding;
 import com.developersbreach.bakingapp.model.Steps;
+import com.developersbreach.bakingapp.viewModel.StepDetailFragmentViewModel;
+import com.developersbreach.bakingapp.viewModel.factory.StepDetailFragmentViewModelFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;

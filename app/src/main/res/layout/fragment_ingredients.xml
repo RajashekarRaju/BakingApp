@@ -7,14 +7,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.developersbreach.bakingapp.ingredient.IngredientsFragmentViewModel" />
+            type="com.developersbreach.bakingapp.viewModel.IngredientsFragmentViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:nestedScrollingEnabled="true"
-        tools:context=".ingredient.IngredientsFragment">
+        tools:context=".view.ingredientList.IngredientsFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             ingredientsList="@{viewModel.ingredientsList()}"

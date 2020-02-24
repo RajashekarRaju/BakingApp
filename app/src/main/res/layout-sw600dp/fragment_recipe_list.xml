@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".recipeList.RecipeListFragment">
+        tools:context=".view.recipeList.RecipeListFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                 android:layout_margin="16dp"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                tools:context=".recipeList.RecipeListFragment">
+                tools:context=".view.recipeList.RecipeListFragment">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recipe_recycler_view"

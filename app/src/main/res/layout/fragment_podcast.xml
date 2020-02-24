@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/podcast_gradient_background"
     android:fitsSystemWindows="true"
-    tools:context=".podcast.PodcastFragment">
+    tools:context=".view.podcast.PodcastFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/podcast_header_layout"

@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp.recipeDetail;
+package com.developersbreach.bakingapp.view.recipeDetail;
 
 import android.app.Activity;
 import android.app.Application;
@@ -24,6 +24,8 @@ import com.developersbreach.bakingapp.model.ItemLength;
 import com.developersbreach.bakingapp.model.Recipe;
 import com.developersbreach.bakingapp.utils.JsonUtils;
 import com.developersbreach.bakingapp.utils.ResponseBuilder;
+import com.developersbreach.bakingapp.viewModel.RecipeDetailFragmentViewModel;
+import com.developersbreach.bakingapp.viewModel.factory.RecipeDetailFragmentViewModelFactory;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.badge.BadgeDrawable;

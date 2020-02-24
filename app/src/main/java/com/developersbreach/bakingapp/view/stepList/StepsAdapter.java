@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp.step;
+package com.developersbreach.bakingapp.view.stepList;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.databinding.ItemStepBinding;
 import com.developersbreach.bakingapp.model.Steps;
+import com.developersbreach.bakingapp.viewModel.StepsFragmentViewModel;
 
 import java.util.List;
 

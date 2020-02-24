@@ -27,4 +27,5 @@
     <string name="tab_title_ingredients">Ingredients</string>
     <string name="tab_name_walk_thorugh">WalkThrough</string>
     <string name="empty_toolbar_title" />
+    <string name="no_internet">No Internet</string>
 </resources>

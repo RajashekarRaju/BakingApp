@@ -1,10 +1,12 @@
-package com.developersbreach.bakingapp.step;
+package com.developersbreach.bakingapp.viewModel.factory;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.developersbreach.bakingapp.viewModel.StepsFragmentViewModel;
 
 public class StepsFragmentViewModelFactory extends ViewModelProvider.AndroidViewModelFactory {
 

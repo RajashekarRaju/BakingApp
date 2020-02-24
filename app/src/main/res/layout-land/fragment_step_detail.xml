@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".stepDetail.StepDetailFragment">
+        tools:context=".view.stepDetail.StepDetailFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             android:layout_height="match_parent"
             android:background="#000000"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:context=".stepDetail.StepDetailFragment">
+            tools:context=".view.stepDetail.StepDetailFragment">
 
             <TextView
                 android:id="@+id/step_shortDescription_player_text_view"

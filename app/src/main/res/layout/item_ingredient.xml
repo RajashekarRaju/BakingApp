@@ -8,8 +8,6 @@
         <variable
             name="ingredients"
             type="com.developersbreach.bakingapp.model.Ingredients" />
-        <import
-            type="com.developersbreach.bakingapp.utils.ResponseBuilder" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -64,6 +62,7 @@
             android:layout_marginBottom="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
+            tools:text="@string/udacity_chef_name"
             android:fontFamily="sans-serif-condensed-light"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textColor="@color/primaryTextColor"

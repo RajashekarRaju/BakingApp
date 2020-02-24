@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp.podcast;
+package com.developersbreach.bakingapp.view.podcast;
 
 import android.view.LayoutInflater;
 import android.view.View;

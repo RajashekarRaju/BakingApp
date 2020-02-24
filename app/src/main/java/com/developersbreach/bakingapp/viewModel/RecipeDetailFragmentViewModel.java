@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp.recipeDetail;
+package com.developersbreach.bakingapp.viewModel;
 
 import android.app.Application;
 
@@ -20,16 +20,16 @@ public class RecipeDetailFragmentViewModel extends AndroidViewModel {
     private MutableLiveData<Recipe> _mMutableRecipe;
     private MutableLiveData<ItemLength> _mMutableTotalNumber;
 
-    MutableLiveData<Recipe> selectedRecipe() {
+    public MutableLiveData<Recipe> selectedRecipe() {
         return _mMutableRecipe;
     }
 
-    MutableLiveData<ItemLength> totalIngredientsAndStepsNumber(int recipeId) {
+    public MutableLiveData<ItemLength> totalIngredientsAndStepsNumber(int recipeId) {
         getTotalIngredients(recipeId);
         return _mMutableTotalNumber;
     }
 
-    RecipeDetailFragmentViewModel(@NonNull Application application, Recipe recipe) {
+    public RecipeDetailFragmentViewModel(@NonNull Application application, Recipe recipe) {
         super(application);
         _mMutableRecipe = new MutableLiveData<>();
         _mMutableRecipe.postValue(recipe);

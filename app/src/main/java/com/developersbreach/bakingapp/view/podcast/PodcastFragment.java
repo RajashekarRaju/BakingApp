@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp.podcast;
+package com.developersbreach.bakingapp.view.podcast;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.model.Podcast;
+import com.developersbreach.bakingapp.viewModel.PodcastFragmentViewModel;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
@@ -47,7 +48,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class PodcastFragment extends Fragment {
-
 
     private PodcastFragmentViewModel mViewModel;
     private RecyclerView mPodcastRecyclerView;

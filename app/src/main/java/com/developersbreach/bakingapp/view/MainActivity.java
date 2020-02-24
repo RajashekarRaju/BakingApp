@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp;
+package com.developersbreach.bakingapp.view;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,7 +11,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.developersbreach.bakingapp.recipeList.RecipeListFragment;
+import com.developersbreach.bakingapp.R;
+import com.developersbreach.bakingapp.view.recipeList.RecipeListFragment;
 
 import java.util.Objects;
 

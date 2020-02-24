@@ -1,10 +1,12 @@
-package com.developersbreach.bakingapp.ingredient;
+package com.developersbreach.bakingapp.viewModel.factory;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.developersbreach.bakingapp.viewModel.IngredientsFragmentViewModel;
 
 public class IngredientsFragmentViewModelFactory extends ViewModelProvider.AndroidViewModelFactory {
 

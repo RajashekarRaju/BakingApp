@@ -6,13 +6,14 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.developersbreach.bakingapp.R;
-import com.developersbreach.bakingapp.ingredient.IngredientsAdapter;
+import com.developersbreach.bakingapp.view.ingredientList.IngredientsAdapter;
 import com.developersbreach.bakingapp.model.Ingredients;
 import com.developersbreach.bakingapp.utils.DividerItemDecorator;
 
 import java.util.List;
 
 public class IngredientsListBindingAdapter {
+
     @BindingAdapter("ingredientsList")
     public static void bindIngredientsList(final RecyclerView recyclerView, final List<Ingredients> ingredientsList) {
         IngredientsAdapter adapter = new IngredientsAdapter();

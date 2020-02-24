@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp.ingredient;
+package com.developersbreach.bakingapp.view.ingredientList;
 
 import android.app.Application;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.databinding.FragmentIngredientsBinding;
+import com.developersbreach.bakingapp.viewModel.IngredientsFragmentViewModel;
+import com.developersbreach.bakingapp.viewModel.factory.IngredientsFragmentViewModelFactory;
 
 import java.util.Objects;
 

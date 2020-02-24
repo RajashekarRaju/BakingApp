@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp.step;
+package com.developersbreach.bakingapp.viewModel;
 
 import android.app.Application;
 
@@ -19,16 +19,16 @@ public class StepsFragmentViewModel extends AndroidViewModel {
     private String _mMutableRecipeName;
     private int mMutableRecipeId;
 
-    MutableLiveData<List<Steps>> stepsList() {
+    public MutableLiveData<List<Steps>> stepsList() {
         getMutableStepsList();
         return _mMutableStepsList;
     }
 
-    String recipeName() {
+    public String recipeName() {
         return _mMutableRecipeName;
     }
 
-    StepsFragmentViewModel(Application application, int recipeId, String recipeName) {
+    public StepsFragmentViewModel(Application application, int recipeId, String recipeName) {
         super(application);
         this.mMutableRecipeId = recipeId;
         this._mMutableRecipeName = recipeName;

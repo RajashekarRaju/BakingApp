@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp.ingredient;
+package com.developersbreach.bakingapp.view.ingredientList;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;

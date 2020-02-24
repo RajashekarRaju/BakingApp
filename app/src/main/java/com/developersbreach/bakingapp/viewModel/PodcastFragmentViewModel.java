@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp.podcast;
+package com.developersbreach.bakingapp.viewModel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -19,7 +19,7 @@ public class PodcastFragmentViewModel extends ViewModel {
     private long mPlayBackPosition;
     private int mCurrentWindow;
 
-    MutableLiveData<List<Podcast>> podcastList() {
+    public MutableLiveData<List<Podcast>> podcastList() {
         getMutablePodcastList();
         return _mMutablePodcastList;
     }
@@ -43,7 +43,7 @@ public class PodcastFragmentViewModel extends ViewModel {
         });
     }
 
-    List<String> removeEmptyUrls(Podcast podcast) {
+    public List<String> removeEmptyUrls(Podcast podcast) {
         Iterator<String> iterator = podcast.getPodcastStepsUrlList().iterator();
         List<String> updatedList = new ArrayList<>();
         while (iterator.hasNext()) {
@@ -57,19 +57,19 @@ public class PodcastFragmentViewModel extends ViewModel {
         return updatedList;
     }
 
-    int getCurrentWindow() {
+    public int getCurrentWindow() {
         return mCurrentWindow;
     }
 
-    long getPlayBackPosition() {
+    public long getPlayBackPosition() {
         return mPlayBackPosition;
     }
 
-    void setCurrentWindow(int currentWindow) {
+    public void setCurrentWindow(int currentWindow) {
         this.mCurrentWindow = currentWindow;
     }
 
-    void setPlayBackPosition(long playBackPosition) {
+    public void setPlayBackPosition(long playBackPosition) {
         this.mPlayBackPosition = playBackPosition;
     }
 }

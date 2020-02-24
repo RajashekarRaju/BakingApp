@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:nestedScrollingEnabled="true"
-        tools:context=".step.StepsFragment">
+        tools:context=".view.stepList.StepsFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/steps_recycler_view"

@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp.step;
+package com.developersbreach.bakingapp.view.stepList;
 
 import android.app.Application;
 import android.os.Bundle;
@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.databinding.FragmentStepsBinding;
 import com.developersbreach.bakingapp.model.Steps;
-import com.developersbreach.bakingapp.stepDetail.StepDetailFragmentDirections;
+import com.developersbreach.bakingapp.view.stepDetail.StepDetailFragmentDirections;
+import com.developersbreach.bakingapp.viewModel.StepsFragmentViewModel;
+import com.developersbreach.bakingapp.viewModel.factory.StepsFragmentViewModelFactory;
 
 import java.util.Objects;
 

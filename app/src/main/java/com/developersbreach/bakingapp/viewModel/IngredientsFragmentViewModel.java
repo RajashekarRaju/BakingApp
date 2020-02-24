@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp.ingredient;
+package com.developersbreach.bakingapp.viewModel;
 
 import android.app.Application;
 
@@ -22,7 +22,7 @@ public class IngredientsFragmentViewModel extends AndroidViewModel {
         return _mMutableIngredientsList;
     }
 
-    IngredientsFragmentViewModel(Application application, int recipeId) {
+    public IngredientsFragmentViewModel(Application application, int recipeId) {
         super(application);
         this.mMutableRecipeId = recipeId;
         getMutableIngredientsList();

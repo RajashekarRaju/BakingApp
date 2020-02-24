@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp.recipeList;
+package com.developersbreach.bakingapp.view.recipeList;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -27,7 +27,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.databinding.FragmentRecipeListBinding;
 import com.developersbreach.bakingapp.model.Recipe;
-import com.developersbreach.bakingapp.recipeDetail.RecipeDetailFragment;
+import com.developersbreach.bakingapp.view.recipeDetail.RecipeDetailFragment;
+import com.developersbreach.bakingapp.viewModel.RecipeListFragmentViewModel;
 
 import java.util.Objects;
 

@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/recipeListFragment"
-        android:name="com.developersbreach.bakingapp.recipeList.RecipeListFragment"
+        android:name="com.developersbreach.bakingapp.view.recipeList.RecipeListFragment"
         android:label="Recipe's"
         tools:layout="@layout/fragment_recipe_list">
         <action
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/recipeDetailFragment"
-        android:name="com.developersbreach.bakingapp.recipeDetail.RecipeDetailFragment"
+        android:name="com.developersbreach.bakingapp.view.recipeDetail.RecipeDetailFragment"
         android:label="fragment_recipe_detail"
         tools:layout="@layout/fragment_recipe_detail">
         <argument
@@ -32,19 +32,19 @@
 
     <fragment
         android:id="@+id/ingredientsFragment"
-        android:name="com.developersbreach.bakingapp.ingredient.IngredientsFragment"
+        android:name="com.developersbreach.bakingapp.view.ingredientList.IngredientsFragment"
         android:label="fragment_ingredients"
         tools:layout="@layout/fragment_ingredients" />
 
     <fragment
         android:id="@+id/stepsFragment"
-        android:name="com.developersbreach.bakingapp.step.StepsFragment"
+        android:name="com.developersbreach.bakingapp.view.stepList.StepsFragment"
         android:label="fragment_steps"
         tools:layout="@layout/fragment_steps" />
 
     <fragment
         android:id="@+id/stepDetailFragment"
-        android:name="com.developersbreach.bakingapp.stepDetail.StepDetailFragment"
+        android:name="com.developersbreach.bakingapp.view.stepDetail.StepDetailFragment"
         android:label="fragment_step_detail"
         tools:layout="@layout/fragment_step_detail">
         <argument
@@ -68,7 +68,7 @@
 
     <fragment
         android:id="@+id/podcastFragment"
-        android:name="com.developersbreach.bakingapp.podcast.PodcastFragment"
+        android:name="com.developersbreach.bakingapp.view.podcast.PodcastFragment"
         android:label="Podcasts"
         tools:layout="@layout/fragment_podcast">
         <action
