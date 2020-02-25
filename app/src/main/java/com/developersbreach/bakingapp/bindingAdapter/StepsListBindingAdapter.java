@@ -10,7 +10,7 @@ import com.developersbreach.bakingapp.network.AppExecutors;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.utils.FormatUtils;
 
-public class StepsListBindingAapter {
+public class StepsListBindingAdapter {
 
     @BindingAdapter("stepThumbnail")
     public static void bindStepThumbnail(ImageView imageView, String thumbnailUrl) {

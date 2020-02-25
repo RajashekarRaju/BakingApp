@@ -39,7 +39,7 @@ public class RecipeAdapter extends ListAdapter<Recipe, RecipeAdapter.RecipeViewH
     /**
      * Children views for sandwich data
      */
-    class RecipeViewHolder extends RecyclerView.ViewHolder {
+    static class RecipeViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemRecipeBinding mBinding;
 

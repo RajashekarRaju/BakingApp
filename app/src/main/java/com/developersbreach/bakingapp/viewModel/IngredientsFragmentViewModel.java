@@ -16,7 +16,7 @@ import java.util.List;
 public class IngredientsFragmentViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Ingredients>> _mMutableIngredientsList;
-    private int mMutableRecipeId;
+    private final int mMutableRecipeId;
 
     public MutableLiveData<List<Ingredients>> ingredientsList() {
         return _mMutableIngredientsList;

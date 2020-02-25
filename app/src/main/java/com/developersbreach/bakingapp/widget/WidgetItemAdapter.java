@@ -1,7 +1,6 @@
 package com.developersbreach.bakingapp.widget;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -34,13 +33,13 @@ public class WidgetItemAdapter extends RecyclerView.Adapter<WidgetItemAdapter.Wi
      * The interface that receives onClick listener.
      */
     public interface WidgetItemAdapterListener {
-        void onWidgetItemSelected(WidgetItem widgetItem, View view, int position);
+        void onWidgetItemSelected(WidgetItem widgetItem, int position);
     }
 
     /**
      * Children views for sandwich data
      */
-    class WidgetItemViewHolder extends RecyclerView.ViewHolder {
+    static class WidgetItemViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemRecipeWidgetBinding mBinding;
 
@@ -89,7 +88,7 @@ public class WidgetItemAdapter extends RecyclerView.Adapter<WidgetItemAdapter.Wi
         holder.bind(widgetItem);
 
         // Set listener using itemView and call onSandwichSelected from declared custom interface
-        holder.itemView.setOnClickListener(view -> mListener.onWidgetItemSelected(widgetItem, view, position));
+        holder.itemView.setOnClickListener(view -> mListener.onWidgetItemSelected(widgetItem, position));
     }
 
     /**

@@ -26,7 +26,7 @@ public class IngredientsAdapter extends ListAdapter<Ingredients, IngredientsAdap
     /**
      * Children views for sandwich data
      */
-    class IngredientsViewHolder extends RecyclerView.ViewHolder {
+    static class IngredientsViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemIngredientBinding mBinding;
 

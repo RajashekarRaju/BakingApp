@@ -10,8 +10,8 @@ import com.developersbreach.bakingapp.model.Steps;
 
 public class StepDetailFragmentViewModel extends AndroidViewModel {
 
-    private MutableLiveData<Steps> _mMutableStepDetail;
-    private String _mRecipeName;
+    private final MutableLiveData<Steps> _mMutableStepDetail;
+    private final String _mRecipeName;
     private long _mPlayBackPosition;
     private int _mCurrentWindow;
 

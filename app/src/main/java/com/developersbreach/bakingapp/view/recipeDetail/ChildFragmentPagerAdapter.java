@@ -8,10 +8,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.developersbreach.bakingapp.view.ingredientList.IngredientsFragment;
 import com.developersbreach.bakingapp.view.stepList.StepsFragment;
 
-public class ChildFragmentPagerAdapter extends FragmentStateAdapter {
+class ChildFragmentPagerAdapter extends FragmentStateAdapter {
 
-    private int mRecipeId;
-    private String mRecipeName;
+    private final int mRecipeId;
+    private final String mRecipeName;
 
     ChildFragmentPagerAdapter(@NonNull FragmentActivity fragmentActivity, int mRecipeId, String recipeName) {
         super(fragmentActivity);

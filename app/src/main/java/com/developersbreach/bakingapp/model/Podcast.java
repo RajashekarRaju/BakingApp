@@ -4,10 +4,10 @@ import java.util.List;
 
 public class Podcast {
 
-    private int mPodcastRecipeId;
-    private String mPodcastRecipeName;
-    private String mPodcastRecipeImage;
-    private List<String> mPodcastStepsUrlList;
+    private final int mPodcastRecipeId;
+    private final String mPodcastRecipeName;
+    private final String mPodcastRecipeImage;
+    private final List<String> mPodcastStepsUrlList;
 
     public Podcast(int podcastRecipeId, String podcastRecipeName, String podcastRecipeImage,
                    List<String> podcastStepsUrlList) {

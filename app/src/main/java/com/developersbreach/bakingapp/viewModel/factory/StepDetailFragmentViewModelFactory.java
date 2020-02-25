@@ -11,9 +11,9 @@ import com.developersbreach.bakingapp.viewModel.StepDetailFragmentViewModel;
 
 public class StepDetailFragmentViewModelFactory extends ViewModelProvider.AndroidViewModelFactory {
 
-    private Application mApplication;
-    private Steps mStep;
-    private String mRecipeName;
+    private final Application mApplication;
+    private final Steps mStep;
+    private final String mRecipeName;
 
     /**
      * Creates a {@code AndroidViewModelFactory}

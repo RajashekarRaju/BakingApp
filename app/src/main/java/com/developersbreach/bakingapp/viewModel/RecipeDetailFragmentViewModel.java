@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class RecipeDetailFragmentViewModel extends AndroidViewModel {
 
-    private MutableLiveData<Recipe> _mMutableRecipe;
+    private final MutableLiveData<Recipe> _mMutableRecipe;
     private MutableLiveData<ItemLength> _mMutableTotalNumber;
 
     public MutableLiveData<Recipe> selectedRecipe() {

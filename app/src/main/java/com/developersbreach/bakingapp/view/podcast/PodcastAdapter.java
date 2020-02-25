@@ -1,7 +1,6 @@
 package com.developersbreach.bakingapp.view.podcast;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -38,7 +37,7 @@ public class PodcastAdapter extends ListAdapter<Podcast, PodcastAdapter.PodcastV
      * The interface that receives onClick listener.
      */
     public interface PodcastAdapterListener {
-        void onPodcastSelected(Podcast podcast, View view);
+        void onPodcastSelected(Podcast podcast);
     }
 
     /**
@@ -53,7 +52,7 @@ public class PodcastAdapter extends ListAdapter<Podcast, PodcastAdapter.PodcastV
             this.mBinding = binding;
 
             binding.getRoot().setOnClickListener(
-                    view -> mListener.onPodcastSelected(mBinding.getPodcast(), view));
+                    view -> mListener.onPodcastSelected(mBinding.getPodcast()));
 
             binding.podcastOverflowMenuItemImageView.setOnClickListener(
                     view -> new MaterialAlertDialogBuilder(view.getContext())

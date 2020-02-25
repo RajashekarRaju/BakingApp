@@ -1,6 +1,7 @@
 package com.developersbreach.bakingapp.utils;
 
 import android.media.MediaMetadataRetriever;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Locale;

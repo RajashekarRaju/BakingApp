@@ -31,8 +31,8 @@ public class WidgetService extends RemoteViewsService {
 class WidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private List<Ingredients> mIngredientsList = new ArrayList<>();
-    private Context mContext;
-    private int mAppWidgetId;
+    private final Context mContext;
+    private final int mAppWidgetId;
     private int mRecipeWidgetId;
 
 

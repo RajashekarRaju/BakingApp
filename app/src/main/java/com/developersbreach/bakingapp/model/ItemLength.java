@@ -2,8 +2,8 @@ package com.developersbreach.bakingapp.model;
 
 public class ItemLength {
 
-    private int mIngredientsSize;
-    private int mStepsSize;
+    private final int mIngredientsSize;
+    private final int mStepsSize;
 
     public ItemLength(int ingredientsSize, int stepsSize) {
         this.mIngredientsSize = ingredientsSize;

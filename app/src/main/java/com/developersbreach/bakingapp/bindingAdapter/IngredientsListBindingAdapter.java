@@ -31,9 +31,9 @@ public class IngredientsListBindingAdapter {
     @BindingAdapter("ingredientQuantity")
     public static void bindIngredientQuantity(TextView textView, String quantity) {
         if ("0.5".equals(quantity)) {
-            textView.setText("1/2");
+            textView.setText(R.string.ingredient_quantity_half_value);
         } else if ("1.5".equals(quantity)) {
-            textView.setText("1 1/2");
+            textView.setText(R.string.ingredient_quantity_one_half_value);
         } else {
             textView.setText(quantity);
         }

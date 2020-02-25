@@ -222,7 +222,7 @@ public class RecipeDetailFragment extends Fragment {
 
             String[] tabNames = new String[]{
                     getResources().getString(R.string.tab_title_ingredients),
-                    getResources().getString(R.string.tab_name_walk_thorugh)
+                    getResources().getString(R.string.tab_title_steps)
             };
 
             int[] tabIcons = new int[]{

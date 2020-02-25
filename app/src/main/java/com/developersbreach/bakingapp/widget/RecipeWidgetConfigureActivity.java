@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -30,7 +29,7 @@ public class RecipeWidgetConfigureActivity extends Activity {
     private static final String PREFS_NAME_RECIPE_NAME = "com.developersbreach.bakingapp.widget.RecipeName";
     private static final String PREF_PREFIX_KEY_ID = "appwidget_recipe_id";
     private static final String PREF_PREFIX_KEY_NAME = "appwidget_recipe_name";
-    int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+    private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     public RecipeWidgetConfigureActivity() {
         super();
@@ -81,14 +80,14 @@ public class RecipeWidgetConfigureActivity extends Activity {
         }
     }
 
-    static void saveIdPref(Context context, int appWidgetId, int recipeId) {
+    private static void saveIdPref(Context context, int appWidgetId, int recipeId) {
         SharedPreferences.Editor prefsRecipeId = context.getSharedPreferences(PREFS_NAME_RECIPE_ID, 0).edit();
         prefsRecipeId.putInt(PREF_PREFIX_KEY_ID + appWidgetId, recipeId);
         prefsRecipeId.apply();
     }
 
     // Write the prefix to the SharedPreferences object for this widget
-    static void saveTitlePref(Context context, int appWidgetId, String recipeName) {
+    private static void saveTitlePref(Context context, int appWidgetId, String recipeName) {
         SharedPreferences.Editor prefsRecipeName = context.getSharedPreferences(PREFS_NAME_RECIPE_NAME, 0).edit();
         prefsRecipeName.putString(PREF_PREFIX_KEY_NAME + appWidgetId, recipeName);
         prefsRecipeName.apply();
@@ -121,7 +120,7 @@ public class RecipeWidgetConfigureActivity extends Activity {
     private class WidgetItemListener implements WidgetItemAdapter.WidgetItemAdapterListener {
 
         @Override
-        public void onWidgetItemSelected(WidgetItem widgetItem, View view, int position) {
+        public void onWidgetItemSelected(WidgetItem widgetItem, int position) {
             saveIdPref(getApplicationContext(), mAppWidgetId, position);
             saveTitlePref(getApplicationContext(), mAppWidgetId, widgetItem.getRecipeName());
 

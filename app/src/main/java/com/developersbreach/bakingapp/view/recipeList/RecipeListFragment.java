@@ -38,7 +38,7 @@ public class RecipeListFragment extends Fragment {
     private RecipeAdapter mRecipeAdapter;
     private RecyclerView mRecipeRecyclerView;
     private ConstraintLayout mParentFrameLayout;
-    public static String COMPLETED_ANIMATION_PREF_NAME = "ANIMATION_LINEAR_OUT";
+    private static final String COMPLETED_ANIMATION_PREF_NAME = "ANIMATION_LINEAR_OUT";
     private SharedPreferences mSharedPreferences;
 
     @Override

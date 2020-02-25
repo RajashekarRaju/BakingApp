@@ -46,7 +46,7 @@ public class StepsAdapter extends ListAdapter<Steps, StepsAdapter.StepsViewHolde
     /**
      * Children views for sandwich data
      */
-    class StepsViewHolder extends RecyclerView.ViewHolder {
+    static class StepsViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemStepBinding mBinding;
 

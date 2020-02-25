@@ -1,5 +1,6 @@
 package com.developersbreach.bakingapp.view.podcast;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
@@ -123,7 +124,7 @@ public class PodcastFragment extends Fragment {
 
     private class PodcastListener implements PodcastAdapter.PodcastAdapterListener {
         @Override
-        public void onPodcastSelected(Podcast podcast, View view) {
+        public void onPodcastSelected(Podcast podcast) {
 
             // Show hidden BottomNavigationView first
             mBottomNavigationPlayerView.setVisibility(View.VISIBLE);
@@ -274,6 +275,7 @@ public class PodcastFragment extends Fragment {
         }
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     public void onResume() {
         super.onResume();

@@ -2,7 +2,7 @@ package com.developersbreach.bakingapp.widget;
 
 public class WidgetItem {
 
-    private String mRecipeName;
+    private final String mRecipeName;
 
     public WidgetItem(String recipeName) {
         this.mRecipeName = recipeName;

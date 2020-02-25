@@ -73,7 +73,7 @@ public class StepsFragment extends Fragment {
         });
     }
 
-    private class StepClickListener implements StepsAdapter.StepsAdapterListener {
+    private static class StepClickListener implements StepsAdapter.StepsAdapterListener {
         @Override
         public void onStepSelected(Steps steps, String recipeName, View view) {
             NavDirections directions = StepDetailFragmentDirections.actionGlobalStepDetailFragment(steps, recipeName);

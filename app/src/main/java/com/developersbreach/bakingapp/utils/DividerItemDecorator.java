@@ -13,7 +13,7 @@ import com.developersbreach.bakingapp.R;
 
 public class DividerItemDecorator extends RecyclerView.ItemDecoration {
 
-    private Drawable mDivider;
+    private final Drawable mDivider;
 
     public DividerItemDecorator(Context context) {
         mDivider = ContextCompat.getDrawable(context, R.drawable.list_divider);

@@ -16,8 +16,8 @@ import java.util.List;
 public class StepsFragmentViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Steps>> _mMutableStepsList;
-    private String _mMutableRecipeName;
-    private int mMutableRecipeId;
+    private final String _mMutableRecipeName;
+    private final int mMutableRecipeId;
 
     public MutableLiveData<List<Steps>> stepsList() {
         getMutableStepsList();
