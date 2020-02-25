@@ -13,42 +13,42 @@
         android:id="@+id/podcast_header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
+        android:paddingTop="@dimen/padding_top_16dp"
+        android:paddingBottom="@dimen/padding_bottom_16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/podcast_image_view"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/ic_audiotrack"
-            android:tint="#284DAE"
+            android:layout_width="@dimen/podcast_header_icon_size"
+            android:layout_height="@dimen/podcast_header_icon_size"
+            android:layout_marginStart="@dimen/layout_margin_start_16dp"
+            android:contentDescription="@string/podcast_image_description"
+            android:src="@drawable/ic_podcast_header_icon"
+            android:tint="@color/podcast_header_icon_tint"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/podcast_toolbar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/podcast_toolbar"
             style="@style/PodcastToolbarStyle"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/podcast_toolbar_width_0dp"
             android:layout_height="match_parent"
-            app:contentInsetStart="0dp"
+            app:contentInsetStart="@dimen/podcast_toolbar_inset_0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/podcast_image_view"
             app:menu="@menu/menu_home"
-            app:title="Podcasts" />
+            app:title="@string/podcast_header_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/podcast_list_container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/parent_height_0dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation_player_view_podcast"
         app:layout_constraintTop_toBottomOf="@id/podcast_header_layout"
@@ -73,7 +73,7 @@
         android:id="@+id/bottom_navigation_player_view_podcast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#000000"
+        android:background="@color/podcast_bottom_player_background"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,28 +1,11 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#000000</item>
-        <item name="colorPrimaryDark">#000000</item>
-        <item name="android:windowBackground">#000000</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="android:windowBackground">@color/window_background</item>
         <item name="android:windowFullscreen">true</item>
-
-        <!--        <item name="colorPrimary">@color/primaryColor</item>-->
-        <!--        <item name="colorPrimaryDark">@color/primaryDarkColor</item>-->
-        <!--        <item name="android:windowBackground">@color/primaryColor</item>-->
     </style>
-
-    <style name="AppTheme.NoActionBar" parent="AppTheme">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay">
-        <![CDATA[<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />]]></style>
-
-    <style name="AppTheme.PopupOverlay">
-        <![CDATA[<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />]]></style>
 
     <style name="TabLayoutStyleCustom" parent="Widget.MaterialComponents.TabLayout.Colored">
         <item name="android:layout_width">match_parent</item>
@@ -47,9 +30,8 @@
     <style name="ConnectionRefreshMaterialButton" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/colorItemDivider</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
         <item name="strokeColor">#FFFFFF</item>
     </style>
-
 
 </resources>

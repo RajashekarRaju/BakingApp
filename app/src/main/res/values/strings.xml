@@ -1,6 +1,38 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
     <string name="app_name">Baking App</string>
+    <string name="recipe_main_title">Recipes</string>
+
+    <!--  Podcast  -->
+    <string name="podcast_header_title">Podcasts</string>
+    <string name="podcast_menu">Podcast</string>
+    <string name="udacity_chef_name">Miriam</string>
+    <string name="miriam_title">Miriam</string>
+    <string name="credit_podcast">Udacity’s resident baker-in-chief, Miriam, to share her recipes with the world.</string>
+
+    <!--  Network Connection  -->
+    <string name="no_internet">No Internet</string>
+    <string name="refresh_connection">Refresh</string>
+
+    <!--  Tools Text  -->
+    <string name="nutella_pie_tools_text">Nutella Pie</string>
+    <string name="quantity_tools_text">350</string>
+    <string name="measure_tools_text">Gram</string>
+    <string name="step_short_description_tools_text">Remove from oven and cool at room temperature.</string>
+    <string name="step_video_duration_tools_text">0:07</string>
+    <string name="ingredient_tools_text">Sugar</string>
+    <string name="miriam_tools_text">Miriam</string>
+    <string name="exo_position_tools_text">0:00</string>
+    <string name="track_info_tools_text">Playing 5 tracks in Nutella Pie</string>
+    <string name="trash_wrap_test_tools_text">This could be nutella pie or may be not. Who even cares
+        seriously. Now what really matters is whether this sentence has enough content to see how
+        it wraps on screen.
+    </string>
+
+    <!--  String Formatting Binding Adapters  -->
     <string name="name_not_available">Not Available</string>
+    <string name="ingredient_quantity_half_value" tools:ignore="TypographyFractions">1/2</string>
+    <string name="ingredient_quantity_one_half_value" tools:ignore="TypographyFractions">1 1/2</string>
     <string name="measure_grams">Gram</string>
     <string name="measure_cup">Cup</string>
     <string name="measure_table_spoon">TableSpoon</string>
@@ -8,28 +40,26 @@
     <string name="measure_ounce">Ounce</string>
     <string name="measure_tea_spoon">TeaSpoon</string>
     <string name="measure_no_units">Number of</string>
+
+    <!--  Content Description  -->
+    <string name="rewind_button_exo_player_description">Rewind Button</string>
+    <string name="play_button_exo_player_description">Play Button</string>
+    <string name="pause_button_exo_player_description">Pause Button</string>
+    <string name="forward_button_exo_player_description">Forward Button</string>
+    <string name="podcast_image_description">Podcast Image</string>
+    <string name="podcast_menu_description">Podcast Menu</string>
+    <string name="recipe_image_description">Recipe Image</string>
+    <string name="video_thumbnail_description">Video Thumbnail</string>
+    <string name="miriam_content_description">Miriam</string>
+    <string name="minimize_button_description">Minimize Button</string>
+    <string name="podcast_album_cover_description">Podcast Album Cover</string>
+
     <string name="home_menu">Home</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="configure">Configure</string>
-    <string name="add_widget">Add widget</string>
-    <string name="select_recipe_configure">Select Recipe</string>
-    <string name="nutella_pie">Nutella Pie</string>
-    <string name="brownies">Brownies</string>
-    <string name="yellow_cake">Yellow Cake</string>
-    <string name="cheesecake">Cheesecake</string>
+    <string name="widget_select_recipe_configure">Select Recipe</string>
     <string name="ingredient_separator">-</string>
-    <string name="podcast_menu">Podcast</string>
-    <string name="udacity_chef_name">Miriam</string>
-    <string name="credit_podcast">Udacity’s resident baker-in-chief, Miriam, to share her recipes with the world.</string>
-    <string name="miriam_title">Miriam</string>
-    <string name="trash_wrap_test">This could be nutella pie or may be not. Who even cares seriously. Now what really matters is whether this sentence has enough content to see how it wraps on screen.</string>
     <string name="exo_player_video_error">Video Not Available</string>
     <string name="tab_title_ingredients">Ingredients</string>
-    <string name="tab_name_walk_thorugh">WalkThrough</string>
-    <string name="empty_toolbar_title" />
-    <string name="no_internet">No Internet</string>
+    <string name="tab_title_steps">WalkThrough</string>
+    <string name="empty_toolbar_title"> </string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="refresh_connection">Refresh</string>
 </resources>

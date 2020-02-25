@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="recipe"
             type="com.developersbreach.bakingapp.model.Recipe" />
@@ -13,8 +14,8 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
+        app:cardCornerRadius="@dimen/card_corner_radius_8dp"
+        app:cardElevation="@dimen/card_elevation_4dp"
         app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,37 +23,38 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                recipeImageView="@{recipe.recipeImage}"
                 android:id="@+id/recipe_image_item_view"
+                recipeImageView="@{recipe.recipeImage}"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="@dimen/main_recipe_image_height"
+                android:contentDescription="@string/recipe_image_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <View
-                android:id="@+id/recipe_textName_background_view"
+                android:id="@+id/recipe_text_name_background_view"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="#212121"
+                android:layout_height="@dimen/recipe_text_background_view_height"
+                android:background="@color/recipe_text_background_view_color"
                 app:layout_constraintEnd_toEndOf="@id/recipe_image_item_view"
                 app:layout_constraintStart_toStartOf="@id/recipe_image_item_view"
                 app:layout_constraintTop_toBottomOf="@id/recipe_image_item_view" />
 
             <TextView
-                recipeName="@{recipe.recipeName}"
                 android:id="@+id/recipe_name_item_text_view"
+                recipeName="@{recipe.recipeName}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="@dimen/layout_margin_start_16dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                app:layout_constraintBottom_toBottomOf="@id/recipe_textName_background_view"
-                app:layout_constraintStart_toStartOf="@id/recipe_textName_background_view"
-                app:layout_constraintTop_toTopOf="@id/recipe_textName_background_view"
-                tools:text="Recipe Name" />
+                app:layout_constraintBottom_toBottomOf="@id/recipe_text_name_background_view"
+                app:layout_constraintStart_toStartOf="@id/recipe_text_name_background_view"
+                app:layout_constraintTop_toTopOf="@id/recipe_text_name_background_view"
+                tools:text="@string/nutella_pie_tools_text" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
 </layout>

@@ -8,23 +8,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/padding_16dp">
 
         <TextView
-            android:text="@string/select_recipe_configure"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
-            android:textColor="@color/colorTabIndicator"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/widget_select_recipe_configure"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
+            android:textColor="@color/color_select_recipe_title_configure" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/widget_recycler_view"
-            android:layout_marginTop="28dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/layout_margin_top_28dp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_recipe_widget" />
 
     </LinearLayout>
+
 </layout>

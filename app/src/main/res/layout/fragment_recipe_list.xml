@@ -13,13 +13,13 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#000000">
+            android:background="@color/app_bar_layout_background">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/recipe_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:title="Recipe's" />
+                app:title="@string/recipe_main_title" />
 
         </com.google.android.material.appbar.AppBarLayout>
 

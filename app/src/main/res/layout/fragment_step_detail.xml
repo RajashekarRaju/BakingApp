@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="stepDetail"
             type="com.developersbreach.bakingapp.model.Steps" />
@@ -17,67 +18,52 @@
         tools:context=".view.stepDetail.StepDetailFragment">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:background="#000000"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/app_bar_layout_background">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/step_detail_toolbar"
-                app:navigationIcon="@drawable/ic_arrow_back"
-                tools:title="Nutella Pie"
-                app:menu="@menu/menu_home"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
+                android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/menu_home"
+                app:navigationIcon="@drawable/ic_up_button"
+                tools:title="@string/nutella_pie_tools_text" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#000000"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context=".view.stepDetail.StepDetailFragment">
-
-            <TextView
-                stepDetailShortDescription="@{stepDetail.stepsShortDescription}"
-                android:id="@+id/step_shortDescription_player_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:layout_marginTop="40dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                android:textColor="@color/colorWhite"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:text="Short description" />
 
             <com.google.android.exoplayer2.ui.PlayerView
                 android:id="@+id/recipe_player_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:controller_layout_id="@layout/custom_play_control_view"
-                app:layout_constraintBottom_toTopOf="@id/step_description_player_text_view"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/step_shortDescription_player_text_view"
+                app:layout_constraintTop_toTopOf="parent"
                 app:use_controller="true" />
 
             <TextView
-                stepDetailDescription="@{stepDetail.stepsDescription}"
                 android:id="@+id/step_description_player_text_view"
+                stepDetailDescription="@{stepDetail.stepsDescription}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="40dp"
-                android:padding="8dp"
+                android:layout_marginBottom="@dimen/layout_margin_bottom_24dp"
+                android:padding="@dimen/padding_8dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="@string/trash_wrap_test" />
+                tools:text="@string/trash_wrap_test_tools_text" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

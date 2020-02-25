@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="recipeDetail"
             type="com.developersbreach.bakingapp.model.Recipe" />
@@ -15,13 +16,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".view.recipeDetail.RecipeDetailFragment">
+        tools:context=".view.recipeDetail.RecipeDetailFragment"
+        tools:ignore="InconsistentLayout">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/recipe_detail_appbarLayout"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="#000000"
+            android:background="@color/app_bar_layout_background"
             android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -45,7 +47,7 @@
                 <ImageView
                     android:id="@+id/detail_image"
                     android:layout_width="match_parent"
-                    android:layout_height="278dp"
+                    android:layout_height="@dimen/recipe_detail_head_image_height"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
@@ -64,7 +66,7 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/recipe_detail_tabLayout"
                 style="@style/TabLayoutStyleCustom"
-                android:paddingTop="8dp"
+                android:paddingTop="@dimen/tab_layout_padding_top"
                 app:tabRippleColor="@android:color/transparent" />
 
             <androidx.viewpager2.widget.ViewPager2
@@ -76,4 +78,5 @@
         </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

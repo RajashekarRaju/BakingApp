@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:padding="@dimen/padding_8dp">
 
     <TextView
         android:id="@+id/ingredient_name_widget_item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="@dimen/layout_margin_top_12dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        android:textColor="@color/colorWhite"
-        tools:text="Sugar" />
+        android:textColor="@color/primaryTextColor"
+        tools:text="@string/ingredient_tools_text" />
 
 </LinearLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
@@ -9,7 +8,7 @@
     <fragment
         android:id="@+id/recipeListFragment"
         android:name="com.developersbreach.bakingapp.view.recipeList.RecipeListFragment"
-        android:label="Recipe's"
+        android:label="@string/recipe_main_title"
         tools:layout="@layout/fragment_recipe_list">
         <action
             android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
@@ -23,7 +22,6 @@
     <fragment
         android:id="@+id/recipeDetailFragment"
         android:name="com.developersbreach.bakingapp.view.recipeDetail.RecipeDetailFragment"
-        android:label="fragment_recipe_detail"
         tools:layout="@layout/fragment_recipe_detail">
         <argument
             android:name="recipeDetailArgs"
@@ -33,19 +31,16 @@
     <fragment
         android:id="@+id/ingredientsFragment"
         android:name="com.developersbreach.bakingapp.view.ingredientList.IngredientsFragment"
-        android:label="fragment_ingredients"
         tools:layout="@layout/fragment_ingredients" />
 
     <fragment
         android:id="@+id/stepsFragment"
         android:name="com.developersbreach.bakingapp.view.stepList.StepsFragment"
-        android:label="fragment_steps"
         tools:layout="@layout/fragment_steps" />
 
     <fragment
         android:id="@+id/stepDetailFragment"
         android:name="com.developersbreach.bakingapp.view.stepDetail.StepDetailFragment"
-        android:label="fragment_step_detail"
         tools:layout="@layout/fragment_step_detail">
         <argument
             android:name="stepDetailArgs"
@@ -83,7 +78,11 @@
     <activity
         android:id="@+id/recipeWidgetConfigureActivity"
         android:name="com.developersbreach.bakingapp.widget.RecipeWidgetConfigureActivity"
-        android:label="recipe_widget_configure"
         tools:layout="@layout/recipe_widget_configure" />
+
+    <fragment
+        android:id="@+id/fragmentNoInternet"
+        android:name="com.developersbreach.bakingapp.view.FragmentNoInternet"
+        tools:layout="@layout/fragment_no_internet" />
 
 </navigation>

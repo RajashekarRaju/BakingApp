@@ -14,43 +14,43 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp">
+        android:layout_margin="@dimen/layout_margin_4dp">
 
         <ImageView
             android:id="@+id/step_thumbnail_item_image_view"
             stepThumbnail="@{step.thumbnailUrl}"
-            android:layout_width="180dp"
-            android:layout_height="120dp"
+            android:layout_width="@dimen/step_thumbnail_tablet_width"
+            android:layout_height="@dimen/step_thumbnail_tablet_height"
+            android:contentDescription="@string/video_thumbnail_description"
             android:src="@drawable/ic_thumbnail_available"
             app:layout_constraintEnd_toStartOf="@id/step_shortDescription_item_text_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/step_shortDescription_item_text_view"
             stepShortDescription="@{step.stepsShortDescription}"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/text_width_0sp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/layout_margin_start_16dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textColor="@color/primaryTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/step_thumbnail_item_image_view"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Remove from oven and cool at room temperature." />
+            tools:text="@string/step_short_description_tools_text" />
 
         <TextView
             android:id="@+id/video_size"
             stepVideoDuration="@{step.videoUrl}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_margin_top_4dp"
             android:fontFamily="sans-serif-condensed-light"
             android:textColor="@color/primaryTextColor"
-            android:layout_marginTop="4dp"
-            app:layout_constraintTop_toBottomOf="@id/step_shortDescription_item_text_view"
             app:layout_constraintStart_toStartOf="@id/step_shortDescription_item_text_view"
-            tools:text="0:07" />
+            app:layout_constraintTop_toBottomOf="@id/step_shortDescription_item_text_view"
+            tools:text="@string/step_video_duration_tools_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

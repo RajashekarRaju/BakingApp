@@ -11,13 +11,13 @@
         android:id="@+id/no_internet_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/no_internet"
         android:src="@drawable/ic_no_network"
         app:layout_constraintBottom_toTopOf="@+id/no_internet_text_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/no_internet_text_view"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:text="@string/no_internet"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-        android:textColor="@color/colorTabIndicator"
+        android:textColor="@color/secondaryTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,7 @@
         style="@style/ConnectionRefreshMaterialButton"
         android:text="@string/refresh_connection"
         app:icon="@drawable/ic_refresh_connection"
-        app:iconTint="@color/colorItemDivider"
+        app:iconTint="@color/secondaryIconTint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

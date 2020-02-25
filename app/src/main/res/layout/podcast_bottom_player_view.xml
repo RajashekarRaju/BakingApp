@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,13 +11,11 @@
     <com.google.android.exoplayer2.ui.PlayerControlView
         android:id="@+id/podcast_player_control_view"
         android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_marginStart="-8dp"
-        android:layout_marginEnd="-8dp"
-        app:buffered_color="#616161"
+        android:layout_height="@dimen/layout_controller_height_4dp"
+        app:buffered_color="@color/player_controller_buffered_color"
         app:controller_layout_id="@layout/podcast_bottom_player_control_view"
-        app:played_color="#ffeb3b"
-        app:scrubber_enabled_size="0dp"
+        app:played_color="@color/player_controller_played_color"
+        app:scrubber_enabled_size="@dimen/controller_scrubber_size"
         app:show_timeout="0"
         app:use_controller="true" />
 
@@ -28,48 +26,48 @@
 
         <ImageView
             android:id="@+id/bottom_player_album_image_view_podcast"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_audiotrack"
+            android:layout_width="@dimen/podcast_player_image_width"
+            android:layout_height="@dimen/podcast_player_image_height"
+            android:contentDescription="@string/podcast_image_description"
+            android:src="@drawable/ic_podcast_header_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/bottom_player_podcast_title_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/colorWhite"
+            android:layout_marginStart="@dimen/layout_margin_start_16dp"
+            android:layout_marginTop="@dimen/layout_margin_top_8dp"
+            android:textColor="@color/primaryTextColor"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/bottom_player_chef_text_view_podcast"
             app:layout_constraintStart_toEndOf="@id/bottom_player_album_image_view_podcast"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Nutella pie" />
+            tools:text="@string/nutella_pie_tools_text" />
 
         <TextView
             android:id="@+id/bottom_player_chef_text_view_podcast"
-            android:text="@string/udacity_chef_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="@dimen/layout_margin_bottom_4dp"
+            android:text="@string/udacity_chef_name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/bottom_player_podcast_title_text_view"
             app:layout_constraintTop_toBottomOf="@id/bottom_player_podcast_title_text_view"
-            tools:text="Chef name" />
+            tools:text="@string/miriam_tools_text" />
 
         <ImageView
             android:id="@+id/bottom_player_play_image_view_podcast"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="@dimen/podcast_player_play_image_size"
+            android:layout_height="@dimen/podcast_player_play_image_size"
+            android:layout_marginEnd="@dimen/layout_margin_end_16dp"
+            android:contentDescription="@string/pause_button_exo_player_description"
             android:src="@drawable/ic_pause_player"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

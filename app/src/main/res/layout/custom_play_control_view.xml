@@ -1,37 +1,45 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     android:layoutDirection="ltr"
-    android:background="#000000"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingTop="4dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/exo_player_padding_top">
 
-        <ImageButton android:id="@id/exo_rew"
-            style="@style/ExoMediaButton.Rewind"/>
+        <ImageButton
+            android:id="@id/exo_rew"
+            style="@style/ExoMediaButton.Rewind"
+            android:contentDescription="@string/rewind_button_exo_player_description" />
 
-        <ImageButton android:id="@id/exo_play"
-            style="@style/ExoMediaButton.Play"/>
+        <ImageButton
+            android:id="@id/exo_play"
+            style="@style/ExoMediaButton.Play"
+            android:contentDescription="@string/play_button_exo_player_description" />
 
-        <ImageButton android:id="@id/exo_pause"
-            style="@style/ExoMediaButton.Pause"/>
+        <ImageButton
+            android:id="@id/exo_pause"
+            style="@style/ExoMediaButton.Pause"
+            android:contentDescription="@string/pause_button_exo_player_description" />
 
-        <ImageButton android:id="@id/exo_ffwd"
-            style="@style/ExoMediaButton.FastForward"/>
+        <ImageButton
+            android:id="@id/exo_ffwd"
+            style="@style/ExoMediaButton.FastForward"
+            android:contentDescription="@string/forward_button_exo_player_description" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/exo_player_margin_top"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -39,28 +47,30 @@
             android:id="@id/exo_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
             android:includeFontPadding="false"
-            android:textColor="#FFBEBEBE"/>
+            android:paddingStart="@dimen/exo_player_padding_start_4dp"
+            android:paddingEnd="@dimen/exo_player_padding_end_4dp"
+            android:textColor="@color/exo_player_position_text_color"
+            android:textSize="@dimen/text_size_14sp"
+            android:textStyle="bold" />
 
         <View
             android:id="@id/exo_progress_placeholder"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/exo_player_progress_width_0dp"
+            android:layout_height="@dimen/exo_player_progress_height_26dp"
             android:layout_weight="1"
-            android:layout_height="26dp"/>
+            tools:ignore="InefficientWeight" />
 
-        <TextView android:id="@id/exo_duration"
+        <TextView
+            android:id="@id/exo_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
             android:includeFontPadding="false"
-            android:textColor="#FFBEBEBE"/>
+            android:paddingStart="@dimen/exo_player_padding_start_4dp"
+            android:paddingEnd="@dimen/exo_player_padding_end_4dp"
+            android:textColor="@color/exo_player_position_text_color"
+            android:textSize="@dimen/text_size_14sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

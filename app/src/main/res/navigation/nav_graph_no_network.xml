@@ -9,7 +9,6 @@
     <fragment
         android:id="@+id/fragmentNoInternet"
         android:name="com.developersbreach.bakingapp.view.FragmentNoInternet"
-        android:label="fragment_fragment_no_internet"
-        tools:layout="@layout/fragment_fragment_no_internet" />
+        tools:layout="@layout/fragment_no_internet" />
 
 </navigation>

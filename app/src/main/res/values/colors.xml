@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#163B99</color>
-    <color name="primaryDarkColor">#002078</color>
-    <color name="primaryLightColor">#284DAE</color>
+    <!--  Primary Colors  -->
+    <color name="primaryColor">#000000</color>
+    <color name="primaryDarkColor">#000000</color>
     <color name="primaryTextColor">#ffffff</color>
-    <color name="backgroundColor">#163B99</color>
-    <color name="colorWhite">#FFFFFF</color>
+    <color name="primaryIconTint">#FFFFFF</color>
+    <!--  Secondary Colors  -->
+    <color name="secondaryTextColor">#ffff63</color>
+    <color name="secondaryIconTint">#ffff63</color>
+    <!--  TabLayout Color  -->
     <color name="colorTabIndicator">#ffff63</color>
-    <color name="colorItemDivider">#ffff63</color>
-    <color name="colorBlack">#000000</color>
+    <!--  Exo Player Controller  -->
+    <color name="exo_player_position_text_color">#FFBEBEBE</color>
+    <color name="player_controller_buffered_color">#616161</color>
+    <color name="player_controller_played_color">#ffeb3b</color>
+    <!--  Podcast Colors  -->
+    <color name="podcast_header_icon_tint">#284DAE</color>
+    <color name="podcast_bottom_player_background">#000000</color>
+    <color name="podcast_player_image_tint">#e0e0e0</color>
+    <color name="podcast_main_player_player_color">#FFFFFF</color>
+    <!--  Layout Backgrounds  -->
+    <color name="window_background">#000000</color>
+    <color name="app_bar_layout_background">#000000</color>
+    <color name="recipe_text_background_view_color">#212121</color>
+    <!--  Widget Colors  -->
+    <color name="widget_header_text_background_color">#FFFFFF</color>
+    <color name="widget_header_title_text_color">#000000</color>
+    <color name="color_select_recipe_title_configure">#ffff63</color>
 </resources>

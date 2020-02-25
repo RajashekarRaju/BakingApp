@@ -15,41 +15,41 @@
         <View
             android:id="@id/exo_progress_placeholder"
             android:layout_width="match_parent"
-            android:layout_height="12dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp" />
+            android:layout_height="@dimen/main_podcast_player_progress_height"
+            android:layout_marginStart="@dimen/layout_margin_start_32dp"
+            android:layout_marginTop="@dimen/layout_margin_top_16dp"
+            android:layout_marginEnd="@dimen/layout_margin_end_32dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginStart="@dimen/layout_margin_start_40dp"
+            android:layout_marginEnd="@dimen/layout_margin_end_40dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@id/exo_position"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/text_width_0sp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/layout_margin_top_6dp"
                 android:layout_weight="5"
                 android:gravity="start"
-                android:textColor="#FFBEBEBE"
-                android:textSize="14sp"
+                android:textColor="@color/exo_player_position_text_color"
+                android:textSize="@dimen/text_size_14sp"
                 android:textStyle="bold"
-                tools:text="0:00" />
+                tools:text="@string/exo_position_tools_text" />
 
             <TextView
                 android:id="@id/exo_duration"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/text_width_0sp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/layout_margin_top_6dp"
                 android:layout_weight="5"
                 android:gravity="end"
-                android:textColor="#FFBEBEBE"
-                android:textSize="14sp"
+                android:textColor="@color/exo_player_position_text_color"
+                android:textSize="@dimen/text_size_14sp"
                 android:textStyle="bold"
-                tools:text="0:00" />
+                tools:text="@string/exo_position_tools_text" />
 
         </LinearLayout>
 
@@ -57,37 +57,37 @@
 
     <ImageView
         android:id="@+id/main_player_play_image_view_podcast"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="@dimen/podcast_player_image_width"
+        android:layout_height="@dimen/podcast_player_image_height"
+        android:layout_marginTop="@dimen/layout_margin_top_16dp"
+        android:contentDescription="@string/play_button_exo_player_description"
         android:src="@drawable/ic_pause_player"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_player_linear_parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toBottomOf="@id/main_player_linear_parent" />
 
     <ImageView
         android:id="@id/exo_rew"
         style="@style/ExoMediaButton.Rewind"
-        android:tint="#e0e0e0"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="40dp"
+        android:layout_width="@dimen/player_rewind_button_size"
+        android:layout_height="@dimen/player_rewind_button_size"
+        android:layout_marginEnd="@dimen/layout_margin_end_40dp"
+        android:contentDescription="@string/rewind_button_exo_player_description"
+        android:tint="@color/podcast_player_image_tint"
         app:layout_constraintBottom_toBottomOf="@id/main_player_play_image_view_podcast"
         app:layout_constraintEnd_toStartOf="@id/main_player_play_image_view_podcast"
-        app:layout_constraintTop_toTopOf="@id/main_player_play_image_view_podcast"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="@id/main_player_play_image_view_podcast" />
 
     <ImageView
         android:id="@id/exo_ffwd"
         style="@style/ExoMediaButton.FastForward"
-        android:tint="#e0e0e0"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="40dp"
+        android:layout_width="@dimen/player_forward_button_size"
+        android:layout_height="@dimen/player_forward_button_size"
+        android:layout_marginStart="@dimen/layout_margin_start_40dp"
+        android:contentDescription="@string/forward_button_exo_player_description"
+        android:tint="@color/podcast_player_image_tint"
         app:layout_constraintBottom_toBottomOf="@id/main_player_play_image_view_podcast"
         app:layout_constraintStart_toEndOf="@id/main_player_play_image_view_podcast"
-        app:layout_constraintTop_toTopOf="@id/main_player_play_image_view_podcast"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="@id/main_player_play_image_view_podcast" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,4 +20,5 @@
             tools:ignore="FragmentTagUsage" />
 
     </FrameLayout>
+
 </layout>
