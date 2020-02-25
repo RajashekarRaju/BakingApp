@@ -28,4 +28,8 @@
     <string name="tab_name_walk_thorugh">WalkThrough</string>
     <string name="empty_toolbar_title" />
     <string name="no_internet">No Internet</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="refresh_connection">Refresh</string>
 </resources>

@@ -8,9 +8,9 @@
         <item name="android:windowBackground">#000000</item>
         <item name="android:windowFullscreen">true</item>
 
-<!--        <item name="colorPrimary">@color/primaryColor</item>-->
-<!--        <item name="colorPrimaryDark">@color/primaryDarkColor</item>-->
-<!--        <item name="android:windowBackground">@color/primaryColor</item>-->
+        <!--        <item name="colorPrimary">@color/primaryColor</item>-->
+        <!--        <item name="colorPrimaryDark">@color/primaryDarkColor</item>-->
+        <!--        <item name="android:windowBackground">@color/primaryColor</item>-->
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
@@ -43,5 +43,13 @@
         <item name="fontFamily">sans-serif-smallcaps</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="ConnectionRefreshMaterialButton" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorItemDivider</item>
+        <item name="strokeColor">#FFFFFF</item>
+    </style>
+
 
 </resources>

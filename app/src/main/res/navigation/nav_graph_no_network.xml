@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_no_network.xml"
-    app:startDestination="@id/networkFragment">
+    app:startDestination="@id/fragmentNoInternet">
 
     <fragment
-        android:id="@+id/networkFragment"
-        android:name="com.developersbreach.bakingapp.view.network.NetworkFragment"
-        android:label="Network"
-        tools:layout="@layout/fragment_network" />
+        android:id="@+id/fragmentNoInternet"
+        android:name="com.developersbreach.bakingapp.view.FragmentNoInternet"
+        android:label="fragment_fragment_no_internet"
+        tools:layout="@layout/fragment_fragment_no_internet" />
 
 </navigation>
