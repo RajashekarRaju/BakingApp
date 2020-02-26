@@ -11,20 +11,22 @@ import java.util.concurrent.Executors;
 
 /**
  * AppExecutors class let us create Executors for completing tasks given by creating threads
- * on main thread or background.
+ * on main thread and background.
  */
 public class AppExecutors {
 
     // Create single instance
     private static final Object LOCK = new Object();
+    // Create single instance
     private static AppExecutors sINSTANCE;
-    // Create an object which executes any given task.
+    // Create an object which executes any given task in main thread.
     private final Executor mMainThread;
-    private final Executor mNetworkIO;
+    // Create an object which executes any given task in background thread.
+    private final Executor mBackgroundThread;
 
-    private AppExecutors(Executor mainThread, Executor networkIO) {
+    private AppExecutors(Executor mainThread, Executor backgroundThread) {
         this.mMainThread = mainThread;
-        this.mNetworkIO = networkIO;
+        this.mBackgroundThread = backgroundThread;
     }
 
     /**
@@ -42,7 +44,7 @@ public class AppExecutors {
         return sINSTANCE;
     }
 
-    // This executor runs on main thread, we call this executor using handler
+    // This executor runs on main thread, we call this executor with handler
     private static class MainThreadExecutor implements Executor {
         private final Handler mainThreadHandler = new Handler(Looper.getMainLooper());
 
@@ -57,8 +59,8 @@ public class AppExecutors {
         return mMainThread;
     }
 
-    // This executor used to do network operations.
-    public Executor networkIO() {
-        return mNetworkIO;
+    // This executor used to do background operations.
+    public Executor backgroundThread() {
+        return mBackgroundThread;
     }
 }

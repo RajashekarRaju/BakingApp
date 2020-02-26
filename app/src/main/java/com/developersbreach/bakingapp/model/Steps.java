@@ -3,15 +3,34 @@ package com.developersbreach.bakingapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.developersbreach.bakingapp.R;
+import com.developersbreach.bakingapp.bindingAdapter.StepsListBindingAdapter;
+import com.developersbreach.bakingapp.network.JsonUtils;
+
+
+/**
+ * Data class for getting Steps, which returns objects of step properties.
+ * We pass each property into ArrayList of Steps from class {@link JsonUtils#fetchStepsJsonData(String, int)}
+ * and these properties will be accessed by binding objects as static fields.
+ * <p>
+ * The list of properties are set to RecyclerView in class {@link StepsListBindingAdapter}
+ */
 public class Steps implements Parcelable {
 
-    private final String mStepsId;
+    // Step property of type int with unique id for step.
+    private final int mStepsId;
+    // Step property of type string has short description for step recipe.
     private final String mStepsShortDescription;
+    // Step property of type string has description for step recipe.
     private final String mStepsDescription;
+    // Step property of type URL string of video used to fetch thumbnail for each step in recipe if
+    // the thumbnail url is empty.
     private final String mVideoUrl;
+    // Step property of type URL string for getting thumbnail for each step recipe in recipe.
     private final String mThumbnailUrl;
 
-    public Steps(String id, String shortDescription, String description, String videoUrl, String thumbnailUrl) {
+    // Class constructor for making data class into reusable objects of steps.
+    public Steps(int id, String shortDescription, String description, String videoUrl, String thumbnailUrl) {
         this.mStepsId = id;
         this.mStepsShortDescription = shortDescription;
         this.mStepsDescription = description;
@@ -19,28 +38,43 @@ public class Steps implements Parcelable {
         this.mThumbnailUrl = thumbnailUrl;
     }
 
-    public String getStepsId() {
+    /**
+     * @return stepId type int for passing as an argument to load specific step detail of selected recipe.
+     */
+    public int getStepsId() {
         return mStepsId;
     }
 
+    /**
+     * @return short description for step, string value for binding view in {@link R.layout#item_step}
+     */
     public String getStepsShortDescription() {
         return mStepsShortDescription;
     }
 
+    /**
+     * @return description for step, string value for binding view in {@link R.layout#item_step}
+     */
     public String getStepsDescription() {
         return mStepsDescription;
     }
 
+    /**
+     * @return videoURL for step, string value for binding view of type thumbnail in {@link R.layout#item_step}
+     */
     public String getVideoUrl() {
         return mVideoUrl;
     }
 
+    /**
+     * @return thumbnail URL for step, string value for binding view in {@link R.layout#item_step}
+     */
     public String getThumbnailUrl() {
         return mThumbnailUrl;
     }
 
     private Steps(Parcel in) {
-        mStepsId = in.readString();
+        mStepsId = in.readInt();
         mStepsShortDescription = in.readString();
         mStepsDescription = in.readString();
         mVideoUrl = in.readString();
@@ -83,7 +117,7 @@ public class Steps implements Parcelable {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mStepsId);
+        dest.writeInt(mStepsId);
         dest.writeString(mStepsShortDescription);
         dest.writeString(mStepsDescription);
         dest.writeString(mVideoUrl);

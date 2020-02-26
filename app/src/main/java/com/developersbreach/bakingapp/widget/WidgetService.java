@@ -63,7 +63,7 @@ class WidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory 
     public void onDataSetChanged() {
         try {
             String responseString = ResponseBuilder.startResponse();
-            mIngredientsList = JsonUtils.fetchIngredients(responseString, mRecipeWidgetId);
+            mIngredientsList = JsonUtils.fetchIngredientsJsonData(responseString, mRecipeWidgetId);
         } catch (IOException e) {
             e.printStackTrace();
         }

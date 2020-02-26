@@ -7,8 +7,15 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Class with methods for formatting string data from JSON.
+ */
 public class FormatUtils {
 
+    /**
+     * @param totalDuration contains value of type long which has to format into seconds and minutes.
+     * @return String from type long in format of SS:MM to show user friendly data.
+     */
     public static String getStringTimeFormat(long totalDuration) {
         return String.format(Locale.getDefault(),
                 "%02d:%02d",
@@ -18,10 +25,19 @@ public class FormatUtils {
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(totalDuration)));
     }
 
-    public static String capitalize(String str) {
-        return Character.toUpperCase(str.charAt(0)) + str.substring(1);
+    /**
+     * @param name has value which has to be formatted to show first letter in capital.
+     * @return Character string after formatting to capitalize first letter from given string name.
+     */
+    public static String capitalize(String name) {
+        return Character.toUpperCase(name.charAt(0)) + name.substring(1);
     }
 
+    /**
+     * @param videoUrl contains URL which of type video.
+     * @return using {@link MediaMetadataRetriever} and key METADATA_KEY_DURATION get duration of
+     * passed string URL.
+     */
     public static long durationRetriever(String videoUrl) {
         final long videoDuration;
         try (MediaMetadataRetriever retriever = new MediaMetadataRetriever()) {

@@ -31,8 +31,8 @@ public class PodcastFragmentViewModel extends ViewModel {
         }
     }
 
-    private void fetchJsonData() {
-        AppExecutors.getInstance().networkIO().execute(() -> {
+    public void fetchJsonData() {
+        AppExecutors.getInstance().backgroundThread().execute(() -> {
             try {
                 String uriBuilder = ResponseBuilder.startResponse();
                 List<Podcast> recipeList = JsonUtils.fetchPodcastJsonData(uriBuilder);

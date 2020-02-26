@@ -9,8 +9,8 @@ import com.developersbreach.bakingapp.network.JsonUtils;
 
 /**
  * Data class for getting Recipes, which returns objects of recipe properties.
- * We pass each property into ArrayList of Recipes from class {@link JsonUtils} and these
- * properties will be accessed by binding objects as static fields.
+ * We pass each property into ArrayList of Recipes from class {@link JsonUtils#fetchRecipeJsonData(String)}
+ * and these properties will be accessed by binding objects as static fields.
  * <p>
  * The list of properties are set to RecyclerView in class {@link RecipeListBindingAdapter}
  */

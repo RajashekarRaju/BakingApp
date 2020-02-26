@@ -177,12 +177,12 @@ public class RecipeDetailFragment extends Fragment {
 
     private void setBadgeDrawablesDualPane(final TabLayout tabLayout, final int recipeId) {
 
-        AppExecutors.getInstance().networkIO().execute(new Runnable() {
+        AppExecutors.getInstance().backgroundThread().execute(new Runnable() {
             @Override
             public void run() {
                 try {
                     String responseString = ResponseBuilder.startResponse();
-                    ItemLength result = JsonUtils.findTotalNumber(responseString, recipeId);
+                    ItemLength result = JsonUtils.fetchTotalNumberJsonData(responseString, recipeId);
                     runOnMainThread(result);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -196,7 +196,7 @@ public class RecipeDetailFragment extends Fragment {
         });
     }
 
-    private void applyBadgeDrawables(ItemLength itemLength, TabLayout tabLayout) {
+    public void applyBadgeDrawables(ItemLength itemLength, TabLayout tabLayout) {
 
         int ingredientsSize = itemLength.getIngredientsSize();
         int stepSize = itemLength.getStepsSize();

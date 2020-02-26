@@ -10,8 +10,8 @@ import static com.developersbreach.bakingapp.R.*;
 
 /**
  * Data class for getting Ingredients, which returns objects of ingredient properties.
- * We pass each property into ArrayList of Ingredients from class {@link JsonUtils} and these
- * properties will be accessed by binding objects as static fields.
+ * We pass each property into ArrayList of Ingredients from {@link JsonUtils#fetchIngredientsJsonData(String, int)}
+ * and these properties will be accessed by binding objects as static fields.
  * <p>
  * The list of properties are set to RecyclerView in class {@link IngredientsListBindingAdapter}
  */

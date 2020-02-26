@@ -33,11 +33,11 @@ public class IngredientsFragmentViewModel extends AndroidViewModel {
         getIngredientsData(mMutableRecipeId);
     }
 
-    private void getIngredientsData(final int recipeId) {
-        AppExecutors.getInstance().networkIO().execute(() -> {
+    public void getIngredientsData(final int recipeId) {
+        AppExecutors.getInstance().backgroundThread().execute(() -> {
             try {
                 String responseString = ResponseBuilder.startResponse();
-                List<Ingredients> ingredientsList = JsonUtils.fetchIngredients(responseString, recipeId);
+                List<Ingredients> ingredientsList = JsonUtils.fetchIngredientsJsonData(responseString, recipeId);
                 _mMutableIngredientsList.postValue(ingredientsList);
             } catch (IOException e) {
                 e.printStackTrace();

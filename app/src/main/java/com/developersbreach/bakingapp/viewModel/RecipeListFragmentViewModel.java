@@ -28,8 +28,8 @@ public class RecipeListFragmentViewModel extends ViewModel {
         }
     }
 
-    private void fetchRecipeJsonData() {
-        AppExecutors.getInstance().networkIO().execute(() -> {
+    public void fetchRecipeJsonData() {
+        AppExecutors.getInstance().backgroundThread().execute(() -> {
             try {
                 String responseString = ResponseBuilder.startResponse();
                 List<Recipe> recipeList = JsonUtils.fetchRecipeJsonData(responseString);
@@ -39,6 +39,4 @@ public class RecipeListFragmentViewModel extends ViewModel {
             }
         });
     }
-
-
 }

@@ -3,6 +3,8 @@ package com.developersbreach.bakingapp.network;
 import android.net.Uri;
 import android.util.Log;
 
+import com.developersbreach.bakingapp.viewModel.RecipeListFragmentViewModel;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -10,8 +12,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
+
+/**
+ * This class builds standard response by building a URI for starting a response. Build URI is
+ * returned by {@link #uriBuilder()}
+ */
 public class ResponseBuilder {
 
+    // Strings which hold path to create a standard URI object.
     private static final String SCHEME_AUTHORITY = "https://d17h27t6h515a5.cloudfront.net";
     private static final String APPEND_PATH_TOPHER = "topher";
     private static final String APPEND_PATH_YEAR = "2017";
@@ -19,6 +27,11 @@ public class ResponseBuilder {
     private static final String APPEND_PATH_ID = "59121517_baking";
     private static final String APPEND_PATH_TYPE = "baking.json";
 
+    /**
+     * @return returns a string URL created to make JSON request in background see class for example
+     * implementation {@link RecipeListFragmentViewModel}.
+     * @throws IOException if an error is thrown when executing any of the statements.
+     */
     public static String startResponse() throws IOException {
         String uriString = uriBuilder();
         URL requestUrl = createUrl(uriString);
@@ -26,11 +39,9 @@ public class ResponseBuilder {
     }
 
     /**
-     * Builds Uri used to fetch movie data from the server. This data is based on the query
-     * capabilities of the movie database provider that we are using.
-     * API_KEY is used to query specific data from the server
+     * Builds Uri used to fetch recipe data from the server.
      *
-     * @return The String to use to query the movie database server.
+     * @return The String to use to query the recipe data from the server.
      * <p>
      * https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json
      */
@@ -60,10 +71,8 @@ public class ResponseBuilder {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
             InputStream in = urlConnection.getInputStream();
-
             Scanner scanner = new Scanner(in);
             scanner.useDelimiter("\\A");
-
             boolean hasInput = scanner.hasNext();
             String response = null;
             if (hasInput) {

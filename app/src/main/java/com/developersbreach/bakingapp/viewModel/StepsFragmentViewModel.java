@@ -39,11 +39,11 @@ public class StepsFragmentViewModel extends AndroidViewModel {
         getStepsData(mMutableRecipeId);
     }
 
-    private void getStepsData(final int recipeId) {
-        AppExecutors.getInstance().networkIO().execute(() -> {
+    public void getStepsData(final int recipeId) {
+        AppExecutors.getInstance().backgroundThread().execute(() -> {
             try {
                 String responseString = ResponseBuilder.startResponse();
-                List<Steps> stepsList = JsonUtils.fetchSteps(responseString, recipeId);
+                List<Steps> stepsList = JsonUtils.fetchStepsJsonData(responseString, recipeId);
                 _mMutableStepsList.postValue(stepsList);
             } catch (IOException e) {
                 e.printStackTrace();

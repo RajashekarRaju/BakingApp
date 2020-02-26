@@ -45,7 +45,7 @@ public class RecipeWidgetConfigureActivity extends Activity {
 
         RecyclerView recyclerView = binding.widgetRecyclerView;
 
-        AppExecutors.getInstance().networkIO().execute(new Runnable() {
+        AppExecutors.getInstance().backgroundThread().execute(new Runnable() {
             @Override
             public void run() {
                 try {

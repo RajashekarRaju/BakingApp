@@ -118,7 +118,7 @@ public class StepsAdapter extends ListAdapter<Steps, StepsAdapter.StepsViewHolde
 
         @Override
         public boolean areContentsTheSame(@NonNull Steps oldItem, @NonNull Steps newItem) {
-            return oldItem.getStepsId().equals(newItem.getStepsId());
+            return oldItem.getStepsId() == (newItem.getStepsId());
         }
     };
 }

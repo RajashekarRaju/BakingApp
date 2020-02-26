@@ -68,7 +68,7 @@ public class StepsListBindingAdapter {
     public static void bindStepVideoDuration(TextView textView, String videoUrl) {
 
         // Start a new background thread to query duration data.
-        AppExecutors.getInstance().networkIO().execute(new Runnable() {
+        AppExecutors.getInstance().backgroundThread().execute(new Runnable() {
             @Override
             public void run() {
                 // To avoid NullPointerException. Only perform is query string is not null.

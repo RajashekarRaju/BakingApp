@@ -41,10 +41,10 @@ public class RecipeDetailFragmentViewModel extends AndroidViewModel {
     }
 
     private void getTotalNumber(final int recipeId) {
-        AppExecutors.getInstance().networkIO().execute(() -> {
+        AppExecutors.getInstance().backgroundThread().execute(() -> {
             try {
                 String responseString = ResponseBuilder.startResponse();
-                ItemLength result = JsonUtils.findTotalNumber(responseString, recipeId);
+                ItemLength result = JsonUtils.fetchTotalNumberJsonData(responseString, recipeId);
                 _mMutableTotalNumber.postValue(result);
             } catch (IOException e) {
                 e.printStackTrace();
