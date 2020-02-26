@@ -14,7 +14,9 @@ import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.databinding.ItemIngredientBinding;
 import com.developersbreach.bakingapp.model.Ingredients;
 
-public class IngredientsAdapter extends ListAdapter<Ingredients, IngredientsAdapter.IngredientsViewHolder> {
+import static com.developersbreach.bakingapp.view.ingredientList.IngredientsAdapter.*;
+
+public class IngredientsAdapter extends ListAdapter<Ingredients, IngredientsViewHolder> {
 
     /**
      * Constructor for adapter class
@@ -44,7 +46,7 @@ public class IngredientsAdapter extends ListAdapter<Ingredients, IngredientsAdap
     }
 
     /**
-     * Called when RecyclerView needs a new {@link IngredientsAdapter.IngredientsViewHolder} of the given type to represent
+     * Called when RecyclerView needs a new {@link IngredientsViewHolder} of the given type to represent
      * an item.
      *
      * @param parent   The ViewGroup into which the new View will be added after it is bound to

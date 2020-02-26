@@ -22,7 +22,7 @@ public class FormatUtils {
         return Character.toUpperCase(str.charAt(0)) + str.substring(1);
     }
 
-    public static long thumbnailRetriever(String videoUrl) {
+    public static long durationRetriever(String videoUrl) {
         final long videoDuration;
         try (MediaMetadataRetriever retriever = new MediaMetadataRetriever()) {
             retriever.setDataSource(videoUrl, new HashMap<>());

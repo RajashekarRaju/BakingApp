@@ -3,26 +3,51 @@ package com.developersbreach.bakingapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.developersbreach.bakingapp.bindingAdapter.IngredientsListBindingAdapter;
+import com.developersbreach.bakingapp.network.JsonUtils;
+
+import static com.developersbreach.bakingapp.R.*;
+
+/**
+ * Data class for getting Ingredients, which returns objects of ingredient properties.
+ * We pass each property into ArrayList of Ingredients from class {@link JsonUtils} and these
+ * properties will be accessed by binding objects as static fields.
+ * <p>
+ * The list of properties are set to RecyclerView in class {@link IngredientsListBindingAdapter}
+ */
 public class Ingredients implements Parcelable {
 
+    // Ingredient property of type string has value quantity.
     private final String mIngredientsQuantity;
+    // Ingredient property of type string has value measure.
     private final String mIngredientsMeasure;
+    // Ingredient property of type string has value name of ingredient.
     private final String mIngredientsName;
 
+    // Class constructor for making data class into reusable objects of ingredients.
     public Ingredients(String quantity, String measure, String name) {
         this.mIngredientsQuantity = quantity;
         this.mIngredientsMeasure = measure;
         this.mIngredientsName = name;
     }
 
+    /**
+     * @return quantity string value for binding view in {@link layout#item_ingredient}
+     */
     public String getIngredientsQuantity() {
         return mIngredientsQuantity;
     }
 
+    /**
+     * @return measure string value for binding view in {@link layout#item_ingredient}
+     */
     public String getIngredientsMeasure() {
         return mIngredientsMeasure;
     }
 
+    /**
+     * @return ingredient string value for binding view in {@link layout#item_ingredient}
+     */
     public String getIngredientsName() {
         return mIngredientsName;
     }

@@ -3,30 +3,50 @@ package com.developersbreach.bakingapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.developersbreach.bakingapp.R;
+import com.developersbreach.bakingapp.bindingAdapter.RecipeListBindingAdapter;
+import com.developersbreach.bakingapp.network.JsonUtils;
 
+/**
+ * Data class for getting Recipes, which returns objects of recipe properties.
+ * We pass each property into ArrayList of Recipes from class {@link JsonUtils} and these
+ * properties will be accessed by binding objects as static fields.
+ * <p>
+ * The list of properties are set to RecyclerView in class {@link RecipeListBindingAdapter}
+ */
 public class Recipe implements Parcelable {
 
+    // Recipe property of type int with unique recipe id.
     private final int mRecipeId;
-    // Name of the sandwich
+    // Recipe property of type String with name of recipe.
     private final String mRecipeName;
-    // Image of the sandwich
+    // Recipe property of type String which has URL to get thumbnail from VideoURL.
     private final String mRecipeImage;
 
-
+    // Class constructor for making data class into reusable objects of recipes.
     public Recipe(int recipeId, String recipeName, String recipeImage) {
         this.mRecipeId = recipeId;
         this.mRecipeName = recipeName;
         this.mRecipeImage = recipeImage;
     }
 
+    /**
+     * @return recipeId int value for passing as an argument to load specific ingredients and recipes.
+     */
     public int getRecipeId() {
         return mRecipeId;
     }
 
+    /**
+     * @return recipe name string value for binding view in {@link R.layout#item_recipe}
+     */
     public String getRecipeName() {
         return mRecipeName;
     }
 
+    /**
+     * @return URL string value for binding view suing Glide library in {@link R.layout#item_ingredient}
+     */
     public String getRecipeImage() {
         return mRecipeImage;
     }

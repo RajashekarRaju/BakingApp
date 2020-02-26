@@ -1,4 +1,4 @@
-package com.developersbreach.bakingapp;
+package com.developersbreach.bakingapp.view;
 
 
 import android.view.View;
@@ -10,43 +10,40 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
-import com.developersbreach.bakingapp.view.MainActivity;
+import com.developersbreach.bakingapp.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class StepDetailTest {
+public class DeepNavigationTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void stepDetailTest() {
+    public void deepNavigationTest() {
         ViewInteraction materialCardView = onView(
                 allOf(childAtPosition(
                         allOf(withId(R.id.recipe_recycler_view),
                                 childAtPosition(
-                                        withClassName(is("android.widget.FrameLayout")),
+                                        withId(R.id.recipe_list_container),
                                         0)),
-                        0),
+                        2),
                         isDisplayed()));
         materialCardView.perform(click());
 
@@ -70,15 +67,15 @@ public class StepDetailTest {
                         isDisplayed()));
         constraintLayout.perform(click());
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.step_shortDescription_player_text_view), withText("Recipe Introduction"),
+        ViewInteraction actionMenuItemView = onView(
+                allOf(withId(R.id.recipeListFragment), withContentDescription("Home"),
                         childAtPosition(
                                 childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
+                                        withId(R.id.step_detail_toolbar),
                                         1),
                                 0),
                         isDisplayed()));
-        textView.check(matches(withText("Recipe Introduction")));
+        actionMenuItemView.perform(click());
     }
 
     private static Matcher<View> childAtPosition(
