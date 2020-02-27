@@ -27,4 +27,5 @@
     <color name="widget_header_text_background_color">#FFFFFF</color>
     <color name="widget_header_title_text_color">#000000</color>
     <color name="color_select_recipe_title_configure">#ffff63</color>
+    <color name="widget_body_background_color">#000000</color>
 </resources>

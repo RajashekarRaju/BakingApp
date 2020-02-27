@@ -11,13 +11,19 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.databinding.FragmentIngredientsBinding;
+import com.developersbreach.bakingapp.model.Recipe;
+import com.developersbreach.bakingapp.view.ingredientList.IngredientsAdapter.IngredientsViewHolder;
+import com.developersbreach.bakingapp.view.recipeList.RecipeAdapter;
 import com.developersbreach.bakingapp.viewModel.IngredientsFragmentViewModel;
 import com.developersbreach.bakingapp.viewModel.factory.IngredientsFragmentViewModelFactory;
 
 import java.util.Objects;
+
 
 public class IngredientsFragment extends Fragment {
 

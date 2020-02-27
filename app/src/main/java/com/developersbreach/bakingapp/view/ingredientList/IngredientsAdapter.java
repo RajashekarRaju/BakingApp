@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.developersbreach.bakingapp.model.Recipe;
 import com.developersbreach.bakingapp.network.AppExecutors;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.databinding.ItemIngredientBinding;
@@ -16,6 +17,13 @@ import com.developersbreach.bakingapp.model.Ingredients;
 
 import static com.developersbreach.bakingapp.view.ingredientList.IngredientsAdapter.*;
 
+/**
+ * This class implements a {@link RecyclerView} {@link ListAdapter} which uses Data Binding to
+ * present list data, including computing diffs between lists.
+ * <p>
+ * {@link Recipe} type of list this adapter will receive.
+ * {@link IngredientsViewHolder} class that extends ViewHolder that will be used by the adapter.
+ */
 public class IngredientsAdapter extends ListAdapter<Ingredients, IngredientsViewHolder> {
 
     /**
@@ -26,22 +34,29 @@ public class IngredientsAdapter extends ListAdapter<Ingredients, IngredientsView
     }
 
     /**
-     * Children views for sandwich data
+     * IngredientsViewHolder class creates child view Ingredient properties.
      */
     static class IngredientsViewHolder extends RecyclerView.ViewHolder {
 
+        // Get access to binding the views in layout
         private final ItemIngredientBinding mBinding;
 
+        /**
+         * @param binding binds each properties in {@link Ingredients} list
+         */
         private IngredientsViewHolder(ItemIngredientBinding binding) {
             super(binding.getRoot());
             this.mBinding = binding;
         }
 
+        /**
+         * @param ingredients pass object to set ingredient for binding. This binding is accessed
+         *                    from layout xml {@link R.layout#item_ingredient}
+         */
         void bind(final Ingredients ingredients) {
-            AppExecutors.getInstance().mainThread().execute(() -> {
-                mBinding.setIngredients(ingredients);
-                mBinding.executePendingBindings();
-            });
+            mBinding.setIngredients(ingredients);
+            // Force DataBinding to execute binding views immediately.
+            mBinding.executePendingBindings();
         }
     }
 
@@ -58,7 +73,9 @@ public class IngredientsAdapter extends ListAdapter<Ingredients, IngredientsView
     @Override
     public IngredientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ItemIngredientBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_ingredient, parent, false);
+        // Allow DataBinding to inflate the layout.
+        ItemIngredientBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_ingredient,
+                parent, false);
         return new IngredientsViewHolder(binding);
     }
 
@@ -77,6 +94,10 @@ public class IngredientsAdapter extends ListAdapter<Ingredients, IngredientsView
         holder.bind(ingredients);
     }
 
+    /**
+     * Allows the RecyclerView to determine which items have changed when the list of {@link Recipe}
+     * has been updated.
+     */
     private static final DiffUtil.ItemCallback<Ingredients> DIFF_ITEM_CALLBACK = new DiffUtil.ItemCallback<Ingredients>() {
 
         @Override

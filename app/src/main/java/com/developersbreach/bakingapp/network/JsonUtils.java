@@ -53,7 +53,7 @@ public class JsonUtils {
     /**
      * @param json takes as a String parameter.
      * @return list of recipes {@link Recipe} that has been built up from parsing a JSON response in
-     * background see {@link RecipeListFragmentViewModel#fetchRecipeJsonData()}
+     * background see {@link RecipeListFragmentViewModel#getMutableRecipeData()}
      */
     public static List<Recipe> fetchRecipeJsonData(String json) {
 
@@ -303,7 +303,7 @@ public class JsonUtils {
     /**
      * @param json takes as a String parameter.
      * @return list of recipes {@link Podcast} that has been built up from parsing a JSON response in
-     * background see {@link PodcastFragmentViewModel#fetchJsonData()}
+     * background see {@link PodcastFragmentViewModel#getMutablePodcastData()}
      */
     public static List<Podcast> fetchPodcastJsonData(String json) {
 
