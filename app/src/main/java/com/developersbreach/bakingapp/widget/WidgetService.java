@@ -3,6 +3,7 @@ package com.developersbreach.bakingapp.widget;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -15,12 +16,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * The service to be connected to for a remote adapter to request RemoteViews.  Users should
+ * extend the RemoteViewsService to provide the appropriate RemoteViewsFactory's used to
+ * populate the remote collection view (ListView, GridView, etc).
+ */
 public class WidgetService extends RemoteViewsService {
 
     /**
-     * To be implemented by the derived service to generate appropriate factories for
-     * the data.
+     * To be implemented by the derived service to generate appropriate factories for the data.
      */
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
@@ -30,11 +34,25 @@ public class WidgetService extends RemoteViewsService {
 
 class WidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
+    /**
+     * Declare new list of data of type {@link Ingredients}
+     */
     private List<Ingredients> mIngredientsList = new ArrayList<>();
-    private final Context mContext;
-    private final int mAppWidgetId;
-    private int mRecipeWidgetId;
 
+    /**
+     * Need a context for this class to get access for resources.
+     */
+    private final Context mContext;
+
+    /**
+     * Declare Id for app widget.
+     */
+    private final int mAppWidgetId;
+
+    /**
+     * Declare an id for getting the type of ingredient from selected recipe.
+     */
+    private int mRecipeWidgetId;
 
     WidgetRemoteViewsFactory(Context context, Intent intent) {
         mContext = context;
@@ -62,10 +80,15 @@ class WidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory 
     @Override
     public void onDataSetChanged() {
         try {
+            // Try to start a response to get response string from ResponseBuilder.
             String responseString = ResponseBuilder.startResponse();
+            // Get JSON data which returns list of ingredients objects with responseString.
             mIngredientsList = JsonUtils.fetchIngredientsJsonData(responseString, mRecipeWidgetId);
         } catch (IOException e) {
-            e.printStackTrace();
+            // If an error is thrown when executing any of the above statements in the "try" block,
+            // catch the exception here, so the app doesn't crash. Print a log message
+            // with the message from the exception.
+            Log.e("WidgetService", "Problem fetching WidgetIngredients", e);
         }
     }
 

@@ -14,7 +14,7 @@ import com.developersbreach.bakingapp.view.stepList.StepsFragment;
  * Adapter class which shows fragments inside ViewPager2 with Tabs.
  * For this behaviour extension of class to {@link FragmentStateAdapter} is necessary.
  */
-class ChildFragmentPagerAdapter extends FragmentStateAdapter {
+public class ChildFragmentPagerAdapter extends FragmentStateAdapter {
 
     /**
      * RecipeId is passed into {@link IngredientsFragment#newInstance(int)} and also class
@@ -33,7 +33,7 @@ class ChildFragmentPagerAdapter extends FragmentStateAdapter {
      * @param recipeId         create a recipeId for each instance on fragment called.
      * @param recipeName       create a recipeName for each instance on fragment called.
      */
-    ChildFragmentPagerAdapter(@NonNull FragmentActivity fragmentActivity, int recipeId, String recipeName) {
+    ChildFragmentPagerAdapter(FragmentActivity fragmentActivity, int recipeId, String recipeName) {
         super(fragmentActivity);
         this.mRecipeId = recipeId;
         this.mRecipeName = recipeName;

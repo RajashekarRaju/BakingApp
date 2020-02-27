@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.developersbreach.bakingapp.model.Recipe;
-import com.developersbreach.bakingapp.network.AppExecutors;
 import com.developersbreach.bakingapp.R;
 import com.developersbreach.bakingapp.databinding.ItemIngredientBinding;
 import com.developersbreach.bakingapp.model.Ingredients;
